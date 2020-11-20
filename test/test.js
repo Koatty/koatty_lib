@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
 
-const lib = require('../index');
+const lib = require('../dist/index');
 
 describe('think_lib', function () {
     before(function () { });
