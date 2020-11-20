@@ -2,7 +2,7 @@
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
  * @LastEditors: linyyyang<linyyyang@tencent.com>
- * @LastEditTime: 2020-11-20 15:56:40
+ * @LastEditTime: 2020-11-20 16:50:20
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
@@ -28,7 +28,7 @@ interface DeferObject {
  * access to this object in the v8 engine will be faster
  * @param {AnyObject} obj
  */
-function toFastProperties(obj: AnyObject) {
+export function toFastProperties(obj: AnyObject) {
     const f: any = function f() { };
     // tslint:disable-next-line: no-unused-expression
     new f();
@@ -42,7 +42,7 @@ function toFastProperties(obj: AnyObject) {
  * @param {boolean} [strict=true]
  * @returns {boolean}  
  */
-function isClass(obj: AnyObject, strict = true): boolean {
+export function isClass(obj: AnyObject, strict = true): boolean {
     if (typeof obj !== 'function') {
         return false;
     }
@@ -93,7 +93,7 @@ function isClass(obj: AnyObject, strict = true): boolean {
  * @param {string} str
  * @returns {*}  {boolean}
  */
-function isNumberString(str: string): boolean {
+export function isNumberString(str: string): boolean {
     const numberReg = /^((-?\d*\.?\d*(?:e[+-]?\d*(?:\d?\.?|\.?\d?)\d*)?)|(0[0-7]+)|(0x[0-9a-f]+))$/i;
     return lodash.isString(str) && !isEmpty(str) && numberReg.test(str);
 }
@@ -105,7 +105,7 @@ function isNumberString(str: string): boolean {
  * @param {AnyObject} value
  * @returns {*}  {boolean}
  */
-function isJSONObj(value: AnyObject): boolean {
+export function isJSONObj(value: AnyObject): boolean {
     return lodash.isPlainObject(value) || lodash.isArray(value);
 }
 
@@ -116,7 +116,7 @@ function isJSONObj(value: AnyObject): boolean {
  * @param {string} value
  * @returns {*}  {boolean}
  */
-function isJSONStr(value: string): boolean {
+export function isJSONStr(value: string): boolean {
     if (!lodash.isString(value)) {
         return false;
     }
@@ -134,7 +134,7 @@ function isJSONStr(value: string): boolean {
  * @param {*} value
  * @returns {*}  {boolean}
  */
-function isEmpty(value: any): boolean {
+export function isEmpty(value: any): boolean {
     if (value === undefined || value === null || value === '') {
         return true;
     } else if (lodash.isString(value)) {
@@ -161,7 +161,7 @@ function isEmpty(value: any): boolean {
  * @param {*} value
  * @returns {*}  {boolean}
  */
-function isTrueEmpty(value: any): boolean {
+export function isTrueEmpty(value: any): boolean {
     if (value === undefined || value === null || value === '') {
         return true;
     }
@@ -192,7 +192,7 @@ const specialMaps: any = {
  * @param {string} value
  * @returns {*}  {string}
  */
-function escapeHtml(value: string): string {
+export function escapeHtml(value: string): string {
     return (`${value}`).replace(/[<>'"]/g, function (a) {
         return htmlMaps[a];
     });
@@ -204,7 +204,7 @@ function escapeHtml(value: string): string {
  * @param {string} value
  * @returns {*}  {string}
  */
-function escapeSpecial(value: string): string {
+export function escapeSpecial(value: string): string {
     // tslint:disable-next-line: forin
     for (const n in specialMaps) {
         value = value.replace(new RegExp(n, 'g'), specialMaps[n]);
@@ -218,7 +218,7 @@ function escapeSpecial(value: string): string {
  * @param {string} value
  * @returns {*}  {string}
  */
-function ucFirst(value: string): string {
+export function ucFirst(value: string): string {
     value = lodash.toString(value || '');
     return `${value.slice(0, 1).toUpperCase()}${value.slice(1)}`;
 }
@@ -229,7 +229,7 @@ function ucFirst(value: string): string {
  * @param {string} value
  * @returns {*}  {string}
  */
-function md5(value: string): string {
+export function md5(value: string): string {
     const ins = crypto.createHash('md5');
     ins.update(value);
     return ins.digest('hex');
@@ -242,7 +242,7 @@ function md5(value: string): string {
  * @param {string} [salt='abcdefghijklmnopqrstuvwxyz1234567890']
  * @returns {*}  {string}
  */
-function md5Salt(value: string, salt = 'abcdefghijklmnopqrstuvwxyz1234567890'): string {
+export function md5Salt(value: string, salt = 'abcdefghijklmnopqrstuvwxyz1234567890'): string {
     const ins = crypto.createHash('md5');
     value = value + salt.slice(value.length % salt.length, salt.length);
     ins.update(value);
@@ -257,7 +257,7 @@ function md5Salt(value: string, salt = 'abcdefghijklmnopqrstuvwxyz1234567890'): 
  * @param {number} [ver=2]
  * @returns {*}  {number}
  */
-function murmurHash(value: string, seed = 97, ver = 2): number {
+export function murmurHash(value: string, seed = 97, ver = 2): number {
     if (ver === 3) {
         return murmur.v3(value, seed);
     } else {
@@ -272,7 +272,7 @@ function murmurHash(value: string, seed = 97, ver = 2): number {
  * @param {number} max
  * @returns {*}  {number}
  */
-function rand(min: number, max: number): number {
+export function rand(min: number, max: number): number {
     return Math.floor(min + Math.random() * (max - min + 1));
 }
 
@@ -304,7 +304,7 @@ const dateFn = function (f: string) {
  * @param {number} [offset] defaults  8
  * @returns {(number | string)}
  */
-function dateTime(date?: number | string | undefined, format?: string, offset = 8): number | string {
+export function dateTime(date?: number | string | undefined, format?: string, offset = 8): number | string {
     if (format === undefined) {
         //datetime() => now timestamp
         if (lodash.isString(date)) { //datetime('2017-01-01') => timestamp
@@ -341,7 +341,7 @@ function dateTime(date?: number | string | undefined, format?: string, offset = 
  * @param {any[]} arr
  * @returns {*} {boolean}
  */
-function inArray(value: any, arr: any[]): boolean {
+export function inArray(value: any, arr: any[]): boolean {
     const len = arr.length;
     for (let i = 0; i < len; i++) {
         // tslint:disable-next-line: triple-equals
@@ -359,7 +359,7 @@ function inArray(value: any, arr: any[]): boolean {
  * @param {number} index
  * @returns {*}  {any[]}
  */
-function arrRemove(arr: any[], index: number): any[] {
+export function arrRemove(arr: any[], index: number): any[] {
     return lodash.remove(arr, function (n, i) {
         return i !== index;
     });
@@ -372,7 +372,7 @@ function arrRemove(arr: any[], index: number): any[] {
  * @param {string} p
  * @returns {*}  {boolean}
  */
-function isFile(p: string): boolean {
+export function isFile(p: string): boolean {
     try {
         const stats = fs.statSync(p);
         return stats.isFile();
@@ -388,7 +388,7 @@ function isFile(p: string): boolean {
  * @param {string} p
  * @returns {*}  {boolean}
  */
-function isDir(p: string): boolean {
+export function isDir(p: string): boolean {
     try {
         const stats = fs.statSync(p);
         return stats.isDirectory();
@@ -404,7 +404,7 @@ function isDir(p: string): boolean {
  * @param {string} p
  * @returns {*}  {boolean}
  */
-function isWritable(p: string): boolean {
+export function isWritable(p: string): boolean {
     try {
         const stats = fs.statSync(p);
         const mode = stats.mode;
@@ -428,7 +428,7 @@ function isWritable(p: string): boolean {
  * @param {string} [mode='777']
  * @returns {*}  {Promise<any>}
  */
-function chmod(p: string, mode = '777'): Promise<any> {
+export function chmod(p: string, mode = '777'): Promise<any> {
     return new Promise(function (fulfill, reject) {
         fs.stat(p, function (err, res) {
             if (err) {
@@ -449,7 +449,7 @@ function chmod(p: string, mode = '777'): Promise<any> {
  * @param {string} [enc='utf8']
  * @returns {*}  {Promise<any>}
  */
-function readFile(filename: string, enc = 'utf8'): Promise<any> {
+export function readFile(filename: string, enc = 'utf8'): Promise<any> {
     return new Promise(function (fulfill, reject) {
         fs.readFile(filename, enc, function (err, res) {
             return err ? reject(err) : fulfill(res);
@@ -465,7 +465,7 @@ function readFile(filename: string, enc = 'utf8'): Promise<any> {
  * @param {(string | Buffer)} data
  * @returns {*}  {Promise<any>}
  */
-function writeFile(filename: string, data: string | Buffer): Promise<any> {
+export function writeFile(filename: string, data: string | Buffer): Promise<any> {
     return new Promise(function (fulfill, reject) {
         fs.writeFile(filename, data, (err) => {
             return err ? reject(err) : fulfill(null);
@@ -482,7 +482,7 @@ function writeFile(filename: string, data: string | Buffer): Promise<any> {
  * @param {string} newFileName
  * @returns {*}  {Promise<any>}
  */
-function reFile(fileName: string, newFileName: string): Promise<any> {
+export function reFile(fileName: string, newFileName: string): Promise<any> {
     return new Promise(function (fulfill, reject) {
         fs.rename(fileName, newFileName, function (err) {
             return err ? reject(err) : fulfill(null);
@@ -497,7 +497,7 @@ function reFile(fileName: string, newFileName: string): Promise<any> {
  * @param {string} p
  * @returns {*}  {Promise<any>}
  */
-function rmFile(p: string): Promise<any> {
+export function rmFile(p: string): Promise<any> {
     return new Promise(function (fulfill, reject) {
         fs.unlink(p, function (err) {
             return err ? reject(err) : fulfill(null);
@@ -514,7 +514,7 @@ function rmFile(p: string): Promise<any> {
  * @param {string} [mode='0777']
  * @returns {Promise<any>}  
  */
-function mkDir(p: string, mode = '0777'): Promise<any> {
+export function mkDir(p: string, mode = '0777'): Promise<any> {
     return new Promise(function (fulfill, reject) {
         fs.stat(path.dirname(p), function (err, res) {
             if (err || !res.isDirectory()) {
@@ -536,7 +536,7 @@ function mkDir(p: string, mode = '0777'): Promise<any> {
  * @param {string} [prefix='']
  * @returns {*}  {Promise<any>}
  */
-function readDir(p: string, filter: any, prefix = ''): Promise<any> {
+export function readDir(p: string, filter: any, prefix = ''): Promise<any> {
     filter = filter || function (x: any) {
         return x[0] !== '.';
     };
@@ -562,7 +562,7 @@ function readDir(p: string, filter: any, prefix = ''): Promise<any> {
  * @param {boolean} reserve
  * @returns {*}  
  */
-function rmDir(p: string, reserve: boolean) {
+export function rmDir(p: string, reserve: boolean) {
     return new Promise(function (fulfill, reject) {
         fs.rmdir(p, { maxRetries: 3, recursive: reserve }, function (err) {
             return err ? reject(err) : fulfill(null);
@@ -575,7 +575,7 @@ function rmDir(p: string, reserve: boolean) {
  *
  * @returns {*}  
  */
-function getDefer(): DeferObject {
+export function getDefer(): DeferObject {
     const defer: any = {};
     defer.promise = new Promise(function (resolve, reject) {
         defer.resolve = resolve;
@@ -590,7 +590,7 @@ function getDefer(): DeferObject {
  * @param {string} file
  * @returns {*}  
  */
-function safeRequire(file: string) {
+export function safeRequire(file: string) {
     try {
         let obj = require(file);
         obj = (obj && obj.__esModule && obj.default) ? obj.default : obj;
@@ -610,7 +610,7 @@ function safeRequire(file: string) {
  * @param {boolean} [deep=false]
  * @returns {*} {AnyObject}
  */
-function clone(source: AnyObject, deep = false): AnyObject {
+export function clone(source: AnyObject, deep = false): AnyObject {
     if (deep) {
         return lodash.cloneDeep(source);
     } else {
@@ -627,7 +627,7 @@ function clone(source: AnyObject, deep = false): AnyObject {
  * @param {boolean} [deep=false]
  * @returns {*}  {AnyObject}
  */
-function extend(source: AnyObject, target: AnyObject, deep = false): AnyObject {
+export function extend(source: AnyObject, target: AnyObject, deep = false): AnyObject {
     if (deep) {
         return lodash.merge(lodash.cloneDeep(source), target);
     } else {
@@ -645,7 +645,7 @@ function extend(source: AnyObject, target: AnyObject, deep = false): AnyObject {
  * @param {boolean} [setter=false]
  * @returns {*}  
  */
-function define(obj: AnyObject, property: string, value: any, setter = false) {
+export function define(obj: AnyObject, property: string, value: any, setter = false) {
     if (setter) {
         Object.defineProperty(obj, property, {
             value,
@@ -707,7 +707,7 @@ function preserveCamelCase(str: string) {
  * @param {boolean} [pascalCase=false]
  * @returns {*}  
  */
-function camelCase(input: string, pascalCase = false) {
+export function camelCase(input: string, pascalCase = false) {
     if (!(typeof input === 'string' || Array.isArray(input))) {
         throw new TypeError('Expected the input to be `string | string[]`');
     }
@@ -782,7 +782,7 @@ function checkBoundary(num: number) {
  * @param {...number[]} others
  * @returns {*}  {number}
  */
-function multi(num1: number, num2: number, ...others: number[]): number {
+export function multi(num1: number, num2: number, ...others: number[]): number {
     if (others.length > 0) {
         return multi(multi(num1, num2), others[0], ...others.slice(1));
     }
@@ -804,7 +804,7 @@ function multi(num1: number, num2: number, ...others: number[]): number {
  * @param {...number[]} others
  * @returns {*}  
  */
-function plus(num1: number, num2: number, ...others: number[]): number {
+export function plus(num1: number, num2: number, ...others: number[]): number {
     if (others.length > 0) {
         return plus(plus(num1, num2), others[0], ...others.slice(1));
     }
@@ -820,7 +820,7 @@ function plus(num1: number, num2: number, ...others: number[]): number {
  * @param {...number[]} others
  * @returns {*}  
  */
-function minus(num1: number, num2: number, ...others: number[]): number {
+export function minus(num1: number, num2: number, ...others: number[]): number {
     if (others.length > 0) {
         return minus(minus(num1, num2), others[0], ...others.slice(1));
     }
@@ -836,7 +836,7 @@ function minus(num1: number, num2: number, ...others: number[]): number {
  * @param {...number[]} others
  * @returns {*}  {number}
  */
-function divide(num1: number, num2: number, ...others: number[]): number {
+export function divide(num1: number, num2: number, ...others: number[]): number {
     if (others.length > 0) {
         return divide(divide(num1, num2), others[0], ...others.slice(1));
     }
@@ -855,75 +855,110 @@ function divide(num1: number, num2: number, ...others: number[]): number {
  * @param {number} ratio
  * @returns {*}  
  */
-function round(num: number, ratio: number) {
+export function round(num: number, ratio: number) {
     const base = Math.pow(10, ratio);
     return divide(Math.round(multi(num, base)), base);
 }
+/** @type {*} */
+export const datetime = dateTime;
+export const thinkrequire = safeRequire;
+/** @type {*} */
+export const sep = path.sep;
+/** @type {*} */
 
 /** @type {*} */
-const sep = path.sep;
-/** @type {*} */
-const isObject = lodash.isPlainObject;
-/** @type {*} */
-const arrUnique = lodash.union;
 
-export const lib = new Proxy({
-    ...lodash,
-    sep,
-    isObject,
-    isClass,
-    isJSONObj,
-    isJSONStr,
-    isNumberString,
-    isEmpty,
-    isTrueEmpty,
-    escapeHtml,
-    escapeSpecial,
-    ucFirst,
-    toFastProperties,
-    md5,
-    md5Salt,
-    murmurHash,
-    rand,
-    dateTime,
-    datetime: dateTime,
-    inArray,
-    arrRemove,
-    arrUnique,
-    isFile,
-    isDir,
-    isWritable,
-    chmod,
-    readFile,
-    writeFile,
-    reFile,
-    rmFile,
-    mkDir,
-    readDir,
-    rmDir,
-    getDefer,
-    safeRequire,
-    require: safeRequire,
-    clone,
-    extend,
-    define,
-    camelCase,
-    plus,
-    minus,
-    multi,
-    divide,
-    round,
-}, {
-    set(target, key, value, receiver) {
-        if (Reflect.get(target, key, receiver) === undefined) {
-            return Reflect.set(target, key, value, receiver);
-        } else {
-            throw Error('Cannot redefine getter-only property');
-        }
-    },
-    // eslint-disable-next-line no-unused-vars
-    deleteProperty(target, key) {
-        throw Error('Cannot delete getter-only property');
-    }
-});
+
+export const eq = lodash.eq;
+export const gt = lodash.gt;
+export const gte = lodash.gte;
+export const lt = lodash.lt;
+export const lte = lodash.lte;
+export const isArray = lodash.isArray;
+export const isObject = lodash.isPlainObject;
+export const isArrayBuffer = lodash.isArrayBuffer;
+export const isBoolean = lodash.isBoolean;
+export const isString = lodash.isString;
+export const isBuffer = lodash.isBuffer;
+export const isNumber = lodash.isNumber;
+export const isInteger = lodash.isInteger;
+export const isError = lodash.isError;
+export const isFunction = lodash.isFunction;
+export const isSymbol = lodash.isSymbol;
+export const isMap = lodash.isMap;
+export const isSet = lodash.isSet;
+export const isNaN = lodash.isNaN;
+export const isNull = lodash.isNull;
+export const isUndefined = lodash.isUndefined;
+export const isRegExp = lodash.isRegExp;
+export const toArray = lodash.toArray;
+export const toInteger = lodash.toInteger;
+export const toNumber = lodash.toNumber;
+export const toObject = lodash.toPlainObject;
+export const toString = lodash.toString;
+export const arrUnique = lodash.union;
+
+
+// export default new Proxy({
+//     eq: lodash.eq,
+//     gt: lodash.gt,
+//     gte: lodash.gte,
+
+//     sep,
+//     isObject,
+//     isClass,
+//     isJSONObj,
+//     isJSONStr,
+//     isNumberString,
+//     isEmpty,
+//     isTrueEmpty,
+//     escapeHtml,
+//     escapeSpecial,
+//     ucFirst,
+//     toFastProperties,
+//     md5,
+//     md5Salt,
+//     murmurHash,
+//     rand,
+//     dateTime,
+//     datetime: dateTime,
+//     inArray,
+//     arrRemove,
+//     arrUnique: lodash.union,
+//     isFile,
+//     isDir,
+//     isWritable,
+//     chmod,
+//     readFile,
+//     writeFile,
+//     reFile,
+//     rmFile,
+//     mkDir,
+//     readDir,
+//     rmDir,
+//     getDefer,
+//     safeRequire,
+//     require: safeRequire,
+//     clone,
+//     extend,
+//     define,
+//     camelCase,
+//     plus,
+//     minus,
+//     multi,
+//     divide,
+//     round,
+// }, {
+//     set(target, key, value, receiver) {
+//         if (Reflect.get(target, key, receiver) === undefined) {
+//             return Reflect.set(target, key, value, receiver);
+//         } else {
+//             throw Error('Cannot redefine getter-only property');
+//         }
+//     },
+//     // eslint-disable-next-line no-unused-vars
+//     deleteProperty(target, key) {
+//         throw Error('Cannot delete getter-only property');
+//     }
+// });
 
