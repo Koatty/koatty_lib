@@ -2,7 +2,7 @@
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
  * @LastEditors: linyyyang<linyyyang@tencent.com>
- * @LastEditTime: 2020-11-20 17:19:57
+ * @LastEditTime: 2020-11-20 17:24:12
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
@@ -33,7 +33,6 @@ export function toFastProperties(obj: AnyObject) {
     // tslint:disable-next-line: no-unused-expression
     new f();
 }
-
 
 /**
  * Checks if fn is a Class
