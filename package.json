@@ -43,7 +43,7 @@
     ],
     "devDependencies": {
         "@types/koa": "^2.x.x",
-        "@types/lodash": "^4.14.165",
+        "@types/lodash": "^4.x.x",
         "@types/node": "^12.x.x",
         "del-cli": "^3.0.1",
         "ts-node": "^9.0.0",
