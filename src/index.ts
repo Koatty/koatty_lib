@@ -2,7 +2,7 @@
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
  * @LastEditors: linyyyang<linyyyang@tencent.com>
- * @LastEditTime: 2020-12-02 09:57:08
+ * @LastEditTime: 2020-12-18 16:48:40
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
@@ -545,11 +545,11 @@ export function readDir(p: string, filter: any, prefix = ''): Promise<any> {
 
     const dir = path.join(p, prefix);
     return new Promise(function (fulfill, reject) {
-        fs.stat(path.dirname(p), function (err, res) {
+        fs.stat(path.dirname(dir), function (err, res) {
             if (err || !res.isDirectory()) {
                 reject(err);
             }
-            fs.readdir(p, 'utf-8', function (e, res) {
+            fs.readdir(dir, 'utf-8', function (e, res) {
                 return e ? reject(e) : fulfill(res);
             });
         });
