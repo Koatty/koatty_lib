@@ -12,7 +12,7 @@ const assert = require('assert');
 
 const lib = require('../dist/index');
 
-describe('think_lib', function () {
+describe('koatty_lib', function () {
     it('sep', function () {
         assert(lib.sep, path.sep);
     });
