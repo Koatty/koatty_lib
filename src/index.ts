@@ -1,8 +1,8 @@
 /*
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
- * @LastEditors: linyyyang<linyyyang@tencent.com>
- * @LastEditTime: 2020-12-18 16:48:40
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-06-21 17:00:12
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
@@ -15,7 +15,7 @@ import murmur from "murmurhash";
 const co = require("co");
 
 
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AnyObject extends Object { }
 
 interface DeferObject {
@@ -437,7 +437,7 @@ export function chmod(p: string, mode = '777'): Promise<any> {
                 reject(err);
             }
             fs.chmod(p, mode, function (err) {
-                return err ? reject(err) : fulfill(null);
+                return err ? reject(err) : fulfill(res);
             });
         });
     });
@@ -1208,6 +1208,29 @@ export const toArray = lodash.toArray;
  * _.toInteger('3');
  * // => 3
  */
+export const toInt = lodash.toInteger;
+/**
+ * Converts `value` to an integer.
+ *
+ * **Note:** This function is loosely based on [`ToInteger`](http://www.ecma-international.org/ecma-262/6.0/#sec-tointeger).
+ *
+ * @category Lang
+ * @param value The value to convert.
+ * @returns Returns the converted integer.
+ * @example
+ *
+ * _.toInteger(3);
+ * // => 3
+ *
+ * _.toInteger(Number.MIN_VALUE);
+ * // => 0
+ *
+ * _.toInteger(Infinity);
+ * // => 1.7976931348623157e+308
+ *
+ * _.toInteger('3');
+ * // => 3
+ */
 export const toInteger = lodash.toInteger;
 /**
  * Converts `value` to a number.
@@ -1265,6 +1288,39 @@ export const toString = lodash.toString;
  * @return Returns the new array of combined values.
  */
 export const arrUnique = lodash.union;
+/**
+ * Checks if value is classified as a Date object.
+ * @param value The value to check.
+ *
+ * @return Returns true if value is correctly classified, else false.
+ */
+export const isDate = lodash.isDate;
+/**
+ * Performs a deep comparison between two values to determine if they are
+ * equivalent.
+ *
+ * **Note:** This method supports comparing arrays, array buffers, booleans,
+ * date objects, error objects, maps, numbers, `Object` objects, regexes,
+ * sets, strings, symbols, and typed arrays. `Object` objects are compared
+ * by their own, not inherited, enumerable properties. Functions and DOM
+ * nodes are **not** supported.
+ *
+ * @category Lang
+ * @param value The value to compare.
+ * @param other The other value to compare.
+ * @returns Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'user': 'fred' };
+ * var other = { 'user': 'fred' };
+ *
+ * _.isEqual(object, other);
+ * // => true
+ *
+ * object === other;
+ * // => false
+ */
+export const isEqual = lodash.isEqual;
 
 
 // export default new Proxy({
