@@ -14,7 +14,7 @@
     "main": "./dist/index.js",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/thinkkoa/koatty_lib.git"
+        "url": "git+https://github.com/koatty/koatty_lib.git"
     },
     "keywords": [
         "web",
@@ -24,8 +24,7 @@
         "koa2",
         "restful",
         "agile",
-        "koatty_lib",
-        "thinkkoa"
+        "koatty_lib"
     ],
     "engines": {
         "node": ">10.0.0"
@@ -36,9 +35,9 @@
     },
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/thinkkoa/koatty_lib/issues"
+        "url": "https://github.com/koatty/koatty_lib/issues"
     },
-    "homepage": "https://github.com/thinkkoa/koatty_lib",
+    "homepage": "https://github.com/koatty/koatty_lib",
     "maintainers": [
         {
             "name": "richenlin",
