@@ -6,8 +6,8 @@
         "build": "del-cli --force dist && tsc",
         "eslint": "eslint --ext .ts,.js ./",
         "prepublishOnly": "npm test && npm run build",
-        "release": "standard-version",
-        "test": "npm run eslint && npm run build && jest --passWithNoTests",
+        "release": "npm run build && standard-version",
+        "test": "npm run eslint && jest --passWithNoTests",
         "test:cov": "jest --collectCoverage --detectOpenHandles",
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s"
     },
@@ -46,6 +46,10 @@
         }
     ],
     "devDependencies": {
+        "@babel/core": "^7.x.x",
+        "@babel/plugin-proposal-decorators": "^7.x.x",
+        "@babel/preset-env": "^7.x.x",
+        "@babel/preset-typescript": "^7.x.x",
         "@commitlint/cli": "^12.x.x",
         "@commitlint/config-conventional": "^12.x.x",
         "@types/cls-hooked": "^4.x.x",
