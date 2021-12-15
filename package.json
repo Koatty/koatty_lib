@@ -1,6 +1,6 @@
 {
     "name": "koatty_lib",
-    "version": "1.2.6",
+    "version": "1.2.7",
     "description": "Function library for koatty.",
     "scripts": {
         "build": "del-cli --force dist && tsc",
@@ -73,9 +73,10 @@
         "@types/lodash": "^4.x.x",
         "co": "^4.6.0",
         "lodash": "^4.17.21",
+        "mathjs": "^10.0.0",
         "moment": "^2.29.1",
         "murmurhash": "^2.0.0",
-        "tslib": "^2.3.0"
+        "tslib": "^2.3.1"
     },
     "husky": {
         "hooks": {
