@@ -410,6 +410,10 @@ describe('koatty_lib', function () {
         assert.equal(lib.md5Salt('abcde'), '7f7d52a001b9d2c71b6bae1f189f41f3');
         assert.equal(lib.md5Salt('abcde', '111111111111'), '8da784f49110b3224003c2a7dbbf0dc5');
     });
+    it('murmurHash', () => {
+        expect(lib.murmurHash('abcde')).toBe("2466488910");
+        expect(lib.murmurHash('abcde', 97, 3)).toBe("3947593364");
+    });
     it("rand", function () {
         assert.equal(lib.gt(lib.rand(1, 10), 10), false);
         assert.equal(lib.lt(lib.rand(1, 10), 1), false);
@@ -558,5 +562,17 @@ describe('koatty_lib', function () {
         let data3 = Object.create(null);
         data3.test = 3;
         assert(lib.hasOwn(data3, 'test'), true);
+    });
+    it('multi', () => {
+        expect(lib.multi(1.01, 2.01)).toBe(2.0301);
+    });
+    it('plus', () => {
+        expect(lib.plus(1.01, 2.010000002)).toBe(3.020000002);
+    });
+    it('minus', () => {
+        expect(lib.minus(12.01, 2.010000002)).toBe(9.999999998);
+    });
+    it('divide', () => {
+        expect(lib.divide(12.01, 0.2)).toBe(60.05);
     });
 });

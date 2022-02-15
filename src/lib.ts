@@ -2,7 +2,7 @@
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-12-15 19:27:40
+ * @LastEditTime: 2022-02-14 19:40:37
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
@@ -13,7 +13,6 @@ import lodash from "lodash";
 import moment from "moment";
 import murmur from "murmurhash";
 const co = require("co");
-import * as mathjs from "mathjs";
 
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -713,7 +712,7 @@ export function checkBoundary(num: number) {
  * @returns {*}  {number}
  */
 export function multi(x: number, y: number): number {
-    return mathjs.multiply(x, y);
+    return computeNumber(x, '*', y).result;
 }
 
 /**
@@ -724,7 +723,7 @@ export function multi(x: number, y: number): number {
  * @returns {*}  
  */
 export function plus(x: number, y: number) {
-    return mathjs.add(x, y);
+    return computeNumber(x, '+', y).result;
 }
 
 /**
@@ -735,7 +734,7 @@ export function plus(x: number, y: number) {
  * @returns {*}  
  */
 export function minus(x: number, y: number) {
-    return mathjs.subtract(x, y);
+    return computeNumber(x, '-', y).result;
 }
 
 /**
@@ -746,7 +745,76 @@ export function minus(x: number, y: number) {
  * @returns {*}  {number}
  */
 export function divide(x: number, y: number): number {
-    return mathjs.divide(x, y);
+    return computeNumber(x, '/', y).result;
+}
+
+/**
+     * 获取数字小数点的长度
+     * @param {number} n 数字
+     */
+export function getDecimalLength(n: number) {
+    const decimal = n.toString().split('.')[1];
+    return decimal ? decimal.length : 0;
+}
+
+/**
+ * 数字运算（主要用于小数点精度问题）
+ * @param {number} a 前面的值
+ * @param {"+"|"-"|"*"|"/"} type 计算方式
+ * @param {number} b 后面的值
+ * @example
+ * ```js
+ * // 可链式调用
+ * const res = computeNumber(1.3, "-", 1.2).next("+", 1.5).next("*", 2.3).next("/", 0.2).result;
+ * console.log(res);
+ * ```
+ */
+type computeType = "+" | "-" | "*" | "/";
+export function computeNumber(a: number, type: computeType, b: number) {
+    // 防止越界
+    checkBoundary(a);
+    checkBoundary(b);
+    /**
+     * 修正小数点
+     * @description 防止出现 `33.33333*100000 = 3333332.9999999995` && `33.33*10 = 333.29999999999995` 这类情况做的处理
+     * @param {number} n
+     */
+    const amend = (n: unknown, precision = 15) => parseFloat(Number(n).toPrecision(precision));
+    const power = Math.pow(10, Math.max(getDecimalLength(a), getDecimalLength(b)));
+    let result = 0;
+
+    a = amend(a * power);
+    b = amend(b * power);
+
+    switch (type) {
+        case '+':
+            result = (a + b) / power;
+            break;
+        case '-':
+            result = (a - b) / power;
+            break;
+        case '*':
+            result = (a * b) / (power * power);
+            break;
+        case '/':
+            result = a / b;
+            break;
+    }
+
+    result = amend(result);
+
+    return {
+        /** 计算结果 */
+        result,
+        /**
+           * 继续计算
+           * @param {"+"|"-"|"*"|"/"} nextType 继续计算方式
+           * @param {number} nextValue 继续计算的值
+           */
+        next(nextType: computeType, nextValue: number) {
+            return computeNumber(result, nextType, nextValue);
+        },
+    };
 }
 
 /**
