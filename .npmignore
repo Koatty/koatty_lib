@@ -7,3 +7,5 @@ coverage
 .coveralls.yml
 src
 test
+jest_html_reporters.html
+jest-html-reporters-attach

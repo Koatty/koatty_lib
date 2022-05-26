@@ -46,13 +46,8 @@
         }
     ],
     "devDependencies": {
-        "@babel/core": "^7.x.x",
-        "@babel/plugin-proposal-decorators": "^7.x.x",
-        "@babel/preset-env": "^7.x.x",
-        "@babel/preset-typescript": "^7.x.x",
         "@commitlint/cli": "^16.x.x",
         "@commitlint/config-conventional": "^16.x.x",
-        "@types/cls-hooked": "^4.x.x",
         "@types/node": "^12.x.x",
         "@typescript-eslint/eslint-plugin": "^5.x.x",
         "@typescript-eslint/parser": "^5.x.x",
