@@ -67,7 +67,7 @@
         "@types/lodash": "^4.x.x",
         "co": "^4.6.0",
         "lodash": "^4.17.21",
-        "moment": "^2.29.3",
+        "moment": "^2.29.4",
         "murmurhash": "^2.0.1",
         "tslib": "^2.4.0"
     }
