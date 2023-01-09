@@ -2,7 +2,7 @@
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-02-14 19:40:37
+ * @LastEditTime: 2023-01-09 23:38:03
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
@@ -19,9 +19,9 @@ const co = require("co");
 interface AnyObject extends Object { }
 
 interface DeferObject {
-    promise: Promise<any>;
-    resolve: (res: any) => any;
-    reject: (err: any) => any;
+  promise: Promise<any>;
+  resolve: (res: any) => any;
+  reject: (err: any) => any;
 }
 
 /**
@@ -30,11 +30,11 @@ interface DeferObject {
  * @param {AnyObject} obj
  */
 export function toFastProperties(obj: AnyObject) {
-    // eslint-disable-next-line no-empty-function
-    const f: any = function f() { };
-    f.prototype = obj;
-    // tslint:disable-next-line: no-unused-expression
-    new f();
+  // eslint-disable-next-line no-empty-function
+  const f: any = function f() { };
+  f.prototype = obj;
+  // tslint:disable-next-line: no-unused-expression
+  new f();
 }
 
 /**
@@ -44,8 +44,8 @@ export function toFastProperties(obj: AnyObject) {
  * @returns {boolean}  
  */
 export function isClass(func: AnyObject): boolean {
-    return typeof func === 'function'
-        && /^class\s/.test(Function.prototype.toString.call(func));
+  return typeof func === 'function'
+    && /^class\s/.test(Function.prototype.toString.call(func));
 }
 
 /**
@@ -55,8 +55,8 @@ export function isClass(func: AnyObject): boolean {
  * @returns {*}  {boolean}
  */
 export function isNumberString(str: string): boolean {
-    const numberReg = /^((-?\d*\.?\d*(?:e[+-]?\d*(?:\d?\.?|\.?\d?)\d*)?)|(0[0-7]+)|(0x[0-9a-f]+))$/i;
-    return lodash.isString(str) && !isEmpty(str) && numberReg.test(str);
+  const numberReg = /^((-?\d*\.?\d*(?:e[+-]?\d*(?:\d?\.?|\.?\d?)\d*)?)|(0[0-7]+)|(0x[0-9a-f]+))$/i;
+  return lodash.isString(str) && !isEmpty(str) && numberReg.test(str);
 }
 
 /**
@@ -67,7 +67,7 @@ export function isNumberString(str: string): boolean {
  * @returns {*}  {boolean}
  */
 export function isJSONObj(value: AnyObject): boolean {
-    return lodash.isPlainObject(value) || lodash.isArray(value);
+  return lodash.isPlainObject(value) || lodash.isArray(value);
 }
 
 /**
@@ -78,14 +78,14 @@ export function isJSONObj(value: AnyObject): boolean {
  * @returns {*}  {boolean}
  */
 export function isJSONStr(value: string): boolean {
-    if (!lodash.isString(value)) {
-        return false;
-    }
-    try {
-        return isJSONObj(JSON.parse(value));
-    } catch (e) {
-        return false;
-    }
+  if (!lodash.isString(value)) {
+    return false;
+  }
+  try {
+    return isJSONObj(JSON.parse(value));
+  } catch (e) {
+    return false;
+  }
 }
 
 /**
@@ -96,23 +96,23 @@ export function isJSONStr(value: string): boolean {
  * @returns {*}  {boolean}
  */
 export function isEmpty(value: any): boolean {
-    if (value === undefined || value === null || value === '') {
-        return true;
-    } else if (lodash.isString(value)) {
-        //\s 匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。
-        return value.replace(/(^\s*)|(\s*$)/g, '').length === 0;
-    } else if (lodash.isNumber(value)) {
-        return isNaN(value);
-    } else if (lodash.isArray(value)) {
-        return value.length === 0;
-    } else if (lodash.isPlainObject(value)) {
-        // for (let key in value) {
-        //     return !key && !0;
-        // }
-        // return true;
-        return Object.keys(value).length === 0;
-    }
-    return false;
+  if (value === undefined || value === null || value === '') {
+    return true;
+  } else if (lodash.isString(value)) {
+    //\s 匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。
+    return value.replace(/(^\s*)|(\s*$)/g, '').length === 0;
+  } else if (lodash.isNumber(value)) {
+    return isNaN(value);
+  } else if (lodash.isArray(value)) {
+    return value.length === 0;
+  } else if (lodash.isPlainObject(value)) {
+    // for (let key in value) {
+    //     return !key && !0;
+    // }
+    // return true;
+    return Object.keys(value).length === 0;
+  }
+  return false;
 }
 
 /**
@@ -123,29 +123,29 @@ export function isEmpty(value: any): boolean {
  * @returns {*}  {boolean}
  */
 export function isTrueEmpty(value: any): boolean {
-    if (value === undefined || value === null || value === '') {
-        return true;
-    }
-    if (lodash.isNumber(value)) {
-        return isNaN(value);
-    }
-    return false;
+  if (value === undefined || value === null || value === '') {
+    return true;
+  }
+  if (lodash.isNumber(value)) {
+    return isNaN(value);
+  }
+  return false;
 }
 
 /** @type {*} */
 const htmlMaps: any = {
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quote;',
-    '\'': '&#39;'
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quote;',
+  '\'': '&#39;'
 };
 
 /** @type {*} */
 const specialMaps: any = {
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quote;': '"',
-    '&#39;': '\''
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quote;': '"',
+  '&#39;': '\''
 };
 /**
  * Convert special characters(> < " ') for entity character
@@ -154,9 +154,9 @@ const specialMaps: any = {
  * @returns {*}  {string}
  */
 export function escapeHtml(value: string): string {
-    return (`${value}`).replace(/[<>'"]/g, function (a) {
-        return htmlMaps[a];
-    });
+  return (`${value}`).replace(/[<>'"]/g, function (a) {
+    return htmlMaps[a];
+  });
 }
 
 /**
@@ -166,11 +166,11 @@ export function escapeHtml(value: string): string {
  * @returns {*}  {string}
  */
 export function escapeSpecial(value: string): string {
-    // tslint:disable-next-line: forin
-    for (const n in specialMaps) {
-        value = value.replace(new RegExp(n, 'g'), specialMaps[n]);
-    }
-    return value;
+  // tslint:disable-next-line: forin
+  for (const n in specialMaps) {
+    value = value.replace(new RegExp(n, 'g'), specialMaps[n]);
+  }
+  return value;
 }
 
 /**
@@ -180,8 +180,8 @@ export function escapeSpecial(value: string): string {
  * @returns {*}  {string}
  */
 export function ucFirst(value: string): string {
-    value = lodash.toString(value || '');
-    return `${value.slice(0, 1).toUpperCase()}${value.slice(1)}`;
+  value = lodash.toString(value || '');
+  return `${value.slice(0, 1).toUpperCase()}${value.slice(1)}`;
 }
 
 /**
@@ -191,9 +191,9 @@ export function ucFirst(value: string): string {
  * @returns {*}  {string}
  */
 export function md5(value: string): string {
-    const ins = crypto.createHash('md5');
-    ins.update(value);
-    return ins.digest('hex');
+  const ins = crypto.createHash('md5');
+  ins.update(value);
+  return ins.digest('hex');
 }
 
 /**
@@ -204,10 +204,10 @@ export function md5(value: string): string {
  * @returns {*}  {string}
  */
 export function md5Salt(value: string, salt = 'abcdefghijklmnopqrstuvwxyz1234567890'): string {
-    const ins = crypto.createHash('md5');
-    value = value + salt.slice(value.length % salt.length, salt.length);
-    ins.update(value);
-    return ins.digest('hex');
+  const ins = crypto.createHash('md5');
+  value = value + salt.slice(value.length % salt.length, salt.length);
+  ins.update(value);
+  return ins.digest('hex');
 }
 
 /**
@@ -219,11 +219,11 @@ export function md5Salt(value: string, salt = 'abcdefghijklmnopqrstuvwxyz1234567
  * @returns {*}  {string}
  */
 export function murmurHash(value: string, seed = 97, ver = 2): string {
-    if (ver === 3) {
-        return `${murmur.v3(value, seed)}`;
-    } else {
-        return `${murmur.v2(value, seed)}`;
-    }
+  if (ver === 3) {
+    return `${murmur.v3(value, seed)}`;
+  } else {
+    return `${murmur.v2(value, seed)}`;
+  }
 }
 
 /**
@@ -234,7 +234,7 @@ export function murmurHash(value: string, seed = 97, ver = 2): string {
  * @returns {*}  {number}
  */
 export function rand(min: number, max: number): number {
-    return Math.floor(min + Math.random() * (max - min + 1));
+  return Math.floor(min + Math.random() * (max - min + 1));
 }
 
 /**
@@ -244,16 +244,16 @@ export function rand(min: number, max: number): number {
  * @returns {*}  
  */
 const dateFn = function (f: string) {
-    // let Week = ['日', '一', '二', '三', '四', '五', '六'];
-    f = f.replace(/yyyy/, 'YYYY');
-    f = f.replace(/yy/, 'YY');
-    if (f.search(/^YY+.mm/) > -1) {
-        f = f.replace(/mm/, 'MM');
-    }
-    f = f.replace(/mi|MI/, 'mm');
-    // f = f.replace(/w|W/g, Week[d.getDay()]);
-    f = f.replace(/dd/, 'DD');
-    return f;
+  // let Week = ['日', '一', '二', '三', '四', '五', '六'];
+  f = f.replace(/yyyy/, 'YYYY');
+  f = f.replace(/yy/, 'YY');
+  if (f.search(/^YY+.mm/) > -1) {
+    f = f.replace(/mm/, 'MM');
+  }
+  f = f.replace(/mi|MI/, 'mm');
+  // f = f.replace(/w|W/g, Week[d.getDay()]);
+  f = f.replace(/dd/, 'DD');
+  return f;
 };
 
 /**
@@ -266,32 +266,32 @@ const dateFn = function (f: string) {
  * @returns {(number | string)}
  */
 export function dateTime(date?: number | string | undefined, format?: string, offset = 8): number | string {
-    if (format === undefined) {
-        //datetime() => now timestamp
-        if (lodash.isString(date)) { //datetime('2017-01-01') => timestamp
-            return Math.floor(new Date(date).getTime() / 1000);
-        } else {
-            return Math.floor(Date.now() / 1000);
-        }
+  if (format === undefined) {
+    //datetime() => now timestamp
+    if (lodash.isString(date)) { //datetime('2017-01-01') => timestamp
+      return Math.floor(new Date(date).getTime() / 1000);
     } else {
-        if (format) {
-            format = dateFn(format);
-        } else {
-            format = 'YYYY-MM-DD HH:mm:ss.SSS';
-        }
-
-        if (date && lodash.isNumber(date)) {
-            if (date < 10000000000) {
-                return moment.unix(date).utcOffset(offset).format(format);
-            } else {
-                return moment(date).utcOffset(offset).format(format);
-            }
-        }
-        if (date && lodash.isString(date)) {
-            return moment(new Date(Date.parse(date))).utcOffset(offset).format(format);
-        }
-        return moment().utcOffset(offset).format(format);
+      return Math.floor(Date.now() / 1000);
     }
+  } else {
+    if (format) {
+      format = dateFn(format);
+    } else {
+      format = 'YYYY-MM-DD HH:mm:ss.SSS';
+    }
+
+    if (date && lodash.isNumber(date)) {
+      if (date < 10000000000) {
+        return moment.unix(date).utcOffset(offset).format(format);
+      } else {
+        return moment(date).utcOffset(offset).format(format);
+      }
+    }
+    if (date && lodash.isString(date)) {
+      return moment(new Date(Date.parse(date))).utcOffset(offset).format(format);
+    }
+    return moment().utcOffset(offset).format(format);
+  }
 }
 
 /**
@@ -303,14 +303,14 @@ export function dateTime(date?: number | string | undefined, format?: string, of
  * @returns {*} {boolean}
  */
 export function inArray(value: any, arr: any[]): boolean {
-    const len = arr.length;
-    for (let i = 0; i < len; i++) {
-        // tslint:disable-next-line: triple-equals
-        if (arr[i] == value) {
-            return true;
-        }
+  const len = arr.length;
+  for (let i = 0; i < len; i++) {
+    // tslint:disable-next-line: triple-equals
+    if (arr[i] == value) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
 /**
@@ -321,9 +321,9 @@ export function inArray(value: any, arr: any[]): boolean {
  * @returns {*}  {any[]}
  */
 export function arrRemove(arr: any[], index: number): any[] {
-    return lodash.remove(arr, function (n, i) {
-        return i !== index;
-    });
+  return lodash.remove(arr, function (n, i) {
+    return i !== index;
+  });
 }
 
 /**
@@ -334,12 +334,12 @@ export function arrRemove(arr: any[], index: number): any[] {
  * @returns {*}  {boolean}
  */
 export function isFile(p: string): boolean {
-    try {
-        const stats = fs.statSync(p);
-        return stats.isFile();
-    } catch (e) {
-        return false;
-    }
+  try {
+    const stats = fs.statSync(p);
+    return stats.isFile();
+  } catch (e) {
+    return false;
+  }
 }
 
 /**
@@ -350,12 +350,12 @@ export function isFile(p: string): boolean {
  * @returns {*}  {boolean}
  */
 export function isDir(p: string): boolean {
-    try {
-        const stats = fs.statSync(p);
-        return stats.isDirectory();
-    } catch (e) {
-        return false;
-    }
+  try {
+    const stats = fs.statSync(p);
+    return stats.isDirectory();
+  } catch (e) {
+    return false;
+  }
 }
 
 /**
@@ -366,19 +366,19 @@ export function isDir(p: string): boolean {
  * @returns {*}  {boolean}
  */
 export function isWritable(p: string): boolean {
-    try {
-        const stats = fs.statSync(p);
-        const mode = stats.mode;
-        const uid = process.getuid ? process.getuid() : 0;
-        const gid = process.getgid ? process.getgid() : 0;
-        const owner = uid === stats.uid;
-        const group = gid === stats.gid;
-        return !!(owner && (mode & parseInt('00200', 8)) ||
-            group && (mode & parseInt('00020', 8)) ||
-            (mode & parseInt('00002', 8)));
-    } catch (e) {
-        return false;
-    }
+  try {
+    const stats = fs.statSync(p);
+    const mode = stats.mode;
+    const uid = process.getuid ? process.getuid() : 0;
+    const gid = process.getgid ? process.getgid() : 0;
+    const owner = uid === stats.uid;
+    const group = gid === stats.gid;
+    return !!(owner && (mode & parseInt('00200', 8)) ||
+      group && (mode & parseInt('00020', 8)) ||
+      (mode & parseInt('00002', 8)));
+  } catch (e) {
+    return false;
+  }
 }
 
 /**
@@ -390,16 +390,16 @@ export function isWritable(p: string): boolean {
  * @returns {*}  {Promise<any>}
  */
 export function chmod(p: string, mode = '777'): Promise<any> {
-    return new Promise(function (fulfill, reject) {
-        fs.stat(p, function (err, res) {
-            if (err) {
-                reject(err);
-            }
-            fs.chmod(p, mode, function (err) {
-                return err ? reject(err) : fulfill(res);
-            });
-        });
+  return new Promise(function (fulfill, reject) {
+    fs.stat(p, function (err, res) {
+      if (err) {
+        reject(err);
+      }
+      fs.chmod(p, mode, function (err) {
+        return err ? reject(err) : fulfill(res);
+      });
     });
+  });
 }
 
 /**
@@ -410,12 +410,12 @@ export function chmod(p: string, mode = '777'): Promise<any> {
  * @param {string} [enc='utf8']
  * @returns {*}  {Promise<any>}
  */
-export function readFile(filename: string, enc = 'utf8'): Promise<any> {
-    return new Promise(function (fulfill, reject) {
-        fs.readFile(filename, enc, function (err, res) {
-            return err ? reject(err) : fulfill(res);
-        });
+export function readFile(filename: string, enc: BufferEncoding = 'utf8'): Promise<any> {
+  return new Promise(function (fulfill, reject) {
+    fs.readFile(filename, enc, function (err, res) {
+      return err ? reject(err) : fulfill(res);
     });
+  });
 }
 
 /**
@@ -427,11 +427,11 @@ export function readFile(filename: string, enc = 'utf8'): Promise<any> {
  * @returns {*}  {Promise<any>}
  */
 export function writeFile(filename: string, data: string | Buffer): Promise<any> {
-    return new Promise(function (fulfill, reject) {
-        fs.writeFile(filename, data, (err) => {
-            return err ? reject(err) : fulfill(null);
-        });
+  return new Promise(function (fulfill, reject) {
+    fs.writeFile(filename, data, (err) => {
+      return err ? reject(err) : fulfill(null);
     });
+  });
 }
 
 /**
@@ -444,11 +444,11 @@ export function writeFile(filename: string, data: string | Buffer): Promise<any>
  * @returns {*}  {Promise<any>}
  */
 export function reFile(fileName: string, newFileName: string): Promise<any> {
-    return new Promise(function (fulfill, reject) {
-        fs.rename(fileName, newFileName, function (err) {
-            return err ? reject(err) : fulfill(null);
-        });
+  return new Promise(function (fulfill, reject) {
+    fs.rename(fileName, newFileName, function (err) {
+      return err ? reject(err) : fulfill(null);
     });
+  });
 }
 
 /**
@@ -459,11 +459,11 @@ export function reFile(fileName: string, newFileName: string): Promise<any> {
  * @returns {*}  {Promise<any>}
  */
 export function rmFile(p: string): Promise<any> {
-    return new Promise(function (fulfill, reject) {
-        fs.unlink(p, function (err) {
-            return err ? reject(err) : fulfill(null);
-        });
+  return new Promise(function (fulfill, reject) {
+    fs.unlink(p, function (err) {
+      return err ? reject(err) : fulfill(null);
     });
+  });
 }
 
 /**
@@ -476,16 +476,16 @@ export function rmFile(p: string): Promise<any> {
  * @returns {Promise<any>}  
  */
 export function mkDir(p: string, mode = '0777'): Promise<any> {
-    return new Promise(function (fulfill, reject) {
-        fs.stat(path.dirname(p), function (err, res) {
-            if (err || !res.isDirectory()) {
-                reject(err);
-            }
-            fs.mkdir(p, { recursive: true, mode }, function (e) {
-                return e ? reject(e) : fulfill(null);
-            });
-        });
+  return new Promise(function (fulfill, reject) {
+    fs.stat(path.dirname(p), function (err, res) {
+      if (err || !res.isDirectory()) {
+        reject(err);
+      }
+      fs.mkdir(p, { recursive: true, mode }, function (e) {
+        return e ? reject(e) : fulfill(null);
+      });
     });
+  });
 }
 
 /**
@@ -498,21 +498,21 @@ export function mkDir(p: string, mode = '0777'): Promise<any> {
  * @returns {*}  {Promise<any>}
  */
 export function readDir(p: string, filter: any, prefix = ''): Promise<any> {
-    filter = filter || function (x: any) {
-        return x[0] !== '.';
-    };
+  filter = filter || function (x: any) {
+    return x[0] !== '.';
+  };
 
-    const dir = path.join(p, prefix);
-    return new Promise(function (fulfill, reject) {
-        fs.stat(path.dirname(dir), function (err, res) {
-            if (err || !res.isDirectory()) {
-                reject(err);
-            }
-            fs.readdir(dir, 'utf-8', function (e, res) {
-                return e ? reject(e) : fulfill(res);
-            });
-        });
+  const dir = path.join(p, prefix);
+  return new Promise(function (fulfill, reject) {
+    fs.stat(path.dirname(dir), function (err, res) {
+      if (err || !res.isDirectory()) {
+        reject(err);
+      }
+      fs.readdir(dir, 'utf-8', function (e, res) {
+        return e ? reject(e) : fulfill(res);
+      });
     });
+  });
 }
 
 /**
@@ -524,11 +524,11 @@ export function readDir(p: string, filter: any, prefix = ''): Promise<any> {
  * @returns {*}  
  */
 export function rmDir(p: string, reserve: boolean) {
-    return new Promise(function (fulfill, reject) {
-        fs.rmdir(p, { maxRetries: 3, recursive: reserve }, function (err) {
-            return err ? reject(err) : fulfill(null);
-        });
+  return new Promise(function (fulfill, reject) {
+    fs.rmdir(p, { maxRetries: 3, recursive: reserve }, function (err) {
+      return err ? reject(err) : fulfill(null);
     });
+  });
 }
 
 /**
@@ -537,12 +537,12 @@ export function rmDir(p: string, reserve: boolean) {
  * @returns {*}  
  */
 export function getDefer(): DeferObject {
-    const defer: any = {};
-    defer.promise = new Promise(function (resolve, reject) {
-        defer.resolve = resolve;
-        defer.reject = reject;
-    });
-    return defer;
+  const defer: any = {};
+  defer.promise = new Promise(function (resolve, reject) {
+    defer.resolve = resolve;
+    defer.reject = reject;
+  });
+  return defer;
 }
 
 /**
@@ -552,16 +552,16 @@ export function getDefer(): DeferObject {
  * @returns {*}  
  */
 export function safeRequire(file: string) {
-    try {
-        let obj = require(file);
-        obj = (obj && obj.__esModule && obj.default) ? obj.default : obj;
-        if (lodash.isFunction(obj)) {
-            obj.prototype.__filename = file;
-        }
-        return obj;
-    } catch (e) {
-        throw Error(e);
+  try {
+    let obj = require(file);
+    obj = (obj && obj.__esModule && obj.default) ? obj.default : obj;
+    if (lodash.isFunction(obj)) {
+      obj.prototype.__filename = file;
     }
+    return obj;
+  } catch (e) {
+    throw Error(e);
+  }
 }
 
 /**
@@ -572,11 +572,11 @@ export function safeRequire(file: string) {
  * @returns {*} {AnyObject}
  */
 export function clone(source: AnyObject, deep = false): AnyObject {
-    if (deep) {
-        return lodash.cloneDeep(source);
-    } else {
-        return lodash.clone(source);
-    }
+  if (deep) {
+    return lodash.cloneDeep(source);
+  } else {
+    return lodash.clone(source);
+  }
 }
 
 /**
@@ -589,11 +589,11 @@ export function clone(source: AnyObject, deep = false): AnyObject {
  * @returns {*}  {AnyObject}
  */
 export function extend(source: AnyObject, target: AnyObject, deep = false): AnyObject {
-    if (deep) {
-        return lodash.merge(lodash.cloneDeep(source), target);
-    } else {
-        return lodash.assignIn(source, target);
-    }
+  if (deep) {
+    return lodash.merge(lodash.cloneDeep(source), target);
+  } else {
+    return lodash.assignIn(source, target);
+  }
 }
 
 /**
@@ -607,23 +607,23 @@ export function extend(source: AnyObject, target: AnyObject, deep = false): AnyO
  * @returns {*}  
  */
 export function define(obj: AnyObject, property: string, value: any, setter = false) {
-    if (setter) {
-        Object.defineProperty(obj, property, {
-            value,
-            writable: true,
-            configurable: false,
-            enumerable: true
-        });
-    } else {
-        Object.defineProperty(obj, property, {
-            // tslint:disable-next-line-literal-shorthand
-            get() {
-                return value;
-            },
-            configurable: false,
-            enumerable: true
-        });
-    }
+  if (setter) {
+    Object.defineProperty(obj, property, {
+      value,
+      writable: true,
+      configurable: false,
+      enumerable: true
+    });
+  } else {
+    Object.defineProperty(obj, property, {
+      // tslint:disable-next-line-literal-shorthand
+      get() {
+        return value;
+      },
+      configurable: false,
+      enumerable: true
+    });
+  }
 }
 
 /**
@@ -633,32 +633,32 @@ export function define(obj: AnyObject, property: string, value: any, setter = fa
  * @returns {*}  
  */
 function preserveCamelCase(str: string) {
-    let isLastCharLower = false;
-    let isLastCharUpper = false;
-    let isLastLastCharUpper = false;
+  let isLastCharLower = false;
+  let isLastCharUpper = false;
+  let isLastLastCharUpper = false;
 
-    for (let i = 0; i < str.length; i++) {
-        const character = str[i];
+  for (let i = 0; i < str.length; i++) {
+    const character = str[i];
 
-        if (isLastCharLower && /[a-zA-Z]/.test(character) && character.toUpperCase() === character) {
-            str = str.slice(0, i) + '-' + str.slice(i);
-            isLastCharLower = false;
-            isLastLastCharUpper = isLastCharUpper;
-            isLastCharUpper = true;
-            i++;
-        } else if (isLastCharUpper && isLastLastCharUpper && /[a-zA-Z]/.test(character) && character.toLowerCase() === character) {
-            str = str.slice(0, i - 1) + '-' + str.slice(i - 1);
-            isLastLastCharUpper = isLastCharUpper;
-            isLastCharUpper = false;
-            isLastCharLower = true;
-        } else {
-            isLastCharLower = character.toLowerCase() === character && character.toUpperCase() !== character;
-            isLastLastCharUpper = isLastCharUpper;
-            isLastCharUpper = character.toUpperCase() === character && character.toLowerCase() !== character;
-        }
+    if (isLastCharLower && /[a-zA-Z]/.test(character) && character.toUpperCase() === character) {
+      str = str.slice(0, i) + '-' + str.slice(i);
+      isLastCharLower = false;
+      isLastLastCharUpper = isLastCharUpper;
+      isLastCharUpper = true;
+      i++;
+    } else if (isLastCharUpper && isLastLastCharUpper && /[a-zA-Z]/.test(character) && character.toLowerCase() === character) {
+      str = str.slice(0, i - 1) + '-' + str.slice(i - 1);
+      isLastLastCharUpper = isLastCharUpper;
+      isLastCharUpper = false;
+      isLastCharLower = true;
+    } else {
+      isLastCharLower = character.toLowerCase() === character && character.toUpperCase() !== character;
+      isLastLastCharUpper = isLastCharUpper;
+      isLastCharUpper = character.toUpperCase() === character && character.toLowerCase() !== character;
     }
+  }
 
-    return str;
+  return str;
 }
 
 /**
@@ -669,29 +669,29 @@ function preserveCamelCase(str: string) {
  * @returns {*}  
  */
 export function camelCase(input: string, pascalCase = false) {
-    if (!(typeof input === 'string' || Array.isArray(input))) {
-        throw new TypeError('Expected the input to be `string | string[]`');
-    }
+  if (!(typeof input === 'string' || Array.isArray(input))) {
+    throw new TypeError('Expected the input to be `string | string[]`');
+  }
 
-    const postProcess = (x: string) => pascalCase ? x.charAt(0).toUpperCase() + x.slice(1) : x;
-    if (Array.isArray(input)) {
-        input = input.map((x) => x.trim()).filter((x) => x.length).join('-');
-    } else {
-        input = input.trim();
-    }
-    if (input.length === 0) {
-        return '';
-    }
-    if (input.length === 1) {
-        return pascalCase ? input.toUpperCase() : input.toLowerCase();
-    }
-    const hasUpperCase = input !== input.toLowerCase();
-    if (hasUpperCase) {
-        input = preserveCamelCase(input);
-    }
+  const postProcess = (x: string) => pascalCase ? x.charAt(0).toUpperCase() + x.slice(1) : x;
+  if (Array.isArray(input)) {
+    input = input.map((x) => x.trim()).filter((x) => x.length).join('-');
+  } else {
+    input = input.trim();
+  }
+  if (input.length === 0) {
+    return '';
+  }
+  if (input.length === 1) {
+    return pascalCase ? input.toUpperCase() : input.toLowerCase();
+  }
+  const hasUpperCase = input !== input.toLowerCase();
+  if (hasUpperCase) {
+    input = preserveCamelCase(input);
+  }
 
-    input = input.replace(/^[_.\- ]+/, '').toLowerCase().replace(/[_.\- ]+(\w|$)/g, (_, p1) => p1.toUpperCase()).replace(/\d+(\w|$)/g, (m) => m.toUpperCase());
-    return postProcess(input);
+  input = input.replace(/^[_.\- ]+/, '').toLowerCase().replace(/[_.\- ]+(\w|$)/g, (_, p1) => p1.toUpperCase()).replace(/\d+(\w|$)/g, (m) => m.toUpperCase());
+  return postProcess(input);
 }
 
 /**
@@ -699,9 +699,9 @@ export function camelCase(input: string, pascalCase = false) {
  * @param {*number} num 
  */
 export function checkBoundary(num: number) {
-    if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
-        throw Error(`${num} is beyond boundary when transfer to integer, the results may not be accurate`);
-    }
+  if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
+    throw Error(`${num} is beyond boundary when transfer to integer, the results may not be accurate`);
+  }
 }
 
 /**
@@ -712,7 +712,7 @@ export function checkBoundary(num: number) {
  * @returns {*}  {number}
  */
 export function multi(x: number, y: number): number {
-    return computeNumber(x, '*', y).result;
+  return computeNumber(x, '*', y).result;
 }
 
 /**
@@ -723,7 +723,7 @@ export function multi(x: number, y: number): number {
  * @returns {*}  
  */
 export function plus(x: number, y: number) {
-    return computeNumber(x, '+', y).result;
+  return computeNumber(x, '+', y).result;
 }
 
 /**
@@ -734,7 +734,7 @@ export function plus(x: number, y: number) {
  * @returns {*}  
  */
 export function minus(x: number, y: number) {
-    return computeNumber(x, '-', y).result;
+  return computeNumber(x, '-', y).result;
 }
 
 /**
@@ -745,7 +745,7 @@ export function minus(x: number, y: number) {
  * @returns {*}  {number}
  */
 export function divide(x: number, y: number): number {
-    return computeNumber(x, '/', y).result;
+  return computeNumber(x, '/', y).result;
 }
 
 /**
@@ -753,8 +753,8 @@ export function divide(x: number, y: number): number {
      * @param {number} n 数字
      */
 export function getDecimalLength(n: number) {
-    const decimal = n.toString().split('.')[1];
-    return decimal ? decimal.length : 0;
+  const decimal = n.toString().split('.')[1];
+  return decimal ? decimal.length : 0;
 }
 
 /**
@@ -771,50 +771,50 @@ export function getDecimalLength(n: number) {
  */
 type computeType = "+" | "-" | "*" | "/";
 export function computeNumber(a: number, type: computeType, b: number) {
-    // 防止越界
-    checkBoundary(a);
-    checkBoundary(b);
+  // 防止越界
+  checkBoundary(a);
+  checkBoundary(b);
+  /**
+   * 修正小数点
+   * @description 防止出现 `33.33333*100000 = 3333332.9999999995` && `33.33*10 = 333.29999999999995` 这类情况做的处理
+   * @param {number} n
+   */
+  const amend = (n: unknown, precision = 15) => parseFloat(Number(n).toPrecision(precision));
+  const power = Math.pow(10, Math.max(getDecimalLength(a), getDecimalLength(b)));
+  let result = 0;
+
+  a = amend(a * power);
+  b = amend(b * power);
+
+  switch (type) {
+    case '+':
+      result = (a + b) / power;
+      break;
+    case '-':
+      result = (a - b) / power;
+      break;
+    case '*':
+      result = (a * b) / (power * power);
+      break;
+    case '/':
+      result = a / b;
+      break;
+  }
+
+  result = amend(result);
+
+  return {
+    /** 计算结果 */
+    result,
     /**
-     * 修正小数点
-     * @description 防止出现 `33.33333*100000 = 3333332.9999999995` && `33.33*10 = 333.29999999999995` 这类情况做的处理
-     * @param {number} n
-     */
-    const amend = (n: unknown, precision = 15) => parseFloat(Number(n).toPrecision(precision));
-    const power = Math.pow(10, Math.max(getDecimalLength(a), getDecimalLength(b)));
-    let result = 0;
-
-    a = amend(a * power);
-    b = amend(b * power);
-
-    switch (type) {
-        case '+':
-            result = (a + b) / power;
-            break;
-        case '-':
-            result = (a - b) / power;
-            break;
-        case '*':
-            result = (a * b) / (power * power);
-            break;
-        case '/':
-            result = a / b;
-            break;
-    }
-
-    result = amend(result);
-
-    return {
-        /** 计算结果 */
-        result,
-        /**
-           * 继续计算
-           * @param {"+"|"-"|"*"|"/"} nextType 继续计算方式
-           * @param {number} nextValue 继续计算的值
-           */
-        next(nextType: computeType, nextValue: number) {
-            return computeNumber(result, nextType, nextValue);
-        },
-    };
+       * 继续计算
+       * @param {"+"|"-"|"*"|"/"} nextType 继续计算方式
+       * @param {number} nextValue 继续计算的值
+       */
+    next(nextType: computeType, nextValue: number) {
+      return computeNumber(result, nextType, nextValue);
+    },
+  };
 }
 
 /**
@@ -825,8 +825,8 @@ export function computeNumber(a: number, type: computeType, b: number) {
  * @returns {*}  
  */
 export function round(num: number, ratio: number) {
-    const base = Math.pow(10, ratio);
-    return divide(Math.round(multi(num, base)), base);
+  const base = Math.pow(10, ratio);
+  return divide(Math.round(multi(num, base)), base);
 }
 /**
  * Date time stamp and formatting
@@ -855,7 +855,7 @@ export const thinkrequire = safeRequire;
  * @returns {*}  {boolean}
  */
 export function hasOwn(obj: AnyObject, property: string) {
-    return Object.prototype.hasOwnProperty.call(obj, property);
+  return Object.prototype.hasOwnProperty.call(obj, property);
 }
 
 /**
@@ -866,7 +866,7 @@ export function hasOwn(obj: AnyObject, property: string) {
  * @returns {*}  {boolean}
  */
 export function isPromise(value: any) {
-    return !!(value && value.catch && typeof value.then === 'function');
+  return !!(value && value.catch && typeof value.then === 'function');
 }
 
 /**
@@ -878,13 +878,13 @@ export function isPromise(value: any) {
  * @returns {*}  
  */
 export function promisify(fn: Function, receiver?: any) {
-    return function (...args: any[]) {
-        return new Promise(function (resolve, reject) {
-            fn.apply(receiver, [...args, function (err: Error, res: any) {
-                return err ? reject(err) : resolve(res);
-            }]);
-        });
-    };
+  return function (...args: any[]) {
+    return new Promise(function (resolve, reject) {
+      fn.apply(receiver, [...args, function (err: Error, res: any) {
+        return err ? reject(err) : resolve(res);
+      }]);
+    });
+  };
 }
 
 /**
@@ -895,7 +895,7 @@ export function promisify(fn: Function, receiver?: any) {
  * @returns {*}  {boolean}
  */
 export function isGenerator(fn: any) {
-    return !!(fn && typeof fn === 'function' && fn.constructor && fn.constructor.name === 'GeneratorFunction');
+  return !!(fn && typeof fn === 'function' && fn.constructor && fn.constructor.name === 'GeneratorFunction');
 }
 
 /**
@@ -906,7 +906,7 @@ export function isGenerator(fn: any) {
  * @returns {*}  {boolean}
  */
 export function isAsyncFunction(fn: any) {
-    return !!(fn && typeof fn === 'function' && fn.constructor && 'AsyncFunction' === fn.constructor.name);
+  return !!(fn && typeof fn === 'function' && fn.constructor && 'AsyncFunction' === fn.constructor.name);
 }
 
 /**
@@ -917,14 +917,14 @@ export function isAsyncFunction(fn: any) {
  * @returns {*}  
  */
 export function generatorToPromise(fn: any) {
-    if (typeof fn !== 'function') {
-        throw Error('fn is not a function');
-    }
-    if (!isGenerator(fn)) {
-        // assume it's Promise-based
-        return fn;
-    }
-    return co.wrap(fn);
+  if (typeof fn !== 'function') {
+    throw Error('fn is not a function');
+  }
+  if (!isGenerator(fn)) {
+    // assume it's Promise-based
+    return fn;
+  }
+  return co.wrap(fn);
 }
 
 //--------------------------------------------------------------------//
