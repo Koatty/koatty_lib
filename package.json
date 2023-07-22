@@ -1,11 +1,11 @@
 {
   "name": "koatty_lib",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Function library for koatty.",
   "scripts": {
     "build": "del-cli --force dist && tsc",
     "eslint": "eslint --ext .ts,.js ./",
-    "prepublishOnly": "npm test && npm run build",
+    "prepublishOnly": "npm run build && npm test",
     "release": "npm run prepublishOnly && standard-version",
     "release:major": "npm run release -- --release-as major",
     "release:minor": "npm run release -- --release-as minor",
