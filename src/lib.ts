@@ -525,7 +525,7 @@ export function readDir(p: string, filter: any, prefix = ''): Promise<any> {
  */
 export function rmDir(p: string, reserve: boolean) {
   return new Promise(function (fulfill, reject) {
-    fs.rmdir(p, { maxRetries: 3, recursive: reserve }, function (err) {
+    fs.rm(p, { maxRetries: 3, recursive: reserve }, function (err) {
       return err ? reject(err) : fulfill(null);
     });
   });
