@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.4](https://github.com/koatty/koatty_lib/compare/v1.3.3...v1.3.4) (2023-08-17)
+
+
+### Bug Fixes
+
+* deprecated fs.rmdir ([f33734c](https://github.com/koatty/koatty_lib/commit/f33734cbe837d4a5e88e8b734dc1389324f2e221))
+
 ### [1.3.3](https://github.com/koatty/koatty_lib/compare/v1.3.2...v1.3.3) (2023-07-22)
 
 ### [1.3.2](https://github.com/koatty/koatty_lib/compare/v1.3.0...v1.3.2) (2023-02-26)
