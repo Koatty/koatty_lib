@@ -5,8 +5,9 @@
   "scripts": {
     "build": "del-cli --force dist && tsc",
     "eslint": "eslint --ext .ts,.js ./",
-    "prepublishOnly": "npm run build && npm test",
-    "release": "npm run prepublishOnly && standard-version",
+    "prepublishOnly": "npm run prerelease && git push --follow-tags origin",
+    "prerelease": "npm run build && npm test",
+    "release": "standard-version",
     "release:major": "npm run release -- --release-as major",
     "release:minor": "npm run release -- --release-as minor",
     "pub": "git push --follow-tags origin && npm publish",
