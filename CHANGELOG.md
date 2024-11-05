@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/koatty/koatty_lib/compare/v1.3.4...v1.4.0) (2024-11-05)
+
+
+### Bug Fixes
+
+* script ([e7a1aee](https://github.com/koatty/koatty_lib/commit/e7a1aee47924a233357ea8f4193d3ef63f761d52))
+
 ### [1.3.4](https://github.com/koatty/koatty_lib/compare/v1.3.3...v1.3.4) (2023-08-17)
 
 
