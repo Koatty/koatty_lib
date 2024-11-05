@@ -2,21 +2,21 @@
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-01-09 23:38:03
+ * @LastEditTime: 2024-11-05 13:51:49
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
-import fs from "fs";
-import path from "path";
 import crypto from "crypto";
+import fs from "fs";
 import lodash from "lodash";
 import moment from "moment";
 import murmur from "murmurhash";
+import path from "path";
 const co = require("co");
 
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface AnyObject extends Object { }
+type AnyObject = object;
 
 interface DeferObject {
   promise: Promise<any>;
@@ -83,6 +83,7 @@ export function isJSONStr(value: string): boolean {
   }
   try {
     return isJSONObj(JSON.parse(value));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return false;
   }
@@ -337,6 +338,7 @@ export function isFile(p: string): boolean {
   try {
     const stats = fs.statSync(p);
     return stats.isFile();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return false;
   }
@@ -353,6 +355,7 @@ export function isDir(p: string): boolean {
   try {
     const stats = fs.statSync(p);
     return stats.isDirectory();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return false;
   }
@@ -376,6 +379,7 @@ export function isWritable(p: string): boolean {
     return !!(owner && (mode & parseInt('00200', 8)) ||
       group && (mode & parseInt('00020', 8)) ||
       (mode & parseInt('00002', 8)));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return false;
   }
