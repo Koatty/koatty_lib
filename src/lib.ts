@@ -2,18 +2,17 @@
  * @Author: richen
  * @Date: 2020-11-20 10:38:53
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-11-05 13:51:49
+ * @LastEditTime: 2025-03-16 01:35:04
  * @License: BSD (3-Clause)
  * @Copyright (c) - <richenlin(at)gmail.com>
  */
 import crypto from "crypto";
 import fs from "fs";
-import lodash from "lodash";
+import * as _ from "lodash";
 import moment from "moment";
 import murmur from "murmurhash";
 import path from "path";
-const co = require("co");
-
+import co from 'co';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 type AnyObject = object;
@@ -56,7 +55,7 @@ export function isClass(func: AnyObject): boolean {
  */
 export function isNumberString(str: string): boolean {
   const numberReg = /^((-?\d*\.?\d*(?:e[+-]?\d*(?:\d?\.?|\.?\d?)\d*)?)|(0[0-7]+)|(0x[0-9a-f]+))$/i;
-  return lodash.isString(str) && !isEmpty(str) && numberReg.test(str);
+  return _.isString(str) && !isEmpty(str) && numberReg.test(str);
 }
 
 /**
@@ -67,7 +66,7 @@ export function isNumberString(str: string): boolean {
  * @returns {*}  {boolean}
  */
 export function isJSONObj(value: AnyObject): boolean {
-  return lodash.isPlainObject(value) || lodash.isArray(value);
+  return _.isPlainObject(value) || _.isArray(value);
 }
 
 /**
@@ -78,7 +77,7 @@ export function isJSONObj(value: AnyObject): boolean {
  * @returns {*}  {boolean}
  */
 export function isJSONStr(value: string): boolean {
-  if (!lodash.isString(value)) {
+  if (!_.isString(value)) {
     return false;
   }
   try {
@@ -99,14 +98,14 @@ export function isJSONStr(value: string): boolean {
 export function isEmpty(value: any): boolean {
   if (value === undefined || value === null || value === '') {
     return true;
-  } else if (lodash.isString(value)) {
+  } else if (_.isString(value)) {
     //\s 匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。
     return value.replace(/(^\s*)|(\s*$)/g, '').length === 0;
-  } else if (lodash.isNumber(value)) {
+  } else if (_.isNumber(value)) {
     return isNaN(value);
-  } else if (lodash.isArray(value)) {
+  } else if (_.isArray(value)) {
     return value.length === 0;
-  } else if (lodash.isPlainObject(value)) {
+  } else if (_.isPlainObject(value)) {
     // for (let key in value) {
     //     return !key && !0;
     // }
@@ -127,7 +126,7 @@ export function isTrueEmpty(value: any): boolean {
   if (value === undefined || value === null || value === '') {
     return true;
   }
-  if (lodash.isNumber(value)) {
+  if (_.isNumber(value)) {
     return isNaN(value);
   }
   return false;
@@ -181,7 +180,7 @@ export function escapeSpecial(value: string): string {
  * @returns {*}  {string}
  */
 export function ucFirst(value: string): string {
-  value = lodash.toString(value || '');
+  value = _.toString(value || '');
   return `${value.slice(0, 1).toUpperCase()}${value.slice(1)}`;
 }
 
@@ -269,7 +268,7 @@ const dateFn = function (f: string) {
 export function dateTime(date?: number | string | undefined, format?: string, offset = 8): number | string {
   if (format === undefined) {
     //datetime() => now timestamp
-    if (lodash.isString(date)) { //datetime('2017-01-01') => timestamp
+    if (_.isString(date)) { //datetime('2017-01-01') => timestamp
       return Math.floor(new Date(date).getTime() / 1000);
     } else {
       return Math.floor(Date.now() / 1000);
@@ -281,14 +280,14 @@ export function dateTime(date?: number | string | undefined, format?: string, of
       format = 'YYYY-MM-DD HH:mm:ss.SSS';
     }
 
-    if (date && lodash.isNumber(date)) {
+    if (date && _.isNumber(date)) {
       if (date < 10000000000) {
         return moment.unix(date).utcOffset(offset).format(format);
       } else {
         return moment(date).utcOffset(offset).format(format);
       }
     }
-    if (date && lodash.isString(date)) {
+    if (date && _.isString(date)) {
       return moment(new Date(Date.parse(date))).utcOffset(offset).format(format);
     }
     return moment().utcOffset(offset).format(format);
@@ -297,21 +296,21 @@ export function dateTime(date?: number | string | undefined, format?: string, of
 
 /**
  * Determines whether value is an element of array arr,
- * only determine the same value with the element, do not determine the type
  *
  * @param {*} value
  * @param {any[]} arr
  * @returns {*} {boolean}
  */
 export function inArray(value: any, arr: any[]): boolean {
-  const len = arr.length;
-  for (let i = 0; i < len; i++) {
-    // tslint:disable-next-line: triple-equals
-    if (arr[i] == value) {
-      return true;
-    }
-  }
-  return false;
+  // const len = arr.length;
+  // for (let i = 0; i < len; i++) {
+  //   // tslint:disable-next-line: triple-equals
+  //   if (arr[i] == value) {
+  //     return true;
+  //   }
+  // }
+  // return false;
+  return arr.includes(value);
 }
 
 /**
@@ -322,7 +321,7 @@ export function inArray(value: any, arr: any[]): boolean {
  * @returns {*}  {any[]}
  */
 export function arrRemove(arr: any[], index: number): any[] {
-  return lodash.remove(arr, function (n, i) {
+  return _.remove(arr, function (n, i) {
     return i !== index;
   });
 }
@@ -559,7 +558,7 @@ export function safeRequire(file: string) {
   try {
     let obj = require(file);
     obj = (obj && obj.__esModule && obj.default) ? obj.default : obj;
-    if (lodash.isFunction(obj)) {
+    if (_.isFunction(obj)) {
       obj.prototype.__filename = file;
     }
     return obj;
@@ -577,9 +576,9 @@ export function safeRequire(file: string) {
  */
 export function clone(source: AnyObject, deep = false): AnyObject {
   if (deep) {
-    return lodash.cloneDeep(source);
+    return _.cloneDeep(source);
   } else {
-    return lodash.clone(source);
+    return _.clone(source);
   }
 }
 
@@ -594,9 +593,9 @@ export function clone(source: AnyObject, deep = false): AnyObject {
  */
 export function extend(source: AnyObject, target: AnyObject, deep = false): AnyObject {
   if (deep) {
-    return lodash.merge(lodash.cloneDeep(source), target);
+    return _.merge(_.cloneDeep(source), target);
   } else {
-    return lodash.assignIn(source, target);
+    return _.assignIn(source, target);
   }
 }
 
@@ -966,7 +965,7 @@ export const sep = path.sep;
  * _.eq(NaN, NaN);
  * // => true
  */
-export const eq = lodash.eq;
+export const eq = _.eq;
 /**
  * Checks if value is greater than other.
  *
@@ -974,7 +973,7 @@ export const eq = lodash.eq;
  * @param other The other value to compare.
  * @return Returns true if value is greater than other, else false.
  */
-export const gt = lodash.gt;
+export const gt = _.gt;
 /**
  * Checks if value is greater than or equal to other.
  *
@@ -982,7 +981,7 @@ export const gt = lodash.gt;
  * @param other The other value to compare.
  * @return Returns true if value is greater than or equal to other, else false.
  */
-export const gte = lodash.gte;
+export const gte = _.gte;
 /**
  * Checks if value is less than other.
  *
@@ -990,7 +989,7 @@ export const gte = lodash.gte;
  * @param other The other value to compare.
  * @return Returns true if value is less than other, else false.
  */
-export const lt = lodash.lt;
+export const lt = _.lt;
 /**
  * Checks if value is less than or equal to other.
  *
@@ -998,14 +997,14 @@ export const lt = lodash.lt;
  * @param other The other value to compare.
  * @return Returns true if value is less than or equal to other, else false.
  */
-export const lte = lodash.lte;
+export const lte = _.lte;
 /**
  * Checks if value is classified as an Array object.
  * @param value The value to check.
  *
  * @return Returns true if value is correctly classified, else false.
  */
-export const isArray = lodash.isArray;
+export const isArray = _.isArray;
 /**
  * Checks if value is a plain object, that is, an object created by the Object constructor or one with a
  * [[Prototype]] of null.
@@ -1015,35 +1014,35 @@ export const isArray = lodash.isArray;
  * @param value The value to check.
  * @return Returns true if value is a plain object, else false.
  */
-export const isObject = lodash.isPlainObject;
+export const isObject = _.isPlainObject;
 /**
  * Checks if value is classified as an ArrayBuffer object.
  *
  * @param value The value to check.
  * @return Returns true if value is correctly classified, else false.
  */
-export const isArrayBuffer = lodash.isArrayBuffer;
+export const isArrayBuffer = _.isArrayBuffer;
 /**
  * Checks if value is classified as a boolean primitive or object.
  *
  * @param value The value to check.
  * @return Returns true if value is correctly classified, else false.
  */
-export const isBoolean = lodash.isBoolean;
+export const isBoolean = _.isBoolean;
 /**
  * Checks if value is classified as a String primitive or object.
  *
  * @param value The value to check.
  * @return Returns true if value is correctly classified, else false.
  */
-export const isString = lodash.isString;
+export const isString = _.isString;
 /**
  * Checks if value is a buffer.
  *
  * @param value The value to check.
  * @return Returns true if value is a buffer, else false.
  */
-export const isBuffer = lodash.isBuffer;
+export const isBuffer = _.isBuffer;
 /**
  * Checks if value is classified as a Number primitive or object.
  *
@@ -1052,7 +1051,7 @@ export const isBuffer = lodash.isBuffer;
  * @param value The value to check.
  * @return Returns true if value is correctly classified, else false.
  */
-export const isNumber = lodash.isNumber;
+export const isNumber = _.isNumber;
 /**
  * Checks if `value` is an integer.
  *
@@ -1075,7 +1074,7 @@ export const isNumber = lodash.isNumber;
  * _.isInteger('3');
  * // => false
  */
-export const isInteger = lodash.isInteger;
+export const isInteger = _.isInteger;
 /**
  * Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError
  * object.
@@ -1083,14 +1082,14 @@ export const isInteger = lodash.isInteger;
  * @param value The value to check.
  * @return Returns true if value is an error object, else false.
  */
-export const isError = lodash.isError;
+export const isError = _.isError;
 /**
  * Checks if value is a callable function.
  *
  * @param value The value to check.
  * @return Returns true if value is correctly classified, else false.
  */
-export const isFunction = lodash.isFunction;
+export const isFunction = _.isFunction;
 /**
  * Checks if `value` is classified as a `Symbol` primitive or object.
  *
@@ -1105,21 +1104,21 @@ export const isFunction = lodash.isFunction;
  * _.isSymbol('abc');
  * // => false
  */
-export const isSymbol = lodash.isSymbol;
+export const isSymbol = _.isSymbol;
 /**
  * Checks if value is classified as a Map object.
  *
  * @param value The value to check.
  * @returns Returns true if value is correctly classified, else false.
  */
-export const isMap = lodash.isMap;
+export const isMap = _.isMap;
 /**
  * Checks if value is classified as a Set object.
  *
  * @param value The value to check.
  * @returns Returns true if value is correctly classified, else false.
  */
-export const isSet = lodash.isSet;
+export const isSet = _.isSet;
 /**
  * Checks if value is NaN.
  *
@@ -1128,35 +1127,35 @@ export const isSet = lodash.isSet;
  * @param value The value to check.
  * @return Returns true if value is NaN, else false.
  */
-export const isNaN = lodash.isNaN;
+export const isNaN = _.isNaN;
 /**
  * Checks if value is null.
  *
  * @param value The value to check.
  * @return Returns true if value is null, else false.
  */
-export const isNull = lodash.isNull;
+export const isNull = _.isNull;
 /**
  * Checks if value is undefined.
  *
  * @param value The value to check.
  * @return Returns true if value is undefined, else false.
  */
-export const isUndefined = lodash.isUndefined;
+export const isUndefined = _.isUndefined;
 /**
  * Checks if value is classified as a RegExp object.
  * @param value The value to check.
  *
  * @return Returns true if value is correctly classified, else false.
  */
-export const isRegExp = lodash.isRegExp;
+export const isRegExp = _.isRegExp;
 /**
  * Converts value to an array.
  *
  * @param value The value to convert.
  * @return Returns the converted array.
  */
-export const toArray = lodash.toArray;
+export const toArray = _.toArray;
 /**
  * Converts `value` to an integer.
  *
@@ -1179,7 +1178,7 @@ export const toArray = lodash.toArray;
  * _.toInteger('3');
  * // => 3
  */
-export const toInt = lodash.toInteger;
+export const toInt = _.toInteger;
 /**
  * Converts `value` to an integer.
  *
@@ -1202,7 +1201,7 @@ export const toInt = lodash.toInteger;
  * _.toInteger('3');
  * // => 3
  */
-export const toInteger = lodash.toInteger;
+export const toInteger = _.toInteger;
 /**
  * Converts `value` to a number.
  *
@@ -1223,7 +1222,7 @@ export const toInteger = lodash.toInteger;
  * _.toNumber('3');
  * // => 3
  */
-export const toNumber = lodash.toNumber;
+export const toNumber = _.toNumber;
 /**
  * Converts value to a plain object flattening inherited enumerable properties of value to own properties
  * of the plain object.
@@ -1231,7 +1230,7 @@ export const toNumber = lodash.toNumber;
  * @param value The value to convert.
  * @return Returns the converted plain object.
  */
-export const toObject = lodash.toPlainObject;
+export const toObject = _.toPlainObject;
 /**
  * Converts `value` to a string if it's not one. An empty string is returned
  * for `null` and `undefined` values. The sign of `-0` is preserved.
@@ -1250,7 +1249,7 @@ export const toObject = lodash.toPlainObject;
  * _.toString([1, 2, 3]);
  * // => '1,2,3'
  */
-export const toString = lodash.toString;
+export const toString = _.toString;
 
 /**
  * Creates an array of unique values, in order, from all of the provided arrays using SameValueZero for
@@ -1259,14 +1258,14 @@ export const toString = lodash.toString;
  * @param arrays The arrays to inspect.
  * @return Returns the new array of combined values.
  */
-export const arrUnique = lodash.union;
+export const arrUnique = _.union;
 /**
  * Checks if value is classified as a Date object.
  * @param value The value to check.
  *
  * @return Returns true if value is correctly classified, else false.
  */
-export const isDate = lodash.isDate;
+export const isDate = _.isDate;
 /**
  * Performs a deep comparison between two values to determine if they are
  * equivalent.
@@ -1292,13 +1291,13 @@ export const isDate = lodash.isDate;
  * object === other;
  * // => false
  */
-export const isEqual = lodash.isEqual;
+export const isEqual = _.isEqual;
 
 
 // export default new Proxy({
-//     eq: lodash.eq,
-//     gt: lodash.gt,
-//     gte: lodash.gte,
+//     eq: _.eq,
+//     gt: _.gt,
+//     gte: _.gte,
 
 //     sep,
 //     isObject,
@@ -1320,7 +1319,7 @@ export const isEqual = lodash.isEqual;
 //     datetime: dateTime,
 //     inArray,
 //     arrRemove,
-//     arrUnique: lodash.union,
+//     arrUnique: _.union,
 //     isFile,
 //     isDir,
 //     isWritable,
