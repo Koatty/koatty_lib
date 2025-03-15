@@ -2,10 +2,8 @@
  * 
  * @Description: 
  * @Author: richen
- * @Date: 2024-11-07 11:22:26
- * @LastEditTime: 2025-04-02 15:05:36
- * @License: BSD (3-Clause)
- * @Copyright (c): <richenlin(at)gmail.com>
+ * @Date: 2021-12-17 10:20:44
+ * @LastEditTime: 2025-03-16 01:07:35
  */
 import commonjs from '@rollup/plugin-commonjs';
 import json from "@rollup/plugin-json";
@@ -15,7 +13,7 @@ import del from "rollup-plugin-delete";
 import typescript from 'rollup-plugin-typescript2';
 import cleanup from 'rollup-plugin-cleanup';
 // import babel from '@rollup/plugin-babel';
-// import { terser } from "@rollup/plugin-terser";
+import terser from '@rollup/plugin-terser';
 const pkg = require('./package.json');
 
 export default [
@@ -54,8 +52,11 @@ export default [
           }
         }
       }),
-      // terser(),
-      cleanup({ comments: "istanbul", extensions: ["js", "ts"] }),
+      terser({
+        format: { comments: false },
+        compress: false,
+        mangle: false
+      }),
     ],
     external: [
       ...builtinModules, // 排除 Node.js 内置模块
