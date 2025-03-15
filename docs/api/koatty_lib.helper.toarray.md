@@ -10,7 +10,7 @@ Converts value to an array.
 
 ```typescript
 toArray: {
-    <T>(value: lodash.Dictionary<T> | lodash.NumericDictionary<T> | null | undefined): T[];
+    <T>(value: _.Dictionary<T> | _.NumericDictionary<T> | null | undefined): T[];
     <T>(value: T): Array<T[keyof T]>;
     (): any[];
 }

@@ -425,7 +425,7 @@ describe('koatty_lib', function () {
     it("inArray", function () {
         assert.equal(lib.inArray(1, [1, '2', 3]), true);
         assert.equal(lib.inArray('2', [1, '2', 3]), true);
-        assert.equal(lib.inArray('3', [1, '2', 3]), true);
+        assert.equal(lib.inArray('3', [1, '2', 3]), false);
         assert.equal(lib.inArray(4, [1, '2', 3]), false);
     });
     it("arrUnique", function () {

@@ -9,7 +9,7 @@ Creates an array of unique values, in order, from all of the provided arrays usi
 **Signature:**
 
 ```typescript
-arrUnique: <T>(...arrays: Array<lodash.List<T> | null | undefined>) => T[]
+arrUnique: <T>(...arrays: Array<_.List<T> | null | undefined>) => T[]
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ arrays
 
 </td><td>
 
-Array&lt;lodash.List&lt;T&gt; \| null \| undefined&gt;
+Array&lt;\_.List&lt;T&gt; \| null \| undefined&gt;
 
 
 </td><td>
