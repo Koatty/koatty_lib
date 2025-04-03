@@ -95,6 +95,7 @@
      * DEFAULT VALUE: false
      */
     // "skipLibCheck": true,
+    "tsconfigFilePath": "./tsconfig.json"
   },
   /**
    * Configures how the API report file (*.api.md) will be generated.
