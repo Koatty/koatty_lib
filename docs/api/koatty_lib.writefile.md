@@ -4,12 +4,12 @@
 
 ## writeFile() function
 
-Write the string data to file. Asynchronous mode
+Write data to file
 
 **Signature:**
 
 ```typescript
-export declare function writeFile(filename: string, data: string | Buffer): Promise<any>;
+export declare function writeFile(filePath: string, data: string | Buffer): Promise<void>;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-filename
+filePath
 
 
 </td><td>
@@ -61,7 +61,5 @@ string \| Buffer
 </tbody></table>
 **Returns:**
 
-Promise&lt;any&gt;
-
-{<!-- -->\*<!-- -->} {<!-- -->Promise<any>}
+Promise&lt;void&gt;
 

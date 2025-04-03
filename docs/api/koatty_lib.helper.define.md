@@ -4,12 +4,12 @@
 
 ## Helper.define() function
 
-Short for Object.defineProperty, the property is getter when setter is false
+Define object property
 
 **Signature:**
 
 ```typescript
-export declare function define(obj: AnyObject, property: string, value: any, setter?: boolean): void;
+export declare function define(obj: object, property: string, value: any, setter?: boolean): void;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ obj
 
 </td><td>
 
-AnyObject
+object
 
 
 </td><td>
@@ -92,6 +92,4 @@ _(Optional)_
 **Returns:**
 
 void
-
-{<!-- -->\*<!-- -->}
 

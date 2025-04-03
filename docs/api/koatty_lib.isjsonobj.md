@@ -4,12 +4,12 @@
 
 ## isJSONObj() function
 
-Checks if value is a standard JSON object, must be a plain object or array
+Checks if value is a JSON object
 
 **Signature:**
 
 ```typescript
-export declare function isJSONObj(value: AnyObject): boolean;
+export declare function isJSONObj(value: any): boolean;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ value
 
 </td><td>
 
-AnyObject
+any
 
 
 </td><td>
@@ -48,6 +48,4 @@ AnyObject
 **Returns:**
 
 boolean
-
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
 

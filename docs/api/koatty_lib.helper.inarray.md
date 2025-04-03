@@ -4,7 +4,7 @@
 
 ## Helper.inArray() function
 
-Determines whether value is an element of array arr, only determine the same value with the element, do not determine the type
+Checks if value is an element of array (optimized implementation)
 
 **Signature:**
 
@@ -62,6 +62,4 @@ any\[\]
 **Returns:**
 
 boolean
-
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
 

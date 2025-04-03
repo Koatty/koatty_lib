@@ -4,12 +4,14 @@
 
 ## Helper.computeNumber() function
 
+Perform precise arithmetic operations to avoid floating point errors
+
 **Signature:**
 
 ```typescript
-export declare function computeNumber(a: number, type: computeType, b: number): {
+export declare function computeNumber(a: number, type: ComputeType, b: number): {
     result: number;
-    next(nextType: computeType, nextValue: number): any;
+    next(nextType: ComputeType, nextValue: number): any;
 };
 ```
 
@@ -43,6 +45,8 @@ number
 
 </td><td>
 
+First operand
+
 
 </td></tr>
 <tr><td>
@@ -52,10 +56,12 @@ type
 
 </td><td>
 
-computeType
+ComputeType
 
 
 </td><td>
+
+Arithmetic operation type (+, -, \*, /)
 
 
 </td></tr>
@@ -71,10 +77,26 @@ number
 
 </td><td>
 
+Second operand
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
-{ result: number; next(nextType: computeType, nextValue: number): any; }
+{ result: number; next(nextType: ComputeType, nextValue: number): any; }
+
+{<!-- -->Object<!-- -->} Result with next() method for chaining
+
+## Exceptions
+
+{<!-- -->TypeError<!-- -->} If arguments are invalid
+
+{<!-- -->RangeError<!-- -->} If numbers exceed safe integer range
+
+{<!-- -->Error<!-- -->} If division by zero occurs
+
+## Example
+
+computeNumber(0.1, '+', 0.2).result // 0.3 computeNumber(0.1, '+', 0.2).next('\*', 10).result // 3
 

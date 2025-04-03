@@ -4,12 +4,12 @@
 
 ## arrUnique() function
 
-Creates an array of unique values, in order, from all of the provided arrays using SameValueZero for equality comparisons.
+Creates an array of unique values
 
 **Signature:**
 
 ```typescript
-arrUnique: <T>(...arrays: Array<lodash.List<T> | null | undefined>) => T[]
+arrUnique: <T>(...arrays: Array<_.List<T> | null | undefined>) => T[]
 ```
 
 ## Parameters
@@ -37,12 +37,10 @@ arrays
 
 </td><td>
 
-Array&lt;lodash.List&lt;T&gt; \| null \| undefined&gt;
+Array&lt;\_.List&lt;T&gt; \| null \| undefined&gt;
 
 
 </td><td>
-
-The arrays to inspect.  Returns the new array of combined values.
 
 
 </td></tr>

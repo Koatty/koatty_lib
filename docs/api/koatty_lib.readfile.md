@@ -4,12 +4,12 @@
 
 ## readFile() function
 
-Read the contents of the file filename. Asynchronous mode
+Read file contents
 
 **Signature:**
 
 ```typescript
-export declare function readFile(filename: string, enc?: BufferEncoding): Promise<any>;
+export declare function readFile(filePath: string, encoding?: BufferEncoding): Promise<string>;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-filename
+filePath
 
 
 </td><td>
@@ -46,7 +46,7 @@ string
 </td></tr>
 <tr><td>
 
-enc
+encoding
 
 
 </td><td>
@@ -63,7 +63,5 @@ _(Optional)_
 </tbody></table>
 **Returns:**
 
-Promise&lt;any&gt;
-
-{<!-- -->\*<!-- -->} {<!-- -->Promise<any>}
+Promise&lt;string&gt;
 

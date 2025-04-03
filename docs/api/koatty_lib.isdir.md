@@ -4,12 +4,12 @@
 
 ## isDir() function
 
-Checks if path is a dir Synchronous mode
+Check if path is directory
 
 **Signature:**
 
 ```typescript
-export declare function isDir(p: string): boolean;
+export declare function isDir(filePath: string): Promise<boolean>;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-p
+filePath
 
 
 </td><td>
@@ -47,7 +47,5 @@ string
 </tbody></table>
 **Returns:**
 
-boolean
-
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
+Promise&lt;boolean&gt;
 

@@ -4,7 +4,7 @@
 
 ## sep variable
 
-The platform-specific file separator. '<!-- -->' or '/'.
+Get path separator
 
 **Signature:**
 

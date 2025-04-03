@@ -4,13 +4,12 @@
 
 ## hasOwn() function
 
-Short for hasOwnProperty
-
+Checks if object has own property
 
 **Signature:**
 
 ```typescript
-export declare function hasOwn(obj: AnyObject, property: string): any;
+export declare function hasOwn(obj: object, property: string): any;
 ```
 
 ## Parameters
@@ -38,7 +37,7 @@ obj
 
 </td><td>
 
-AnyObject
+object
 
 
 </td><td>
@@ -63,6 +62,4 @@ string
 **Returns:**
 
 any
-
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
 

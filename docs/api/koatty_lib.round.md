@@ -4,7 +4,7 @@
 
 ## round() function
 
-rounding
+Rounding
 
 **Signature:**
 
@@ -62,6 +62,4 @@ number
 **Returns:**
 
 number
-
-{<!-- -->\*<!-- -->}
 

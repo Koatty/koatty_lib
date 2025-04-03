@@ -4,12 +4,12 @@
 
 ## extend() function
 
-So that the target object inherits the source, deep depth is true depth inheritance
+Extends target object with source properties
 
 **Signature:**
 
 ```typescript
-export declare function extend(source: AnyObject, target: AnyObject, deep?: boolean): AnyObject;
+export declare function extend<T extends object, U extends object>(source: T, target: U, deep?: boolean): T & U;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ source
 
 </td><td>
 
-AnyObject
+T
 
 
 </td><td>
@@ -51,7 +51,7 @@ target
 
 </td><td>
 
-AnyObject
+U
 
 
 </td><td>
@@ -77,7 +77,5 @@ _(Optional)_
 </tbody></table>
 **Returns:**
 
-AnyObject
-
-{<!-- -->\*<!-- -->} {<!-- -->AnyObject<!-- -->}
+T &amp; U
 

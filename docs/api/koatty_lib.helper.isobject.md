@@ -4,9 +4,7 @@
 
 ## Helper.isObject() function
 
-Checks if value is a plain object, that is, an object created by the Object constructor or one with a \[\[Prototype\]\] of null.
-
-Note: This method assumes objects created by the Object constructor have no inherited enumerable properties.
+Checks if value is a plain object
 
 **Signature:**
 
@@ -44,7 +42,7 @@ any
 
 </td><td>
 
-_(Optional)_ The value to check.  Returns true if value is a plain object, else false.
+_(Optional)_
 
 
 </td></tr>

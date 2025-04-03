@@ -4,12 +4,12 @@
 
 ## Helper.clone() function
 
-Copy the source, deep deep to true depth copy
+Creates a shallow or deep clone of the source object
 
 **Signature:**
 
 ```typescript
-export declare function clone(source: AnyObject, deep?: boolean): AnyObject;
+export declare function clone<T extends object>(source: T, deep?: boolean): T;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ source
 
 </td><td>
 
-AnyObject
+T
 
 
 </td><td>
@@ -63,7 +63,5 @@ _(Optional)_
 </tbody></table>
 **Returns:**
 
-AnyObject
-
-{<!-- -->\*<!-- -->} {<!-- -->AnyObject<!-- -->}
+T
 

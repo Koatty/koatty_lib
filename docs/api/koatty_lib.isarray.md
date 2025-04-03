@@ -4,7 +4,7 @@
 
 ## isArray variable
 
-Checks if value is classified as an Array object.
+Checks if value is an Array
 
 **Signature:**
 

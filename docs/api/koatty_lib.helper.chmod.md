@@ -4,12 +4,12 @@
 
 ## Helper.chmod() function
 
-Modify the permissions of the file or folder p. Asynchronous mode
+Change file mode
 
 **Signature:**
 
 ```typescript
-export declare function chmod(p: string, mode?: string): Promise<any>;
+export declare function chmod(filePath: string, mode: string | number): Promise<void>;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-p
+filePath
 
 
 </td><td>
@@ -51,19 +51,15 @@ mode
 
 </td><td>
 
-string
+string \| number
 
 
 </td><td>
-
-_(Optional)_
 
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
-Promise&lt;any&gt;
-
-{<!-- -->\*<!-- -->} {<!-- -->Promise<any>}
+Promise&lt;void&gt;
 

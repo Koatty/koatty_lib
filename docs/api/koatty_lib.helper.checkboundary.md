@@ -4,7 +4,7 @@
 
 ## Helper.checkBoundary() function
 
-Check whether the number is out of range, and give a prompt if it is out of range
+Check if number is within safe integer boundary
 
 **Signature:**
 
@@ -42,10 +42,20 @@ number
 
 </td><td>
 
+Number to check
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
 void
+
+## Exceptions
+
+{<!-- -->RangeError<!-- -->} If number exceeds safe integer range
+
+## Example
+
+checkBoundary(Number.MAX\_SAFE\_INTEGER + 1); // throws RangeError
 
