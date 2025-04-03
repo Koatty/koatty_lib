@@ -54,14 +54,28 @@ export function dateTime(date?: number | string | undefined, format?: string, of
     }
 
     if (date && lodash.isNumber(date)) {
-      if (date < 10000000000) {
+  // 处理时间戳类型(秒或毫秒)
+  if (date < 10000000000) { // 2025-04-09 14:13:20 的时间戳为 1743669600 (10位)
         return moment.unix(date).utcOffset(offset).format(format);
       } else {
         return moment(date).utcOffset(offset).format(format);
       }
     }
     if (date && lodash.isString(date)) {
-      return moment(new Date(Date.parse(date))).utcOffset(offset).format(format);
+      // 支持更多日期格式并保持时区一致性
+      const formats = [
+        'YYYY-MM-DD',
+        'YYYY-MM-DD HH:mm:ss',
+        'YYYY-MM-DDTHH:mm:ss.SSSZ',
+        'YYYY/MM/DD HH:mm:ss',
+        'YYYYMMDDHHmmss'
+      ];
+      // 明确指定输入为UTC时间并转换到目标时区
+      const m = moment.utc(date, formats, true).utcOffset(offset);
+      if (m.isValid()) {
+        return m.format(format);
+      }
+      throw new Error(`Invalid date string: ${date}`);
     }
     return moment().utcOffset(offset).format(format);
   }
@@ -78,7 +92,7 @@ export function isDate(value: any): value is Date {
 /**
  * Get timestamp in seconds
  */
-export function timestamp(seconds = false) {
+export function timestamp() {
   const ts = Date.now();
-  return seconds ? Math.floor(ts / 1000) : ts;
+  return Math.floor(ts / 1000);
 }

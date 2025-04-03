@@ -22,7 +22,7 @@ describe('date utils', () => {
         super();
         return mockDate;
       }
-      
+
       static now() {
         return mockDate.getTime();
       }
@@ -68,6 +68,27 @@ describe('date utils', () => {
   describe('datetime', () => {
     it('should be alias of dateTime', () => {
       expect(dateUtils.datetime).toBe(dateUtils.dateTime);
+    });
+  });
+
+  describe('DateTime Edge Cases', () => {
+    it('should handle 10-digit timestamp (seconds)', () => {
+      const result = dateUtils.dateTime(1735689600, 'YYYY-MM-DD HH:mm:ss');
+      expect(result).toBe('2025-01-01 08:00:00');
+    });
+
+    it('should handle 13-digit timestamp (milliseconds)', () => {
+      const result = dateUtils.dateTime(1735689600000, 'YYYY-MM-DD HH:mm:ss');
+      expect(result).toBe('2025-01-01 08:00:00');
+    });
+
+    it('should parse ISO format with T separator', () => {
+      const result = dateUtils.dateTime('2025-01-01T08:00:00.000Z', 'YYYY-MM-DD HH:mm:ss');
+      expect(result).toBe('2025-01-01 08:00:00');
+    });
+
+    it('should throw error for invalid date string', () => {
+      expect(() => dateUtils.dateTime('2025-13-01', 'YYYY-MM-DD')).toThrow();
     });
   });
 
