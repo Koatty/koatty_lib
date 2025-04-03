@@ -10,39 +10,8 @@
 
 
 import _ from 'lodash';
+import { isJSONObj } from './object';
 
-/**
- * Convert string to camelCase/pascalCase
- */
-export function camelCase(input: string, pascalCase = false) {
-  if (!(typeof input === 'string' || Array.isArray(input))) {
-    throw new TypeError('Expected string or string[]');
-  }
-
-  const postProcess = (x: string) => pascalCase ? 
-    x.charAt(0).toUpperCase() + x.slice(1) : x;
-
-  if (Array.isArray(input)) {
-    input = input.map(x => x.trim()).filter(x => x.length).join('-');
-  } else {
-    input = input.trim();
-  }
-
-  if (input.length === 0) return '';
-  if (input.length === 1) return pascalCase ? input.toUpperCase() : input.toLowerCase();
-
-  if (input !== input.toLowerCase()) {
-    input = preserveCamelCase(input);
-  }
-
-  input = input
-    .replace(/^[_.\- ]+/, '')
-    .toLowerCase()
-    .replace(/[_.\- ]+(\w|$)/g, (_, p1) => p1.toUpperCase())
-    .replace(/\d+(\w|$)/g, m => m.toUpperCase());
-
-  return postProcess(input);
-}
 
 function preserveCamelCase(str: string) {
   let isLastCharLower = false;
@@ -81,27 +50,51 @@ export function ucfirst(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+/** @type {*} */
+const htmlMaps: any = {
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quote;',
+  '\'': '&#39;'
+};
+
+/** @type {*} */
+const specialMaps: any = {
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quote;': '"',
+  '&#39;': '\''
+};
 /**
- * Escape HTML special characters
+ * Convert special characters(> < " ') for entity character
+ *
+ * @param {string} value
+ * @returns {*}  {string}
  */
-export function escapeHtml(str: string) {
-  return str.replace(/[&<>"'`]/g, match => {
-    switch (match) {
-      case '&': return '&';
-      case '<': return '<';
-      case '>': return '>';
-      case '"': return '"';
-      case "'": return '&#39;';
-      case '`': return '&#96;';
-      default: return match;
-    }
+export function escapeHtml(value: string): string {
+  return (`${value}`).replace(/[<>'"]/g, function (a) {
+    return htmlMaps[a];
   });
+}
+
+/**
+ * Convert entity value in value to(> < " ')
+ *
+ * @param {string} value
+ * @returns {*}  {string}
+ */
+export function escapeSpecial(value: string): string {
+  // tslint:disable-next-line: forin
+  for (const n in specialMaps) {
+    value = value.replace(new RegExp(n, 'g'), specialMaps[n]);
+  }
+  return value;
 }
 
 /**
  * Generate random string
  */
-export function rand(len = 16) {
+export function randStr(len = 16) {
   const $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
   const maxPos = $chars.length;
   let pwd = '';
@@ -109,4 +102,67 @@ export function rand(len = 16) {
     pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
   }
   return pwd;
+}
+
+/**
+ * Checks if value is a standard JSON string,
+ * must be a string, and can be deserialized as an plain object or array
+ *
+ * @param {string} value
+ * @returns {*}  {boolean}
+ */
+export function isJSONStr(value: string): boolean {
+  if (!_.isString(value)) {
+    return false;
+  }
+  try {
+    return isJSONObj(JSON.parse(value));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * Convert the first letter in the value to uppercase
+ *
+ * @param {string} value
+ * @returns {*}  {string}
+ */
+export function ucFirst(value: string): string {
+  value = _.toString(value || '');
+  return `${value.slice(0, 1).toUpperCase()}${value.slice(1)}`;
+}
+
+/**
+ * convert string to camelCase/pascalCase
+ *
+ * @param {string} input
+ * @param {boolean} [pascalCase=false]
+ * @returns {*}  
+ */
+export function camelCase(input: string, pascalCase = false) {
+  if (!(typeof input === 'string' || Array.isArray(input))) {
+    throw new TypeError('Expected the input to be `string | string[]`');
+  }
+
+  const postProcess = (x: string) => pascalCase ? x.charAt(0).toUpperCase() + x.slice(1) : x;
+  if (Array.isArray(input)) {
+    input = input.map((x) => x.trim()).filter((x) => x.length).join('-');
+  } else {
+    input = input.trim();
+  }
+  if (input.length === 0) {
+    return '';
+  }
+  if (input.length === 1) {
+    return pascalCase ? input.toUpperCase() : input.toLowerCase();
+  }
+  const hasUpperCase = input !== input.toLowerCase();
+  if (hasUpperCase) {
+    input = preserveCamelCase(input);
+  }
+
+  input = input.replace(/^[_.\- ]+/, '').toLowerCase().replace(/[_.\- ]+(\w|$)/g, (_, p1) => p1.toUpperCase()).replace(/\d+(\w|$)/g, (m) => m.toUpperCase());
+  return postProcess(input);
 }

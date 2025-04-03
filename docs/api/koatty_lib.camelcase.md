@@ -4,7 +4,7 @@
 
 ## camelCase() function
 
-Convert string to camelCase/pascalCase
+convert string to camelCase/pascalCase
 
 **Signature:**
 
@@ -64,4 +64,6 @@ _(Optional)_
 **Returns:**
 
 string
+
+{<!-- -->\*<!-- -->}
 

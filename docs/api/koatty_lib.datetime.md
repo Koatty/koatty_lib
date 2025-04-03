@@ -2,68 +2,13 @@
 
 [Home](./index.md) &gt; [koatty\_lib](./koatty_lib.md) &gt; [datetime](./koatty_lib.datetime.md)
 
-## datetime() function
+## datetime variable
 
-Format date time string
+Date time stamp and formatting
+
 
 **Signature:**
 
 ```typescript
-export declare function datetime(format?: string, timestamp?: number): string;
+datetime: typeof dateTime
 ```
-
-## Parameters
-
-<table><thead><tr><th>
-
-Parameter
-
-
-</th><th>
-
-Type
-
-
-</th><th>
-
-Description
-
-
-</th></tr></thead>
-<tbody><tr><td>
-
-format
-
-
-</td><td>
-
-string
-
-
-</td><td>
-
-_(Optional)_
-
-
-</td></tr>
-<tr><td>
-
-timestamp
-
-
-</td><td>
-
-number
-
-
-</td><td>
-
-_(Optional)_
-
-
-</td></tr>
-</tbody></table>
-**Returns:**
-
-string
-

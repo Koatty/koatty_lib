@@ -7,10 +7,18 @@
  * @License: BSD (3-Clause)
  * @Copyright (c): <richenlin(at)gmail.com>
  */
+// import _ from 'lodash';
+
 
 export * from './array';
-export * from './object';
-export * from './number';
-export * from './string';
-export * from './file';
+export * from './crypto';
 export * from './date';
+export * from './file';
+export * from './function';
+export * from './lib';
+export * from './number';
+export * from './object';
+export * from './string';
+
+// export { default } from "lodash";
+

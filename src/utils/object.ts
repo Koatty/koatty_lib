@@ -10,6 +10,8 @@
 
 import _ from 'lodash';
 
+export type AnyObject = object;
+
 /**
  * Creates a shallow or deep clone of the source object
  */
@@ -52,7 +54,13 @@ export function hasOwn(obj: object, property: string) {
 }
 
 /**
- * Checks if value is a plain object
+ * Checks if value is a plain object, that is, an object created by the Object constructor or one with a
+ * [[Prototype]] of null.
+ *
+ * Note: This method assumes objects created by the Object constructor have no inherited enumerable properties.
+ *
+ * @param value The value to check.
+ * @return Returns true if value is a plain object, else false.
  */
 export const isObject = _.isPlainObject;
 
@@ -61,4 +69,59 @@ export const isObject = _.isPlainObject;
  */
 export function isJSONObj(value: any): boolean {
   return _.isPlainObject(value) || _.isArray(value);
+}
+
+/**
+ * Checks if fn is a Class
+ *
+ * @param {AnyObject} obj
+ * @returns {boolean}  
+ */
+export function isClass(func: AnyObject): boolean {
+  return typeof func === 'function'
+    && /^class\s/.test(Function.prototype.toString.call(func));
+}
+
+/**
+ * Checks value is empty,
+ * undefined, null, '', NaN, [], {} and any empty string(including spaces, tabs, formfeeds, etc.), returns true
+ *
+ * @param {*} value
+ * @returns {*}  {boolean}
+ */
+export function isEmpty(value: any): boolean {
+  if (value === undefined || value === null || value === '') {
+    return true;
+  } else if (_.isString(value)) {
+    //\s 匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。
+    return value.replace(/(^\s*)|(\s*$)/g, '').length === 0;
+  } else if (_.isNumber(value)) {
+    return isNaN(value);
+  } else if (_.isArray(value)) {
+    return value.length === 0;
+  } else if (_.isPlainObject(value)) {
+    // for (let key in value) {
+    //     return !key && !0;
+    // }
+    // return true;
+    return Object.keys(value).length === 0;
+  }
+  return false;
+}
+
+/**
+ * Checks value is empty,
+ * do not consider empty objects, empty arrays, spaces, tabs, form breaks, etc.
+ *
+ * @param {*} value
+ * @returns {*}  {boolean}
+ */
+export function isTrueEmpty(value: any): boolean {
+  if (value === undefined || value === null || value === '') {
+    return true;
+  }
+  if (_.isNumber(value)) {
+    return isNaN(value);
+  }
+  return false;
 }

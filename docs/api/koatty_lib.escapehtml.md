@@ -4,12 +4,12 @@
 
 ## escapeHtml() function
 
-Escape HTML special characters
+Convert special characters(<!-- -->&gt; &lt; " ') for entity character
 
 **Signature:**
 
 ```typescript
-export declare function escapeHtml(str: string): string;
+export declare function escapeHtml(value: string): string;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-str
+value
 
 
 </td><td>
@@ -48,4 +48,6 @@ string
 **Returns:**
 
 string
+
+{<!-- -->\*<!-- -->} {<!-- -->string<!-- -->}
 

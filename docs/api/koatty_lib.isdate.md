@@ -4,12 +4,12 @@
 
 ## isDate() function
 
-Check if value is a Date object
+Checks if value is classified as a Date object.
 
 **Signature:**
 
 ```typescript
-export declare function isDate(value: any): value is Date;
+isDate: (value?: any) => value is Date
 ```
 
 ## Parameters
@@ -41,6 +41,10 @@ any
 
 
 </td><td>
+
+_(Optional)_ The value to check.
+
+ Returns true if value is correctly classified, else false.
 
 
 </td></tr>

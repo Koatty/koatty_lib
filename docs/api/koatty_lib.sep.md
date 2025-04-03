@@ -9,5 +9,5 @@ Get path separator
 **Signature:**
 
 ```typescript
-sep: "/" | "\\"
+sep: "\\" | "/"
 ```

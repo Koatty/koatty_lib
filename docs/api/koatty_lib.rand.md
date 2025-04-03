@@ -4,12 +4,12 @@
 
 ## rand() function
 
-Generate random string
+Pseudo-random access min and max range of integers
 
 **Signature:**
 
 ```typescript
-export declare function rand(len?: number): string;
+export declare function rand(min: number, max: number): number;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-len
+min
 
 
 </td><td>
@@ -42,12 +42,26 @@ number
 
 </td><td>
 
-_(Optional)_
+
+</td></tr>
+<tr><td>
+
+max
+
+
+</td><td>
+
+number
+
+
+</td><td>
 
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
-string
+number
+
+{<!-- -->\*<!-- -->} {<!-- -->number<!-- -->}
 
