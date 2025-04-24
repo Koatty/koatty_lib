@@ -7,7 +7,6 @@
  * @License: BSD (3-Clause)
  * @Copyright (c): <richenlin(at)gmail.com>
  */
-import * as helper from "./utils/Helper";
 
-export * from './utils/Helper';
-export const Helper = helper;
+export * from './utils/helper';
+export * as Helper from './utils/helper';
