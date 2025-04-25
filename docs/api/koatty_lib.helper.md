@@ -2,10 +2,1083 @@
 
 [Home](./index.md) &gt; [koatty\_lib](./koatty_lib.md) &gt; [Helper](./koatty_lib.helper.md)
 
-## Helper variable
+## Helper namespace
 
-**Signature:**
+## Functions
 
-```typescript
-Helper: typeof helper
-```
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[arrRemove(arr, index)](./koatty_lib.helper.arrremove.md)
+
+
+</td><td>
+
+Removes the specified index element from the array
+
+
+</td></tr>
+<tr><td>
+
+[arrUnique(arrays)](./koatty_lib.helper.arrunique.md)
+
+
+</td><td>
+
+Creates an array of unique values
+
+
+</td></tr>
+<tr><td>
+
+[camelCase(input, pascalCase)](./koatty_lib.helper.camelcase.md)
+
+
+</td><td>
+
+convert string to camelCase/pascalCase
+
+
+</td></tr>
+<tr><td>
+
+[checkBoundary(num)](./koatty_lib.helper.checkboundary.md)
+
+
+</td><td>
+
+Check if number is within safe integer boundary
+
+
+</td></tr>
+<tr><td>
+
+[chmod(filePath, mode)](./koatty_lib.helper.chmod.md)
+
+
+</td><td>
+
+Change file mode
+
+
+</td></tr>
+<tr><td>
+
+[clone(source, deep)](./koatty_lib.helper.clone.md)
+
+
+</td><td>
+
+Creates a shallow or deep clone of the source object
+
+
+</td></tr>
+<tr><td>
+
+[computeNumber(a, type, b)](./koatty_lib.helper.computenumber.md)
+
+
+</td><td>
+
+Perform precise arithmetic operations to avoid floating point errors
+
+
+</td></tr>
+<tr><td>
+
+[dateTime(date, format, offset)](./koatty_lib.helper.datetime.md)
+
+
+</td><td>
+
+Converts and formats date/time values
+
+
+</td></tr>
+<tr><td>
+
+[define(obj, property, value, setter)](./koatty_lib.helper.define.md)
+
+
+</td><td>
+
+Define object property
+
+
+</td></tr>
+<tr><td>
+
+[divide(x, y)](./koatty_lib.helper.divide.md)
+
+
+</td><td>
+
+Exact division
+
+
+</td></tr>
+<tr><td>
+
+[eq(value, other)](./koatty_lib.helper.eq.md)
+
+
+</td><td>
+
+Performs a \[`SameValueZero`<!-- -->\](http://ecma-international.org/ecma-262/6.0/\#sec-samevaluezero) comparison between two values to determine if they are equivalent.
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[escapeHtml(value)](./koatty_lib.helper.escapehtml.md)
+
+
+</td><td>
+
+Convert special characters(<!-- -->&gt; &lt; " ') for entity character
+
+
+</td></tr>
+<tr><td>
+
+[escapeSpecial(value)](./koatty_lib.helper.escapespecial.md)
+
+
+</td><td>
+
+Convert entity value in value to(<!-- -->&gt; &lt; " ')
+
+
+</td></tr>
+<tr><td>
+
+[extend(source, target, deep)](./koatty_lib.helper.extend.md)
+
+
+</td><td>
+
+Extends target object with source properties
+
+
+</td></tr>
+<tr><td>
+
+[generatorToPromise(fn)](./koatty_lib.helper.generatortopromise.md)
+
+
+</td><td>
+
+Convert GeneratorFunction fn to Promise
+
+
+
+</td></tr>
+<tr><td>
+
+[getDecimalLength(n)](./koatty_lib.helper.getdecimallength.md)
+
+
+</td><td>
+
+获取数字小数点的长度
+
+
+</td></tr>
+<tr><td>
+
+[getDefer()](./koatty_lib.helper.getdefer.md)
+
+
+</td><td>
+
+Get promise deffer object
+
+
+</td></tr>
+<tr><td>
+
+[gt(value, other)](./koatty_lib.helper.gt.md)
+
+
+</td><td>
+
+Checks if value is greater than other.
+
+
+</td></tr>
+<tr><td>
+
+[gte(value, other)](./koatty_lib.helper.gte.md)
+
+
+</td><td>
+
+Checks if value is greater than or equal to other.
+
+
+</td></tr>
+<tr><td>
+
+[hasOwn(obj, property)](./koatty_lib.helper.hasown.md)
+
+
+</td><td>
+
+Checks if object has own property
+
+
+</td></tr>
+<tr><td>
+
+[inArray(value, arr)](./koatty_lib.helper.inarray.md)
+
+
+</td><td>
+
+Checks if value is an element of array (optimized implementation)
+
+
+</td></tr>
+<tr><td>
+
+[isArrayBuffer(value)](./koatty_lib.helper.isarraybuffer.md)
+
+
+</td><td>
+
+Checks if value is classified as an ArrayBuffer object.
+
+
+</td></tr>
+<tr><td>
+
+[isAsyncFunction(fn)](./koatty_lib.helper.isasyncfunction.md)
+
+
+</td><td>
+
+Checks if value is a Async Function
+
+
+
+</td></tr>
+<tr><td>
+
+[isBoolean(value)](./koatty_lib.helper.isboolean.md)
+
+
+</td><td>
+
+Checks if value is classified as a boolean primitive or object.
+
+
+</td></tr>
+<tr><td>
+
+[isBuffer(value)](./koatty_lib.helper.isbuffer.md)
+
+
+</td><td>
+
+Checks if value is a buffer.
+
+
+</td></tr>
+<tr><td>
+
+[isClass(func)](./koatty_lib.helper.isclass.md)
+
+
+</td><td>
+
+Checks if fn is a Class
+
+
+</td></tr>
+<tr><td>
+
+[isDate(value)](./koatty_lib.helper.isdate.md)
+
+
+</td><td>
+
+Check if value is a valid Date object
+
+
+</td></tr>
+<tr><td>
+
+[isDir(filePath)](./koatty_lib.helper.isdir.md)
+
+
+</td><td>
+
+Checks if path is a dir Synchronous mode
+
+
+</td></tr>
+<tr><td>
+
+[isEmpty(value)](./koatty_lib.helper.isempty.md)
+
+
+</td><td>
+
+Checks value is empty, undefined, null, '', NaN, \[\], {<!-- -->} and any empty string(including spaces, tabs, formfeeds, etc.), returns true
+
+
+</td></tr>
+<tr><td>
+
+[isEqual(value, other)](./koatty_lib.helper.isequal.md)
+
+
+</td><td>
+
+Performs a deep comparison between two values to determine if they are equivalent.
+
+\*\*Note:\*\* This method supports comparing arrays, array buffers, booleans, date objects, error objects, maps, numbers, `Object` objects, regexes, sets, strings, symbols, and typed arrays. `Object` objects are compared by their own, not inherited, enumerable properties. Functions and DOM nodes are \*\*not\*\* supported.
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[isError(value)](./koatty_lib.helper.iserror.md)
+
+
+</td><td>
+
+Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError object.
+
+
+</td></tr>
+<tr><td>
+
+[isFile(filePath)](./koatty_lib.helper.isfile.md)
+
+
+</td><td>
+
+Checks if path is a file Synchronous mode
+
+
+</td></tr>
+<tr><td>
+
+[isFunction(value)](./koatty_lib.helper.isfunction.md)
+
+
+</td><td>
+
+Checks if value is a callable function.
+
+
+</td></tr>
+<tr><td>
+
+[isGenerator(fn)](./koatty_lib.helper.isgenerator.md)
+
+
+</td><td>
+
+Checks if fn is a GeneratorFunction
+
+
+
+</td></tr>
+<tr><td>
+
+[isInteger(value)](./koatty_lib.helper.isinteger.md)
+
+
+</td><td>
+
+Checks if `value` is an integer.
+
+\*\*Note:\*\* This method is based on \[`Number.isInteger`<!-- -->\](https://mdn.io/Number/isInteger).
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[isJSONObj(value)](./koatty_lib.helper.isjsonobj.md)
+
+
+</td><td>
+
+Checks if value is a JSON object
+
+
+</td></tr>
+<tr><td>
+
+[isJSONStr(value)](./koatty_lib.helper.isjsonstr.md)
+
+
+</td><td>
+
+Checks if value is a standard JSON string, must be a string, and can be deserialized as an plain object or array
+
+
+</td></tr>
+<tr><td>
+
+[isMap(value)](./koatty_lib.helper.ismap.md)
+
+
+</td><td>
+
+Checks if value is classified as a Map object.
+
+
+</td></tr>
+<tr><td>
+
+[isNaN(value)](./koatty_lib.helper.isnan.md)
+
+
+</td><td>
+
+Checks if value is NaN.
+
+Note: This method is not the same as isNaN which returns true for undefined and other non-numeric values.
+
+
+</td></tr>
+<tr><td>
+
+[isNull(value)](./koatty_lib.helper.isnull.md)
+
+
+</td><td>
+
+Checks if value is null.
+
+
+</td></tr>
+<tr><td>
+
+[isNumber(value)](./koatty_lib.helper.isnumber.md)
+
+
+</td><td>
+
+Checks if value is classified as a Number primitive or object.
+
+Note: To exclude Infinity, -Infinity, and NaN, which are classified as numbers, use the \_.isFinite method.
+
+
+</td></tr>
+<tr><td>
+
+[isNumberString(str)](./koatty_lib.helper.isnumberstring.md)
+
+
+</td><td>
+
+Checks if value is a string that contains only numbers
+
+
+</td></tr>
+<tr><td>
+
+[isObject(value)](./koatty_lib.helper.isobject.md)
+
+
+</td><td>
+
+Checks if value is a plain object, that is, an object created by the Object constructor or one with a \[\[Prototype\]\] of null.
+
+Note: This method assumes objects created by the Object constructor have no inherited enumerable properties.
+
+
+</td></tr>
+<tr><td>
+
+[isPromise(value)](./koatty_lib.helper.ispromise.md)
+
+
+</td><td>
+
+Checks if value is a Promise object
+
+
+
+</td></tr>
+<tr><td>
+
+[isRegExp(value)](./koatty_lib.helper.isregexp.md)
+
+
+</td><td>
+
+Checks if value is classified as a RegExp object.
+
+
+</td></tr>
+<tr><td>
+
+[isSet(value)](./koatty_lib.helper.isset.md)
+
+
+</td><td>
+
+Checks if value is classified as a Set object.
+
+
+</td></tr>
+<tr><td>
+
+[isString(value)](./koatty_lib.helper.isstring.md)
+
+
+</td><td>
+
+Checks if value is classified as a String primitive or object.
+
+
+</td></tr>
+<tr><td>
+
+[isSymbol(value)](./koatty_lib.helper.issymbol.md)
+
+
+</td><td>
+
+Checks if `value` is classified as a `Symbol` primitive or object.
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[isTrueEmpty(value)](./koatty_lib.helper.istrueempty.md)
+
+
+</td><td>
+
+Checks value is empty, do not consider empty objects, empty arrays, spaces, tabs, form breaks, etc.
+
+
+</td></tr>
+<tr><td>
+
+[isUndefined(value)](./koatty_lib.helper.isundefined.md)
+
+
+</td><td>
+
+Checks if value is undefined.
+
+
+</td></tr>
+<tr><td>
+
+[isWritable(p)](./koatty_lib.helper.iswritable.md)
+
+
+</td><td>
+
+Check if path is writable Synchronous mode
+
+
+</td></tr>
+<tr><td>
+
+[lt(value, other)](./koatty_lib.helper.lt.md)
+
+
+</td><td>
+
+Checks if value is less than other.
+
+
+</td></tr>
+<tr><td>
+
+[lte(value, other)](./koatty_lib.helper.lte.md)
+
+
+</td><td>
+
+Checks if value is less than or equal to other.
+
+
+</td></tr>
+<tr><td>
+
+[md5(value)](./koatty_lib.helper.md5.md)
+
+
+</td><td>
+
+Calculate the MD5 hash of value
+
+
+</td></tr>
+<tr><td>
+
+[md5Salt(value, salt)](./koatty_lib.helper.md5salt.md)
+
+
+</td><td>
+
+Calculate the value of MD5 hash value, including simple salt
+
+
+</td></tr>
+<tr><td>
+
+[minus(x, y)](./koatty_lib.helper.minus.md)
+
+
+</td><td>
+
+Exact subtraction
+
+
+</td></tr>
+<tr><td>
+
+[mkdir(dirPath)](./koatty_lib.helper.mkdir.md)
+
+
+</td><td>
+
+Create directory recursively
+
+
+</td></tr>
+<tr><td>
+
+[mkDir(p, mode)](./koatty_lib.helper.mkdir.md)
+
+
+</td><td>
+
+According to the path p to create a folder, p contains multi-level new path will be automatically recursively created. Asynchronous mode
+
+
+</td></tr>
+<tr><td>
+
+[multi(x, y)](./koatty_lib.helper.multi.md)
+
+
+</td><td>
+
+Exact multiplication
+
+
+</td></tr>
+<tr><td>
+
+[murmurHash(value, seed, ver)](./koatty_lib.helper.murmurhash.md)
+
+
+</td><td>
+
+Murmur hash v2/v3
+
+
+</td></tr>
+<tr><td>
+
+[plus(x, y)](./koatty_lib.helper.plus.md)
+
+
+</td><td>
+
+Exact addition
+
+
+</td></tr>
+<tr><td>
+
+[promisify(fn, receiver)](./koatty_lib.helper.promisify.md)
+
+
+</td><td>
+
+Convert callback-style functions to Promises
+
+
+
+</td></tr>
+<tr><td>
+
+[rand(min, max)](./koatty_lib.helper.rand.md)
+
+
+</td><td>
+
+Pseudo-random access min and max range of integers
+
+
+</td></tr>
+<tr><td>
+
+[randStr(len)](./koatty_lib.helper.randstr.md)
+
+
+</td><td>
+
+Generate random string
+
+
+</td></tr>
+<tr><td>
+
+[readdir(dirPath)](./koatty_lib.helper.readdir.md)
+
+
+</td><td>
+
+Read directory contents
+
+
+</td></tr>
+<tr><td>
+
+[readDir(dirPath, filter, prefix)](./koatty_lib.helper.readdir.md)
+
+
+</td><td>
+
+Recursively read directory contents with filtering support
+
+
+</td></tr>
+<tr><td>
+
+[readFile(filePath, encoding)](./koatty_lib.helper.readfile.md)
+
+
+</td><td>
+
+Read file contents
+
+
+</td></tr>
+<tr><td>
+
+[refile(oldPath, newPath)](./koatty_lib.helper.refile.md)
+
+
+</td><td>
+
+Rename file
+
+
+</td></tr>
+<tr><td>
+
+[reFile(fileName, newFileName)](./koatty_lib.helper.refile.md)
+
+
+</td><td>
+
+Rename the file. If newFileName and fileName be not in the same physical path, the move file action will be triggered. Asynchronous mode
+
+
+</td></tr>
+<tr><td>
+
+[rmdir(dirPath)](./koatty_lib.helper.rmdir.md)
+
+
+</td><td>
+
+Remove directory
+
+
+</td></tr>
+<tr><td>
+
+[rmDir(dirPath, removeRoot)](./koatty_lib.helper.rmdir.md)
+
+
+</td><td>
+
+Remove directory recursively
+
+
+</td></tr>
+<tr><td>
+
+[rmfile(filePath)](./koatty_lib.helper.rmfile.md)
+
+
+</td><td>
+
+Remove file
+
+
+</td></tr>
+<tr><td>
+
+[rmFile(p)](./koatty_lib.helper.rmfile.md)
+
+
+</td><td>
+
+Delete the file p. Asynchronous mode
+
+
+</td></tr>
+<tr><td>
+
+[round(num, ratio)](./koatty_lib.helper.round.md)
+
+
+</td><td>
+
+Rounding
+
+
+</td></tr>
+<tr><td>
+
+[safeRequire(file)](./koatty_lib.helper.saferequire.md)
+
+
+</td><td>
+
+Support for es6 module require
+
+
+</td></tr>
+<tr><td>
+
+[timestamp()](./koatty_lib.helper.timestamp.md)
+
+
+</td><td>
+
+Get current timestamp in seconds
+
+
+</td></tr>
+<tr><td>
+
+[toFastProperties(obj)](./koatty_lib.helper.tofastproperties.md)
+
+
+</td><td>
+
+The object obj prototype instance conversion to organize the data structure stored in the object, access to this object in the v8 engine will be faster
+
+
+</td></tr>
+<tr><td>
+
+[toInt(value)](./koatty_lib.helper.toint.md)
+
+
+</td><td>
+
+Converts `value` to an integer.
+
+\*\*Note:\*\* This function is loosely based on \[`ToInteger`<!-- -->\](http://www.ecma-international.org/ecma-262/6.0/\#sec-tointeger).
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[toInteger(value)](./koatty_lib.helper.tointeger.md)
+
+
+</td><td>
+
+Converts `value` to an integer.
+
+\*\*Note:\*\* This function is loosely based on \[`ToInteger`<!-- -->\](http://www.ecma-international.org/ecma-262/6.0/\#sec-tointeger).
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[toNumber(value)](./koatty_lib.helper.tonumber.md)
+
+
+</td><td>
+
+Converts `value` to a number.
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[toObject(value)](./koatty_lib.helper.toobject.md)
+
+
+</td><td>
+
+Converts value to a plain object flattening inherited enumerable properties of value to own properties of the plain object.
+
+
+</td></tr>
+<tr><td>
+
+[toString(value)](./koatty_lib.helper.tostring.md)
+
+
+</td><td>
+
+Converts `value` to a string if it's not one. An empty string is returned for `null` and `undefined` values. The sign of `-0` is preserved.
+
+ Lang
+
+
+</td></tr>
+<tr><td>
+
+[ucfirst(str)](./koatty_lib.helper.ucfirst.md)
+
+
+</td><td>
+
+Convert first letter to uppercase
+
+
+</td></tr>
+<tr><td>
+
+[ucFirst(value)](./koatty_lib.helper.ucfirst.md)
+
+
+</td><td>
+
+Convert the first letter in the value to uppercase
+
+
+</td></tr>
+<tr><td>
+
+[writeFile(filePath, data)](./koatty_lib.helper.writefile.md)
+
+
+</td><td>
+
+Write data to file
+
+
+</td></tr>
+</tbody></table>
+
+## Variables
+
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[datetime](./koatty_lib.helper.datetime.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[isArray](./koatty_lib.helper.isarray.md)
+
+
+</td><td>
+
+Checks if value is an Array
+
+
+</td></tr>
+<tr><td>
+
+[sep](./koatty_lib.helper.sep.md)
+
+
+</td><td>
+
+Get path separator
+
+
+</td></tr>
+<tr><td>
+
+[thinkrequire](./koatty_lib.helper.thinkrequire.md)
+
+
+</td><td>
+
+Support for es6 module require
+
+
+</td></tr>
+<tr><td>
+
+[toArray](./koatty_lib.helper.toarray.md)
+
+
+</td><td>
+
+Converts value to an array.
+
+
+</td></tr>
+</tbody></table>
+
+## Type Aliases
+
+<table><thead><tr><th>
+
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[AnyObject](./koatty_lib.helper.anyobject.md)
+
+
+</td><td>
+
+@<!-- -->Description: Object utility functions @<!-- -->Author: richen @<!-- -->Date: 2025-04-03 10:49:10 @<!-- -->LastEditTime: 2025-04-03 10:49:33 @<!-- -->License: BSD (3-Clause)  (c): &lt;<!-- -->richenlin(at)gmail.com<!-- -->&gt;
+
+
+</td></tr>
+</tbody></table>

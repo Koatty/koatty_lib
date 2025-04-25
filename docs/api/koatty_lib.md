@@ -101,7 +101,7 @@ Perform precise arithmetic operations to avoid floating point errors
 
 </td><td>
 
-Date time stamp and formatting
+Converts and formats date/time values
 
 
 </td></tr>
@@ -314,7 +314,7 @@ Checks if fn is a Class
 
 </td><td>
 
-Check if value is a Date object
+Check if value is a valid Date object
 
 
 </td></tr>
@@ -872,7 +872,7 @@ Support for es6 module require
 
 </td><td>
 
-Get timestamp in seconds
+Get current timestamp in seconds
 
 
 </td></tr>
@@ -989,6 +989,30 @@ Write data to file
 </td></tr>
 </tbody></table>
 
+## Namespaces
+
+<table><thead><tr><th>
+
+Namespace
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Helper](./koatty_lib.helper.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
 <table><thead><tr><th>
@@ -1005,15 +1029,6 @@ Description
 <tbody><tr><td>
 
 [datetime](./koatty_lib.datetime.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[Helper](./koatty_lib.helper.md)
 
 
 </td><td>
