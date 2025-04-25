@@ -1,17 +1,15 @@
 /**
- * @Description: Date time utility functions using date-fns
+ * @Description: Date time utility functions
  * @Author: richen
  * @Date: 2025-04-03 10:51:55
- * @LastEditTime: 2025-04-03 10:52:37
+ * @LastEditTime: 2025-04-25 20:58:06
  * @License: BSD (3-Clause)
  * @Copyright (c): <richenlin(at)gmail.com>
  */
-import { isValid, format as dateFnsFormat, getUnixTime, addHours } from 'date-fns';
+import { isValid, getUnixTime, addHours } from 'date-fns';
 
 /**
- * Convert moment-style format to date-fns format
- * @param format string
- * @returns string
+ * Convert moment-style format to standard format
  */
 const convertFormat = (format: string): string => {
   const formatMap: { [key: string]: string } = {
@@ -26,8 +24,8 @@ const convertFormat = (format: string): string => {
     'MI': 'mm',
     'ss': 'ss',
     'SSS': 'SSS',
-    'a': 'a',
-    'A': 'a'
+    'a': 'A',
+    'A': 'A'
   };
 
   return Object.entries(formatMap).reduce((result, [key, value]) => {
@@ -36,98 +34,121 @@ const convertFormat = (format: string): string => {
 };
 
 /**
- * Parse various date formats
- * @param date string | number | Date
- * @param timeZoneOffset number
- * @returns Date
+ * Format UTC date to string
  */
-const parseDate = (date: string | number | Date, timeZoneOffset = 8): Date => {
+const formatUTCDate = (date: Date, format: string): string => {
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const year = date.getUTCFullYear();
+  const month = pad(date.getUTCMonth() + 1);
+  const day = pad(date.getUTCDate());
+  const hours = pad(date.getUTCHours());
+  const minutes = pad(date.getUTCMinutes());
+  const seconds = pad(date.getUTCSeconds());
+  const milliseconds = pad(date.getUTCMilliseconds());
+
+  const hour12 = pad(parseInt(hours) % 12 || 12);
+  const ampm = parseInt(hours) < 12 ? 'AM' : 'PM';
+
+  let result = format
+    .replace('yyyy', year.toString())
+    .replace('yy', year.toString().slice(-2))
+    .replace('MM', month)
+    .replace('dd', day)
+    .replace('HH', hours)
+    .replace('hh', hour12)
+    .replace('mm', minutes)
+    .replace('ss', seconds)
+    .replace('SSS', milliseconds)
+    .replace('a', ampm)
+    .replace('A', ampm);
+
+  // 处理时区偏移
+  if (date instanceof Date && date.getTimezoneOffset() !== 0) {
+    const offsetHours = Math.abs(Math.floor(date.getTimezoneOffset() / 60));
+    const offsetMinutes = Math.abs(date.getTimezoneOffset() % 60);
+    const offsetSign = date.getTimezoneOffset() > 0 ? '-' : '+';
+    result = result.replace('Z', `${offsetSign}${pad(offsetHours)}:${pad(offsetMinutes)}`);
+  }
+
+  return result;
+};
+
+/**
+ * Parse date string with timezone support
+ */
+const parseDateString = (dateStr: string, offset?: number): Date => {
+  if (dateStr.includes('Z') || dateStr.match(/[+-]\d{2}:?\d{2}$/)) {
+    return new Date(dateStr);
+  }
+
+  const normalized = dateStr
+    .replace(/\//g, '-')
+    .replace('T', ' ')
+    .trim();
+
+  const date = new Date(normalized);
+  if (!isValid(date)) {
+    throw new Error(`Invalid date string: ${dateStr}`);
+  }
+
+  return offset ? addHours(date, offset) : date;
+};
+
+/**
+ * Parse various date formats with timezone support
+ */
+const parseDate = (date: string | number | Date, offset?: number): Date => {
   if (date instanceof Date) {
     return date;
   }
 
   if (typeof date === 'number') {
-    if (date < 10000000000) {
-      // 秒级时间戳 - 转换为毫秒级并应用时区偏移
-      return new Date(date * 1000 + (timeZoneOffset * 60 * 60 * 1000));
-    } else {
-      // 毫秒级时间戳 - 直接应用时区偏移
-      return new Date(date + (timeZoneOffset * 60 * 60 * 1000));
-    }
+    const ms = date < 10000000000 ? date * 1000 : date;
+    return new Date(ms);
   }
 
-  if (typeof date === 'string') {
-    // 处理日期字符串
-    let parsedDate;
-
-    // 检查是否为 ISO 格式 (带 Z 或 +/- 时区的)
-    if (date.includes('Z') || date.match(/[+-]\d{2}:?\d{2}$/)) {
-      parsedDate = new Date(date);
-    } else {
-      // 尝试解析其他格式
-      const normalizedDate = date
-        .replace(/[/]/g, '-')
-        .replace(/[T]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-
-      parsedDate = new Date(normalizedDate);
-    }
-
-    if (!isValid(parsedDate)) {
-      throw new Error(`Invalid date string: ${date}`);
-    }
-
-    // 调整到目标时区
-    return addHours(parsedDate, timeZoneOffset);
-  }
-
-  throw new Error('Invalid date input');
+  return parseDateString(date, offset);
 };
 
 /**
- * Date time stamp and formatting
- * @param date number | string | undefined
- * @param format string
- * @param offset number
- * @returns number | string
+ * Converts and formats date/time values
+ * 
+ * @param date - Unix timestamp, date string or undefined for current time
+ * @param format - Output format string (optional)
+ * @param offset - UTC offset in hours (optional)
+ * @returns Number as unix timestamp or formatted date string
+ * 
+ * @example
+ * ```ts
+ * dateTime() // Returns current unix timestamp
+ * dateTime('2023-01-01', 'YYYY-MM-DD') // Returns formatted date string
+ * dateTime(1672531200, 'YYYY-MM-DD', 8) // Returns formatted date with UTC+8
+ * ```
  */
 export function dateTime(
   date?: number | string | undefined,
   format?: string,
-  offset = 8
+  offset?: number
 ): number | string {
-  // Case 1: Return current timestamp
-  if (format === undefined) {
-    if (typeof date === 'string') {
-      // Convert date string to timestamp
-      const parsedDate = parseDate(date, offset);
-      return getUnixTime(parsedDate);
-    }
+  if (!date && !format) {
     return Math.floor(Date.now() / 1000);
   }
 
-  // Case 2: Format date with specified format
-  const defaultFormat = 'yyyy-MM-dd HH:mm:ss';
-  const dateFormat = format ? convertFormat(format) : defaultFormat;
+  if (!format) {
+    return getUnixTime(parseDate(date as string | number, offset));
+  }
 
   try {
-    let dateObj;
-    if (typeof date === 'number') {
-      // 处理时间戳 - 默认视为 UTC，转换为本地时间
-      const timestamp = date < 10000000000 ? date * 1000 : date;
-      const baseDate = new Date(timestamp);
-      dateObj = addHours(baseDate, offset);
-    } else if (date) {
-      // 处理日期字符串 - 应用指定时区
-      dateObj = parseDate(date, offset);
-    } else {
-      // 当前时间 - 应用指定时区
-      dateObj = parseDate(new Date(), offset);
+    let dateObj = date 
+      ? parseDate(date, 0) // 先解析为UTC时间
+      : new Date();
+    
+    // 应用时区偏移
+    if (offset !== undefined) {
+      dateObj = addHours(dateObj, offset);
     }
-
-    // 直接格式化，parseDate已处理时区
-    return dateFnsFormat(dateObj, dateFormat);
+    
+    return formatUTCDate(dateObj, convertFormat(format));
   } catch (error) {
     throw new Error(`Failed to format date: ${error.message}`);
   }
@@ -136,14 +157,14 @@ export function dateTime(
 export const datetime = dateTime;
 
 /**
- * Check if value is a Date object
+ * Check if value is a valid Date object
  */
-export function isDate(value: any): value is Date {
+export function isDate(value: any): boolean {
   return value instanceof Date && !isNaN(value.getTime());
 }
 
 /**
- * Get timestamp in seconds
+ * Get current timestamp in seconds
  */
 export function timestamp(): number {
   return Math.floor(Date.now() / 1000);
