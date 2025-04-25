@@ -10,38 +10,6 @@
 import * as dateUtils from '../src/utils/date';
 
 describe('date utils', () => {
-  // Mock当前时间为固定UTC+8时间2025-01-01 00:00:00
-  const mockDate = new Date('2025-01-01T00:00:00+08:00');
-  const realDate = Date;
-  const mockTimestamp = Math.floor(mockDate.getTime() / 1000);
-
-  beforeAll(() => {
-    global.Date = class extends realDate {
-      constructor() {
-        super();
-        if (this instanceof global.Date) {
-          return mockDate;
-        }
-        return this;
-      }
-
-      static now() {
-        return mockDate.getTime();
-      }
-      
-      getTime() {
-        return mockDate.getTime();
-      }
-      
-      valueOf() {
-        return mockDate.getTime();
-      }
-    } as any;
-  });
-
-  afterAll(() => {
-    global.Date = realDate;
-  });
 
   describe('dateTime', () => {
     it('should return current timestamp when no params', () => {
@@ -73,16 +41,19 @@ describe('date utils', () => {
     });
     
     it('should handle time zones', () => {
-      // 使用相同的时间戳但不同时区
+      // 使用固定UTC时间戳2025-01-01 00:00:00 (1735689600)
       const utcResult = dateUtils.dateTime(1735689600, 'YYYY-MM-DD HH:mm:ss', 0);
       const asiaResult = dateUtils.dateTime(1735689600, 'YYYY-MM-DD HH:mm:ss', 8);
-      const result = dateUtils.dateTime(1735689600, 'YYYY-MM-DD HH:mm:ss', 8);
-      console.log(utcResult, asiaResult);
-      expect(result).toBe('2025-01-01 08:00:00');
       
-      // 不检查具体时间值，只验证格式和两个结果的差异
+      // UTC+0应保持原时间
+      expect(utcResult).toBe('2025-01-01 00:00:00');
+      // UTC+8应加8小时
+      expect(asiaResult).toBe('2025-01-01 08:00:00');
+      
+      // 验证格式
       expect(utcResult).toMatch(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/);
       expect(asiaResult).toMatch(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/);
+      // 验证两个结果不同
       expect(utcResult).not.toBe(asiaResult);
     });
     
@@ -127,8 +98,7 @@ describe('date utils', () => {
       const dateObj = new Date();
       const invalidDate = new Date('invalid');
       
-      // 调整以适配当前实现
-      expect(dateUtils.isDate(dateObj)).toBe(false);
+      expect(dateUtils.isDate(dateObj)).toBe(true);
       expect(dateUtils.isDate(invalidDate)).toBe(false);
       expect(dateUtils.isDate('2025-01-01')).toBe(false);
       expect(dateUtils.isDate(123456789)).toBe(false);
