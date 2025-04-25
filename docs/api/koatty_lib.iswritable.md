@@ -4,12 +4,12 @@
 
 ## isWritable() function
 
-Check if path is writable (synchronous)
+Check if path is writable Synchronous mode
 
 **Signature:**
 
 ```typescript
-export declare function isWritable(path: string): boolean;
+export declare function isWritable(p: string): boolean;
 ```
 
 ## Parameters
@@ -32,7 +32,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-path
+p
 
 
 </td><td>
@@ -41,8 +41,6 @@ string
 
 
 </td><td>
-
-Path to check
 
 
 </td></tr>

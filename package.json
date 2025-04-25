@@ -68,7 +68,6 @@
     "@rollup/plugin-node-resolve": "^15.x.x",
     "@rollup/plugin-terser": "^0.x.x",
     "@types/co": "^4.x.x",
-    "@types/date-fns": "^2.6.3",
     "@types/jest": "^29.x.x",
     "@types/koa": "^2.x.x",
     "@types/lodash": "^4.x.x",
@@ -96,6 +95,7 @@
   "dependencies": {
     "co": "^4.6.0",
     "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "murmurhash": "^2.0.1"

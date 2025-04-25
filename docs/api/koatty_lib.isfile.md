@@ -4,12 +4,12 @@
 
 ## isFile() function
 
-Check if path is file
+Checks if path is a file Synchronous mode
 
 **Signature:**
 
 ```typescript
-export declare function isFile(filePath: string): Promise<boolean>;
+export declare function isFile(filePath: string): boolean;
 ```
 
 ## Parameters
@@ -47,5 +47,7 @@ string
 </tbody></table>
 **Returns:**
 
-Promise&lt;boolean&gt;
+boolean
+
+{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
 

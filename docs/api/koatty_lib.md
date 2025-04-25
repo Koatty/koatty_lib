@@ -104,7 +104,6 @@ Perform precise arithmetic operations to avoid floating point errors
 Date time stamp and formatting
 
 
-
 </td></tr>
 <tr><td>
 
@@ -315,7 +314,7 @@ Checks if fn is a Class
 
 </td><td>
 
-Checks if value is classified as a Date object.
+Check if value is a Date object
 
 
 </td></tr>
@@ -326,7 +325,7 @@ Checks if value is classified as a Date object.
 
 </td><td>
 
-Check if path is directory
+Checks if path is a dir Synchronous mode
 
 
 </td></tr>
@@ -374,7 +373,7 @@ Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError,
 
 </td><td>
 
-Check if path is file
+Checks if path is a file Synchronous mode
 
 
 </td></tr>
@@ -592,12 +591,12 @@ Checks if value is undefined.
 </td></tr>
 <tr><td>
 
-[isWritable(path)](./koatty_lib.iswritable.md)
+[isWritable(p)](./koatty_lib.iswritable.md)
 
 
 </td><td>
 
-Check if path is writable (synchronous)
+Check if path is writable Synchronous mode
 
 
 </td></tr>
@@ -1009,9 +1008,6 @@ Description
 
 
 </td><td>
-
-Date time stamp and formatting
-
 
 
 </td></tr>

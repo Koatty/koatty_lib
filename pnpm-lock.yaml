@@ -14,6 +14,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      date-fns-tz:
+        specifier: ^3.2.0
+        version: 3.2.0(date-fns@4.1.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -51,9 +54,6 @@ importers:
       '@types/co':
         specifier: ^4.x.x
         version: 4.6.6
-      '@types/date-fns':
-        specifier: ^2.6.3
-        version: 2.6.3
       '@types/jest':
         specifier: ^29.x.x
         version: 29.5.14
@@ -760,10 +760,6 @@ packages:
   '@types/cookies@0.9.0':
     resolution: {integrity: sha512-40Zk8qR147RABiQ7NQnBzWzDcjKzNrntB5BAmeGCb2p/MIyOE+4BVvc17wumsUqUw00bJYqoXFHYygQnEFh4/Q==}
 
-  '@types/date-fns@2.6.3':
-    resolution: {integrity: sha512-Ke1lw2Ni1t/wMUoLtKFmSNCLozcTBd6vmMqFP4hRzXn6qzkNt97bPAX0x5Y/c15DP43kKvwW1ycStD5+43jVQA==}
-    deprecated: This is a stub types definition. date-fns provides its own type definitions, so you do not need this installed.
-
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -1383,6 +1379,11 @@ packages:
   dargs@8.1.0:
     resolution: {integrity: sha512-wAV9QHOsNbwnWdNW2FYvE1P56wtgSbM+3SZcdGiWQILwVjACCXDCI3Ai8QlCjMDB8YK5zySiXZYBiwGmNY3lnw==}
     engines: {node: '>=12'}
+
+  date-fns-tz@3.2.0:
+    resolution: {integrity: sha512-sg8HqoTEulcbbbVXeg84u5UnlsQa8GS5QXMqjjYIhS4abEVVKIUwe0/l/UhrZdKaL/W5eWZNlbTeEIiOXTcsBQ==}
+    peerDependencies:
+      date-fns: ^3.0.0 || ^4.0.0
 
   date-fns@4.1.0:
     resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
@@ -3949,10 +3950,6 @@ snapshots:
       '@types/keygrip': 1.0.6
       '@types/node': 22.9.0
 
-  '@types/date-fns@2.6.3':
-    dependencies:
-      date-fns: 4.1.0
-
   '@types/estree@1.0.6': {}
 
   '@types/express-serve-static-core@5.0.1':
@@ -4718,6 +4715,10 @@ snapshots:
   dargs@7.0.0: {}
 
   dargs@8.1.0: {}
+
+  date-fns-tz@3.2.0(date-fns@4.1.0):
+    dependencies:
+      date-fns: 4.1.0
 
   date-fns@4.1.0: {}
 

@@ -9,7 +9,7 @@ Change file mode
 **Signature:**
 
 ```typescript
-export declare function chmod(filePath: string, mode: string | number): Promise<void>;
+export declare function chmod(filePath: string, mode?: string): Promise<void>;
 ```
 
 ## Parameters
@@ -51,10 +51,12 @@ mode
 
 </td><td>
 
-string \| number
+string
 
 
 </td><td>
+
+_(Optional)_
 
 
 </td></tr>

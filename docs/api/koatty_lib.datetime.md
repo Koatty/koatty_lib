@@ -4,9 +4,6 @@
 
 ## datetime variable
 
-Date time stamp and formatting
-
-
 **Signature:**
 
 ```typescript
