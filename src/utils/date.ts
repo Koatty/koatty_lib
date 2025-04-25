@@ -6,7 +6,7 @@
  * @License: BSD (3-Clause)
  * @Copyright (c): <richenlin(at)gmail.com>
  */
-import { isValid, format as dateFnsFormat, fromUnixTime, getUnixTime, addHours } from 'date-fns';
+import { isValid, format as dateFnsFormat, getUnixTime, addHours } from 'date-fns';
 
 /**
  * Convert moment-style format to date-fns format
@@ -47,17 +47,13 @@ const parseDate = (date: string | number | Date, timeZoneOffset = 8): Date => {
   }
 
   if (typeof date === 'number') {
-    // 处理时间戳（秒或毫秒）
-    let dateObj;
     if (date < 10000000000) {
-      // 秒级时间戳 - 从 UTC 开始
-      dateObj = fromUnixTime(date); // 创建 UTC 日期
+      // 秒级时间戳 - 转换为毫秒级并应用时区偏移
+      return new Date(date * 1000 + (timeZoneOffset * 60 * 60 * 1000));
     } else {
-      // 毫秒级时间戳
-      dateObj = new Date(date);
+      // 毫秒级时间戳 - 直接应用时区偏移
+      return new Date(date + (timeZoneOffset * 60 * 60 * 1000));
     }
-    // 添加时区偏移
-    return addHours(dateObj, timeZoneOffset);
   }
 
   if (typeof date === 'string') {
@@ -116,10 +112,21 @@ export function dateTime(
   const dateFormat = format ? convertFormat(format) : defaultFormat;
 
   try {
-    const dateObj = date
-      ? parseDate(date, offset)
-      : parseDate(new Date(), offset);
+    let dateObj;
+    if (typeof date === 'number') {
+      // 处理时间戳 - 默认视为 UTC，转换为本地时间
+      const timestamp = date < 10000000000 ? date * 1000 : date;
+      const baseDate = new Date(timestamp);
+      dateObj = addHours(baseDate, offset);
+    } else if (date) {
+      // 处理日期字符串 - 应用指定时区
+      dateObj = parseDate(date, offset);
+    } else {
+      // 当前时间 - 应用指定时区
+      dateObj = parseDate(new Date(), offset);
+    }
 
+    // 直接格式化，parseDate已处理时区
     return dateFnsFormat(dateObj, dateFormat);
   } catch (error) {
     throw new Error(`Failed to format date: ${error.message}`);
