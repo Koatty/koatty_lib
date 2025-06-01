@@ -9,35 +9,35 @@
  */
 import { AnyObject } from "./object";
 import _ from "lodash";
-const co = require("co");
+import co from 'co';
 
 /**
  * The object obj prototype instance conversion to organize the data structure stored in the object,
  * access to this object in the v8 engine will be faster
  * @param {AnyObject} obj
  */
-export function toFastProperties(obj: AnyObject) {
-  // eslint-disable-next-line no-empty-function
+export function toFastProperties(obj: AnyObject): void {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const f: any = function f() { };
   f.prototype = obj;
   // tslint:disable-next-line: no-unused-expression
   new f();
 }
 
-interface DeferObject {
-  promise: Promise<any>;
-  resolve: (res: any) => any;
-  reject: (err: any) => any;
+interface DeferObject<T = any> {
+  promise: Promise<T>;
+  resolve: (res: T) => void;
+  reject: (err: any) => void;
 }
 
 /**
  * Get promise deffer object
  *
- * @returns {*}  
+ * @returns {DeferObject<T>}
  */
-export function getDefer(): DeferObject {
+export function getDefer<T = any>(): DeferObject<T> {
   const defer: any = {};
-  defer.promise = new Promise(function (resolve, reject) {
+  defer.promise = new Promise<T>(function (resolve, reject) {
     defer.resolve = resolve;
     defer.reject = reject;
   });
@@ -48,54 +48,60 @@ export function getDefer(): DeferObject {
  * Support for es6 module require
  *
  * @param {string} file
- * @returns {*}  
+ * @returns {any}
  */
-export function safeRequire(file: string) {
+export function safeRequire(file: string): any {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     let obj = require(file);
     obj = (obj && obj.__esModule && obj.default) ? obj.default : obj;
     if (_.isFunction(obj)) {
       obj.prototype.__filename = file;
     }
     return obj;
-  } catch (e) {
-    throw Error(e);
+  } catch (error) {
+    throw new Error(`Failed to require module "${file}": ${error instanceof Error ? error.message : String(error)}`);
   }
 }
 
-
 /**
- * Support for es6 module require
+ * Support for es6 module require (alias for safeRequire)
  *
  * @param {string} file
- * @returns {*}  
+ * @returns {any}
  */
 export const thinkrequire = safeRequire;
-
 
 /**
  * Checks if value is a Promise object
  *
- * @export
- * @param {*} value
- * @returns {*}  {boolean}
+ * @param {unknown} value
+ * @returns {boolean}
  */
-export function isPromise(value: any) {
-  return !!(value && value.catch && typeof value.then === 'function');
+export function isPromise(value: unknown): value is Promise<any> {
+  return !!(value && 
+           typeof value === 'object' && 
+           value !== null &&
+           'then' in value && 
+           typeof (value as any).then === 'function' &&
+           'catch' in value &&
+           typeof (value as any).catch === 'function');
 }
 
 /**
  * Convert callback-style functions to Promises
  *
- * @export
- * @param {Function} fn
- * @param {*} [receiver]
- * @returns {*}  
+ * @param {T} fn - The callback-style function to promisify  
+ * @param {unknown} [receiver] - The receiver object for the function
+ * @returns {(...args: Parameters<T>) => Promise<any>}
  */
-export function promisify(fn: Function, receiver?: any) {
-  return function (...args: any[]) {
+export function promisify<T extends (...args: any[]) => void>(
+  fn: T, 
+  receiver?: unknown
+): (...args: Parameters<T>) => Promise<any> {
+  return function (...args: Parameters<T>): Promise<any> {
     return new Promise(function (resolve, reject) {
-      fn.apply(receiver, [...args, function (err: Error, res: any) {
+      fn.apply(receiver, [...args, function (err: Error | null, res?: any) {
         return err ? reject(err) : resolve(res);
       }]);
     });
@@ -105,39 +111,36 @@ export function promisify(fn: Function, receiver?: any) {
 /**
  * Checks if fn is a GeneratorFunction
  *
- * @export
- * @param {*} fn
- * @returns {*}  {boolean}
+ * @param {unknown} fn
+ * @returns {boolean}
  */
-export function isGenerator(fn: any) {
+export function isGenerator(fn: unknown): fn is GeneratorFunction {
   return !!(fn && typeof fn === 'function' && fn.constructor && fn.constructor.name === 'GeneratorFunction');
 }
 
 /**
  * Checks if value is a Async Function
  *
- * @export
- * @param {*} fn
- * @returns {*}  {boolean}
+ * @param {unknown} fn
+ * @returns {boolean}
  */
-export function isAsyncFunction(fn: any) {
+export function isAsyncFunction(fn: unknown): fn is (...args: any[]) => Promise<any> {
   return !!(fn && typeof fn === 'function' && fn.constructor && 'AsyncFunction' === fn.constructor.name);
 }
 
 /**
  * Convert GeneratorFunction fn to Promise
  *
- * @export
- * @param {*} fn
- * @returns {*}  
+ * @param {unknown} fn
+ * @returns {(...args: any[]) => Promise<any>}
  */
-export function generatorToPromise(fn: any) {
+export function generatorToPromise(fn: unknown): (...args: any[]) => Promise<any> {
   if (typeof fn !== 'function') {
-    throw Error('fn is not a function');
+    throw new Error('fn is not a function');
   }
   if (!isGenerator(fn)) {
     // assume it's Promise-based
-    return fn;
+    return fn as (...args: any[]) => Promise<any>;
   }
   return co.wrap(fn);
 }

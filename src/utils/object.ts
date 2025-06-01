@@ -10,7 +10,10 @@
 
 import _ from 'lodash';
 
-export type AnyObject = object;
+export interface AnyObject {
+  [key: string]: any;
+  [key: number]: any;
+}
 
 /**
  * Creates a shallow or deep clone of the source object
@@ -33,7 +36,7 @@ export function extend<T extends object, U extends object>(
 /**
  * Define object property
  */
-export function define(obj: object, property: string, value: any, setter = false) {
+export function define(obj: object, property: string, value: any, setter = false): void {
   Object.defineProperty(obj, property, setter ? {
     value,
     writable: true,
@@ -49,7 +52,7 @@ export function define(obj: object, property: string, value: any, setter = false
 /**
  * Checks if object has own property
  */
-export function hasOwn(obj: object, property: string) {
+export function hasOwn(obj: object, property: string): boolean {
   return Object.prototype.hasOwnProperty.call(obj, property);
 }
 
@@ -67,17 +70,17 @@ export const isObject = _.isPlainObject;
 /**
  * Checks if value is a JSON object
  */
-export function isJSONObj(value: any): boolean {
+export function isJSONObj(value: unknown): value is object | any[] {
   return _.isPlainObject(value) || _.isArray(value);
 }
 
 /**
  * Checks if fn is a Class
  *
- * @param {AnyObject} obj
+ * @param {unknown} func
  * @returns {boolean}  
  */
-export function isClass(func: AnyObject): boolean {
+export function isClass(func: unknown): func is new (...args: any[]) => any {
   return typeof func === 'function'
     && /^class\s/.test(Function.prototype.toString.call(func));
 }
@@ -86,10 +89,10 @@ export function isClass(func: AnyObject): boolean {
  * Checks value is empty,
  * undefined, null, '', NaN, [], {} and any empty string(including spaces, tabs, formfeeds, etc.), returns true
  *
- * @param {*} value
- * @returns {*}  {boolean}
+ * @param {unknown} value
+ * @returns {boolean}
  */
-export function isEmpty(value: any): boolean {
+export function isEmpty(value: unknown): boolean {
   if (value === undefined || value === null || value === '') {
     return true;
   } else if (_.isString(value)) {
@@ -113,10 +116,10 @@ export function isEmpty(value: any): boolean {
  * Checks value is empty,
  * do not consider empty objects, empty arrays, spaces, tabs, form breaks, etc.
  *
- * @param {*} value
- * @returns {*}  {boolean}
+ * @param {unknown} value
+ * @returns {boolean}
  */
-export function isTrueEmpty(value: any): boolean {
+export function isTrueEmpty(value: unknown): boolean {
   if (value === undefined || value === null || value === '') {
     return true;
   }

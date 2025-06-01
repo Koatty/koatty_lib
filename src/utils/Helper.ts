@@ -9,16 +9,45 @@
  */
 // import _ from 'lodash';
 
-
 export * from './array';
 export * from './crypto';
 export * from './date';
 export * from './file';
 export * from './function';
-export * from './lib';
 export * from './number';
 export * from './object';
 export * from './string';
 
-// export { default } from "lodash";
+export {
+  eq,
+  isEqual,
+  gt,
+  gte,
+  lt,
+  lte,
+  isArray,
+  isDate,
+  isArrayBuffer,
+  isBoolean,
+  isString,
+  isBuffer,
+  isNumber,
+  isInteger,
+  isObject,
+  isError,
+  isFunction,
+  isSymbol,
+  isSet,
+  isMap,
+  isNaN,
+  isUndefined,
+  isNull,
+  isRegExp,
+  toArray,
+  toInteger as toInt,
+  toInteger,
+  toNumber,
+  toPlainObject as toObject,
+  toString
+} from "lodash";
 

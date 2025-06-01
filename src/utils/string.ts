@@ -8,12 +8,10 @@
  * @Copyright (c): <richenlin(at)gmail.com>
  */
 
-
 import _ from 'lodash';
 import { isJSONObj } from './object';
 
-
-function preserveCamelCase(str: string) {
+function preserveCamelCase(str: string): string {
   let isLastCharLower = false;
   let isLastCharUpper = false;
   let isLastLastCharUpper = false;
@@ -43,33 +41,38 @@ function preserveCamelCase(str: string) {
   return str;
 }
 
-/**
- * Convert first letter to uppercase
- */
-export function ucfirst(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-/** @type {*} */
-const htmlMaps: any = {
+// HTML转义映射
+const htmlMaps: Record<string, string> = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quote;',
   '\'': '&#39;'
-};
+} as const;
 
-/** @type {*} */
-const specialMaps: any = {
+// 特殊字符映射
+const specialMaps: Record<string, string> = {
   '&lt;': '<',
   '&gt;': '>',
   '&quote;': '"',
   '&#39;': '\''
-};
+} as const;
+
+/**
+ * Convert the first letter in the value to uppercase
+ *
+ * @param {string} value
+ * @returns {string}
+ */
+export function ucFirst(value: string): string {
+  const str = _.toString(value || '');
+  return `${str.slice(0, 1).toUpperCase()}${str.slice(1)}`;
+}
+
 /**
  * Convert special characters(> < " ') for entity character
  *
  * @param {string} value
- * @returns {*}  {string}
+ * @returns {string}
  */
 export function escapeHtml(value: string): string {
   return (`${value}`).replace(/[<>'"]/g, function (a) {
@@ -81,10 +84,9 @@ export function escapeHtml(value: string): string {
  * Convert entity value in value to(> < " ')
  *
  * @param {string} value
- * @returns {*}  {string}
+ * @returns {string}
  */
 export function escapeSpecial(value: string): string {
-  // tslint:disable-next-line: forin
   for (const n in specialMaps) {
     value = value.replace(new RegExp(n, 'g'), specialMaps[n]);
   }
@@ -93,8 +95,11 @@ export function escapeSpecial(value: string): string {
 
 /**
  * Generate random string
+ *
+ * @param {number} [len=16]
+ * @returns {string}
  */
-export function randStr(len = 16) {
+export function randStr(len = 16): string {
   const $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
   const maxPos = $chars.length;
   let pwd = '';
@@ -108,10 +113,10 @@ export function randStr(len = 16) {
  * Checks if value is a standard JSON string,
  * must be a string, and can be deserialized as an plain object or array
  *
- * @param {string} value
- * @returns {*}  {boolean}
+ * @param {unknown} value
+ * @returns {boolean}
  */
-export function isJSONStr(value: string): boolean {
+export function isJSONStr(value: unknown): value is string {
   if (!_.isString(value)) {
     return false;
   }
@@ -124,45 +129,43 @@ export function isJSONStr(value: string): boolean {
 }
 
 /**
- * Convert the first letter in the value to uppercase
- *
- * @param {string} value
- * @returns {*}  {string}
- */
-export function ucFirst(value: string): string {
-  value = _.toString(value || '');
-  return `${value.slice(0, 1).toUpperCase()}${value.slice(1)}`;
-}
-
-/**
  * convert string to camelCase/pascalCase
  *
- * @param {string} input
+ * @param {string | string[]} input
  * @param {boolean} [pascalCase=false]
- * @returns {*}  
+ * @returns {string}
  */
-export function camelCase(input: string, pascalCase = false) {
+export function camelCase(input: string | string[], pascalCase = false): string {
   if (!(typeof input === 'string' || Array.isArray(input))) {
     throw new TypeError('Expected the input to be `string | string[]`');
   }
 
   const postProcess = (x: string) => pascalCase ? x.charAt(0).toUpperCase() + x.slice(1) : x;
+  
+  let processedInput: string;
   if (Array.isArray(input)) {
-    input = input.map((x) => x.trim()).filter((x) => x.length).join('-');
+    processedInput = input.map((x) => x.trim()).filter((x) => x.length).join('-');
   } else {
-    input = input.trim();
+    processedInput = input.trim();
   }
-  if (input.length === 0) {
+  
+  if (processedInput.length === 0) {
     return '';
   }
-  if (input.length === 1) {
-    return pascalCase ? input.toUpperCase() : input.toLowerCase();
+  if (processedInput.length === 1) {
+    return pascalCase ? processedInput.toUpperCase() : processedInput.toLowerCase();
   }
-  const hasUpperCase = input !== input.toLowerCase();
+  
+  const hasUpperCase = processedInput !== processedInput.toLowerCase();
   if (hasUpperCase) {
-    input = preserveCamelCase(input);
+    processedInput = preserveCamelCase(processedInput);
   }
 
-  input = input.replace(/^[_.\- ]+/, '').toLowerCase().replace(/[_.\- ]+(\w|$)/g, (_, p1) => p1.toUpperCase()).replace(/\d+(\w|$)/g, (m) => m.toUpperCase());
-  return postProcess(input);
+  processedInput = processedInput
+    .replace(/^[_.\- ]+/, '')
+    .toLowerCase()
+    .replace(/[_.\- ]+(\w|$)/g, (_, p1) => p1.toUpperCase())
+    .replace(/\d+(\w|$)/g, (m) => m.toUpperCase());
+    
+  return postProcess(processedInput);
 }
