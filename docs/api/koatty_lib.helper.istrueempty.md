@@ -9,7 +9,7 @@ Checks value is empty, do not consider empty objects, empty arrays, spaces, tabs
 **Signature:**
 
 ```typescript
-export declare function isTrueEmpty(value: any): boolean;
+export declare function isTrueEmpty(value: unknown): boolean;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ value
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
@@ -49,5 +49,5 @@ any
 
 boolean
 
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
+{<!-- -->boolean<!-- -->}
 

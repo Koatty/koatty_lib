@@ -2,12 +2,12 @@
 
 [Home](./index.md) &gt; [koatty\_lib](./koatty_lib.md) &gt; [Helper](./koatty_lib.helper.md) &gt; [AnyObject](./koatty_lib.helper.anyobject.md)
 
-## Helper.AnyObject type
+## Helper.AnyObject interface
 
 @<!-- -->Description: Object utility functions @<!-- -->Author: richen @<!-- -->Date: 2025-04-03 10:49:10 @<!-- -->LastEditTime: 2025-04-03 10:49:33 @<!-- -->License: BSD (3-Clause)  (c): &lt;<!-- -->richenlin(at)gmail.com<!-- -->&gt;
 
 **Signature:**
 
 ```typescript
-export type AnyObject = object;
+export interface AnyObject 
 ```

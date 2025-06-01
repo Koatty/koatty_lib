@@ -4,7 +4,7 @@
 
 ## Helper.thinkrequire variable
 
-Support for es6 module require
+Support for es6 module require (alias for safeRequire)
 
 **Signature:**
 

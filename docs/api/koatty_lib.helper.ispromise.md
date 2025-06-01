@@ -6,11 +6,10 @@
 
 Checks if value is a Promise object
 
-
 **Signature:**
 
 ```typescript
-export declare function isPromise(value: any): boolean;
+export declare function isPromise(value: unknown): value is Promise<any>;
 ```
 
 ## Parameters
@@ -38,7 +37,7 @@ value
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
@@ -48,7 +47,7 @@ any
 </tbody></table>
 **Returns:**
 
-boolean
+value is Promise&lt;any&gt;
 
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
+{<!-- -->boolean<!-- -->}
 

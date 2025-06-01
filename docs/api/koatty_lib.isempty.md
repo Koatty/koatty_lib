@@ -9,7 +9,7 @@ Checks value is empty, undefined, null, '', NaN, \[\], {<!-- -->} and any empty 
 **Signature:**
 
 ```typescript
-export declare function isEmpty(value: any): boolean;
+export declare function isEmpty(value: unknown): boolean;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ value
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
@@ -49,5 +49,5 @@ any
 
 boolean
 
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
+{<!-- -->boolean<!-- -->}
 

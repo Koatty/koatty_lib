@@ -9,7 +9,7 @@ Checks if fn is a Class
 **Signature:**
 
 ```typescript
-export declare function isClass(func: AnyObject): boolean;
+export declare function isClass(func: unknown): func is new (...args: any[]) => any;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ func
 
 </td><td>
 
-[AnyObject](./koatty_lib.anyobject.md)
+unknown
 
 
 </td><td>
@@ -47,7 +47,7 @@ func
 </tbody></table>
 **Returns:**
 
-boolean
+func is new (...args: any\[\]) =&gt; any
 
 {<!-- -->boolean<!-- -->}
 

@@ -9,7 +9,7 @@ Checks if object has own property
 **Signature:**
 
 ```typescript
-export declare function hasOwn(obj: object, property: string): any;
+export declare function hasOwn(obj: object, property: string): boolean;
 ```
 
 ## Parameters
@@ -61,5 +61,5 @@ string
 </tbody></table>
 **Returns:**
 
-any
+boolean
 

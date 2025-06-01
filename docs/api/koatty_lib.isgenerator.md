@@ -6,11 +6,10 @@
 
 Checks if fn is a GeneratorFunction
 
-
 **Signature:**
 
 ```typescript
-export declare function isGenerator(fn: any): boolean;
+export declare function isGenerator(fn: unknown): fn is GeneratorFunction;
 ```
 
 ## Parameters
@@ -38,7 +37,7 @@ fn
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
@@ -48,7 +47,7 @@ any
 </tbody></table>
 **Returns:**
 
-boolean
+fn is GeneratorFunction
 
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
+{<!-- -->boolean<!-- -->}
 

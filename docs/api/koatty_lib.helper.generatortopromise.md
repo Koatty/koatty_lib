@@ -6,11 +6,10 @@
 
 Convert GeneratorFunction fn to Promise
 
-
 **Signature:**
 
 ```typescript
-export declare function generatorToPromise(fn: any): any;
+export declare function generatorToPromise(fn: unknown): (...args: any[]) => Promise<any>;
 ```
 
 ## Parameters
@@ -38,7 +37,7 @@ fn
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
@@ -48,7 +47,7 @@ any
 </tbody></table>
 **Returns:**
 
-any
+(...args: any\[\]) =&gt; Promise&lt;any&gt;
 
-{<!-- -->\*<!-- -->}
+{<!-- -->(...args: any\[\]) =<!-- -->&gt; Promise<any>}
 

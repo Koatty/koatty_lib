@@ -129,19 +129,6 @@ Exact division
 </td></tr>
 <tr><td>
 
-[eq(value, other)](./koatty_lib.helper.eq.md)
-
-
-</td><td>
-
-Performs a \[`SameValueZero`<!-- -->\](http://ecma-international.org/ecma-262/6.0/\#sec-samevaluezero) comparison between two values to determine if they are equivalent.
-
- Lang
-
-
-</td></tr>
-<tr><td>
-
 [escapeHtml(value)](./koatty_lib.helper.escapehtml.md)
 
 
@@ -183,7 +170,6 @@ Extends target object with source properties
 Convert GeneratorFunction fn to Promise
 
 
-
 </td></tr>
 <tr><td>
 
@@ -204,28 +190,6 @@ Convert GeneratorFunction fn to Promise
 </td><td>
 
 Get promise deffer object
-
-
-</td></tr>
-<tr><td>
-
-[gt(value, other)](./koatty_lib.helper.gt.md)
-
-
-</td><td>
-
-Checks if value is greater than other.
-
-
-</td></tr>
-<tr><td>
-
-[gte(value, other)](./koatty_lib.helper.gte.md)
-
-
-</td><td>
-
-Checks if value is greater than or equal to other.
 
 
 </td></tr>
@@ -253,46 +217,12 @@ Checks if value is an element of array (optimized implementation)
 </td></tr>
 <tr><td>
 
-[isArrayBuffer(value)](./koatty_lib.helper.isarraybuffer.md)
-
-
-</td><td>
-
-Checks if value is classified as an ArrayBuffer object.
-
-
-</td></tr>
-<tr><td>
-
 [isAsyncFunction(fn)](./koatty_lib.helper.isasyncfunction.md)
 
 
 </td><td>
 
 Checks if value is a Async Function
-
-
-
-</td></tr>
-<tr><td>
-
-[isBoolean(value)](./koatty_lib.helper.isboolean.md)
-
-
-</td><td>
-
-Checks if value is classified as a boolean primitive or object.
-
-
-</td></tr>
-<tr><td>
-
-[isBuffer(value)](./koatty_lib.helper.isbuffer.md)
-
-
-</td><td>
-
-Checks if value is a buffer.
 
 
 </td></tr>
@@ -304,17 +234,6 @@ Checks if value is a buffer.
 </td><td>
 
 Checks if fn is a Class
-
-
-</td></tr>
-<tr><td>
-
-[isDate(value)](./koatty_lib.helper.isdate.md)
-
-
-</td><td>
-
-Check if value is a valid Date object
 
 
 </td></tr>
@@ -342,32 +261,6 @@ Checks value is empty, undefined, null, '', NaN, \[\], {<!-- -->} and any empty 
 </td></tr>
 <tr><td>
 
-[isEqual(value, other)](./koatty_lib.helper.isequal.md)
-
-
-</td><td>
-
-Performs a deep comparison between two values to determine if they are equivalent.
-
-\*\*Note:\*\* This method supports comparing arrays, array buffers, booleans, date objects, error objects, maps, numbers, `Object` objects, regexes, sets, strings, symbols, and typed arrays. `Object` objects are compared by their own, not inherited, enumerable properties. Functions and DOM nodes are \*\*not\*\* supported.
-
- Lang
-
-
-</td></tr>
-<tr><td>
-
-[isError(value)](./koatty_lib.helper.iserror.md)
-
-
-</td><td>
-
-Checks if value is an Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, or URIError object.
-
-
-</td></tr>
-<tr><td>
-
 [isFile(filePath)](./koatty_lib.helper.isfile.md)
 
 
@@ -379,39 +272,12 @@ Checks if path is a file Synchronous mode
 </td></tr>
 <tr><td>
 
-[isFunction(value)](./koatty_lib.helper.isfunction.md)
-
-
-</td><td>
-
-Checks if value is a callable function.
-
-
-</td></tr>
-<tr><td>
-
 [isGenerator(fn)](./koatty_lib.helper.isgenerator.md)
 
 
 </td><td>
 
 Checks if fn is a GeneratorFunction
-
-
-
-</td></tr>
-<tr><td>
-
-[isInteger(value)](./koatty_lib.helper.isinteger.md)
-
-
-</td><td>
-
-Checks if `value` is an integer.
-
-\*\*Note:\*\* This method is based on \[`Number.isInteger`<!-- -->\](https://mdn.io/Number/isInteger).
-
- Lang
 
 
 </td></tr>
@@ -439,54 +305,6 @@ Checks if value is a standard JSON string, must be a string, and can be deserial
 </td></tr>
 <tr><td>
 
-[isMap(value)](./koatty_lib.helper.ismap.md)
-
-
-</td><td>
-
-Checks if value is classified as a Map object.
-
-
-</td></tr>
-<tr><td>
-
-[isNaN(value)](./koatty_lib.helper.isnan.md)
-
-
-</td><td>
-
-Checks if value is NaN.
-
-Note: This method is not the same as isNaN which returns true for undefined and other non-numeric values.
-
-
-</td></tr>
-<tr><td>
-
-[isNull(value)](./koatty_lib.helper.isnull.md)
-
-
-</td><td>
-
-Checks if value is null.
-
-
-</td></tr>
-<tr><td>
-
-[isNumber(value)](./koatty_lib.helper.isnumber.md)
-
-
-</td><td>
-
-Checks if value is classified as a Number primitive or object.
-
-Note: To exclude Infinity, -Infinity, and NaN, which are classified as numbers, use the \_.isFinite method.
-
-
-</td></tr>
-<tr><td>
-
 [isNumberString(str)](./koatty_lib.helper.isnumberstring.md)
 
 
@@ -498,72 +316,12 @@ Checks if value is a string that contains only numbers
 </td></tr>
 <tr><td>
 
-[isObject(value)](./koatty_lib.helper.isobject.md)
-
-
-</td><td>
-
-Checks if value is a plain object, that is, an object created by the Object constructor or one with a \[\[Prototype\]\] of null.
-
-Note: This method assumes objects created by the Object constructor have no inherited enumerable properties.
-
-
-</td></tr>
-<tr><td>
-
 [isPromise(value)](./koatty_lib.helper.ispromise.md)
 
 
 </td><td>
 
 Checks if value is a Promise object
-
-
-
-</td></tr>
-<tr><td>
-
-[isRegExp(value)](./koatty_lib.helper.isregexp.md)
-
-
-</td><td>
-
-Checks if value is classified as a RegExp object.
-
-
-</td></tr>
-<tr><td>
-
-[isSet(value)](./koatty_lib.helper.isset.md)
-
-
-</td><td>
-
-Checks if value is classified as a Set object.
-
-
-</td></tr>
-<tr><td>
-
-[isString(value)](./koatty_lib.helper.isstring.md)
-
-
-</td><td>
-
-Checks if value is classified as a String primitive or object.
-
-
-</td></tr>
-<tr><td>
-
-[isSymbol(value)](./koatty_lib.helper.issymbol.md)
-
-
-</td><td>
-
-Checks if `value` is classified as a `Symbol` primitive or object.
-
- Lang
 
 
 </td></tr>
@@ -580,45 +338,12 @@ Checks value is empty, do not consider empty objects, empty arrays, spaces, tabs
 </td></tr>
 <tr><td>
 
-[isUndefined(value)](./koatty_lib.helper.isundefined.md)
-
-
-</td><td>
-
-Checks if value is undefined.
-
-
-</td></tr>
-<tr><td>
-
 [isWritable(p)](./koatty_lib.helper.iswritable.md)
 
 
 </td><td>
 
 Check if path is writable Synchronous mode
-
-
-</td></tr>
-<tr><td>
-
-[lt(value, other)](./koatty_lib.helper.lt.md)
-
-
-</td><td>
-
-Checks if value is less than other.
-
-
-</td></tr>
-<tr><td>
-
-[lte(value, other)](./koatty_lib.helper.lte.md)
-
-
-</td><td>
-
-Checks if value is less than or equal to other.
 
 
 </td></tr>
@@ -718,7 +443,6 @@ Exact addition
 </td><td>
 
 Convert callback-style functions to Promises
-
 
 
 </td></tr>
@@ -889,84 +613,6 @@ The object obj prototype instance conversion to organize the data structure stor
 </td></tr>
 <tr><td>
 
-[toInt(value)](./koatty_lib.helper.toint.md)
-
-
-</td><td>
-
-Converts `value` to an integer.
-
-\*\*Note:\*\* This function is loosely based on \[`ToInteger`<!-- -->\](http://www.ecma-international.org/ecma-262/6.0/\#sec-tointeger).
-
- Lang
-
-
-</td></tr>
-<tr><td>
-
-[toInteger(value)](./koatty_lib.helper.tointeger.md)
-
-
-</td><td>
-
-Converts `value` to an integer.
-
-\*\*Note:\*\* This function is loosely based on \[`ToInteger`<!-- -->\](http://www.ecma-international.org/ecma-262/6.0/\#sec-tointeger).
-
- Lang
-
-
-</td></tr>
-<tr><td>
-
-[toNumber(value)](./koatty_lib.helper.tonumber.md)
-
-
-</td><td>
-
-Converts `value` to a number.
-
- Lang
-
-
-</td></tr>
-<tr><td>
-
-[toObject(value)](./koatty_lib.helper.toobject.md)
-
-
-</td><td>
-
-Converts value to a plain object flattening inherited enumerable properties of value to own properties of the plain object.
-
-
-</td></tr>
-<tr><td>
-
-[toString(value)](./koatty_lib.helper.tostring.md)
-
-
-</td><td>
-
-Converts `value` to a string if it's not one. An empty string is returned for `null` and `undefined` values. The sign of `-0` is preserved.
-
- Lang
-
-
-</td></tr>
-<tr><td>
-
-[ucfirst(str)](./koatty_lib.helper.ucfirst.md)
-
-
-</td><td>
-
-Convert first letter to uppercase
-
-
-</td></tr>
-<tr><td>
-
 [ucFirst(value)](./koatty_lib.helper.ucfirst.md)
 
 
@@ -984,6 +630,32 @@ Convert the first letter in the value to uppercase
 </td><td>
 
 Write data to file
+
+
+</td></tr>
+</tbody></table>
+
+## Interfaces
+
+<table><thead><tr><th>
+
+Interface
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[AnyObject](./koatty_lib.helper.anyobject.md)
+
+
+</td><td>
+
+@<!-- -->Description: Object utility functions @<!-- -->Author: richen @<!-- -->Date: 2025-04-03 10:49:10 @<!-- -->LastEditTime: 2025-04-03 10:49:33 @<!-- -->License: BSD (3-Clause)  (c): &lt;<!-- -->richenlin(at)gmail.com<!-- -->&gt;
 
 
 </td></tr>
@@ -1013,17 +685,6 @@ Description
 </td></tr>
 <tr><td>
 
-[isArray](./koatty_lib.helper.isarray.md)
-
-
-</td><td>
-
-Checks if value is an Array
-
-
-</td></tr>
-<tr><td>
-
 [sep](./koatty_lib.helper.sep.md)
 
 
@@ -1040,44 +701,7 @@ Get path separator
 
 </td><td>
 
-Support for es6 module require
-
-
-</td></tr>
-<tr><td>
-
-[toArray](./koatty_lib.helper.toarray.md)
-
-
-</td><td>
-
-Converts value to an array.
-
-
-</td></tr>
-</tbody></table>
-
-## Type Aliases
-
-<table><thead><tr><th>
-
-Type Alias
-
-
-</th><th>
-
-Description
-
-
-</th></tr></thead>
-<tbody><tr><td>
-
-[AnyObject](./koatty_lib.helper.anyobject.md)
-
-
-</td><td>
-
-@<!-- -->Description: Object utility functions @<!-- -->Author: richen @<!-- -->Date: 2025-04-03 10:49:10 @<!-- -->LastEditTime: 2025-04-03 10:49:33 @<!-- -->License: BSD (3-Clause)  (c): &lt;<!-- -->richenlin(at)gmail.com<!-- -->&gt;
+Support for es6 module require (alias for safeRequire)
 
 
 </td></tr>

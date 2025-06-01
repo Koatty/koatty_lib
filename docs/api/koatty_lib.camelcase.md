@@ -9,7 +9,7 @@ convert string to camelCase/pascalCase
 **Signature:**
 
 ```typescript
-export declare function camelCase(input: string, pascalCase?: boolean): string;
+export declare function camelCase(input: string | string[], pascalCase?: boolean): string;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ input
 
 </td><td>
 
-string
+string \| string\[\]
 
 
 </td><td>
@@ -65,5 +65,5 @@ _(Optional)_
 
 string
 
-{<!-- -->\*<!-- -->}
+{<!-- -->string<!-- -->}
 

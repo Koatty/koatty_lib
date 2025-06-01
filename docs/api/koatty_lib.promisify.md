@@ -6,11 +6,10 @@
 
 Convert callback-style functions to Promises
 
-
 **Signature:**
 
 ```typescript
-export declare function promisify(fn: Function, receiver?: any): (...args: any[]) => Promise<unknown>;
+export declare function promisify<T extends (...args: any[]) => void>(fn: T, receiver?: unknown): (...args: Parameters<T>) => Promise<any>;
 ```
 
 ## Parameters
@@ -38,10 +37,12 @@ fn
 
 </td><td>
 
-Function
+T
 
 
 </td><td>
+
+The callback-style function to promisify
 
 
 </td></tr>
@@ -52,19 +53,19 @@ receiver
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ The receiver object for the function
 
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
-(...args: any\[\]) =&gt; Promise&lt;unknown&gt;
+(...args: Parameters&lt;T&gt;) =&gt; Promise&lt;any&gt;
 
-{<!-- -->\*<!-- -->}
+{<!-- -->(...args: Parameters<T>) =<!-- -->&gt; Promise<any>}
 

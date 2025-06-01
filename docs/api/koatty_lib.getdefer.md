@@ -9,11 +9,11 @@ Get promise deffer object
 **Signature:**
 
 ```typescript
-export declare function getDefer(): DeferObject;
+export declare function getDefer<T = any>(): DeferObject<T>;
 ```
 **Returns:**
 
-DeferObject
+DeferObject&lt;T&gt;
 
-{<!-- -->\*<!-- -->}
+{<!-- -->DeferObject<T>}
 

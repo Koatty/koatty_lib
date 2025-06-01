@@ -9,7 +9,7 @@ Checks if value is an element of array (optimized implementation)
 **Signature:**
 
 ```typescript
-export declare function inArray(value: any, arr: any[]): boolean;
+export declare function inArray<T>(value: T, arr: T[]): boolean;
 ```
 
 ## Parameters
@@ -37,10 +37,12 @@ value
 
 </td><td>
 
-any
+T
 
 
 </td><td>
+
+The value to search for
 
 
 </td></tr>
@@ -51,10 +53,12 @@ arr
 
 </td><td>
 
-any\[\]
+T\[\]
 
 
 </td><td>
+
+The array to search in
 
 
 </td></tr>
@@ -62,4 +66,6 @@ any\[\]
 **Returns:**
 
 boolean
+
+{<!-- -->boolean<!-- -->} True if value is found in array
 

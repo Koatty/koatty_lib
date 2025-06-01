@@ -9,7 +9,7 @@ Removes the specified index element from the array
 **Signature:**
 
 ```typescript
-export declare function arrRemove(arr: any[], index: number): any[];
+export declare function arrRemove<T>(arr: T[], index: number): T[];
 ```
 
 ## Parameters
@@ -37,10 +37,12 @@ arr
 
 </td><td>
 
-any\[\]
+T\[\]
 
 
 </td><td>
+
+The array to modify
 
 
 </td></tr>
@@ -56,10 +58,14 @@ number
 
 </td><td>
 
+The index to remove
+
 
 </td></tr>
 </tbody></table>
 **Returns:**
 
-any\[\]
+T\[\]
+
+{<!-- -->T\[\]<!-- -->} The modified array
 

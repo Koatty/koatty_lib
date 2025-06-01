@@ -6,11 +6,10 @@
 
 Checks if value is a Async Function
 
-
 **Signature:**
 
 ```typescript
-export declare function isAsyncFunction(fn: any): boolean;
+export declare function isAsyncFunction(fn: unknown): fn is (...args: any[]) => Promise<any>;
 ```
 
 ## Parameters
@@ -38,7 +37,7 @@ fn
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
@@ -48,7 +47,7 @@ any
 </tbody></table>
 **Returns:**
 
-boolean
+fn is (...args: any\[\]) =&gt; Promise&lt;any&gt;
 
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
+{<!-- -->boolean<!-- -->}
 

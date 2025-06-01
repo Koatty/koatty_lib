@@ -9,7 +9,7 @@ Checks if value is a standard JSON string, must be a string, and can be deserial
 **Signature:**
 
 ```typescript
-export declare function isJSONStr(value: string): boolean;
+export declare function isJSONStr(value: unknown): value is string;
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ value
 
 </td><td>
 
-string
+unknown
 
 
 </td><td>
@@ -47,7 +47,7 @@ string
 </tbody></table>
 **Returns:**
 
-boolean
+value is string
 
-{<!-- -->\*<!-- -->} {<!-- -->boolean<!-- -->}
+{<!-- -->boolean<!-- -->}
 

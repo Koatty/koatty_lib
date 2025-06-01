@@ -9,7 +9,7 @@ Checks if value is a JSON object
 **Signature:**
 
 ```typescript
-export declare function isJSONObj(value: any): boolean;
+export declare function isJSONObj(value: unknown): value is object | any[];
 ```
 
 ## Parameters
@@ -37,7 +37,7 @@ value
 
 </td><td>
 
-any
+unknown
 
 
 </td><td>
@@ -47,5 +47,5 @@ any
 </tbody></table>
 **Returns:**
 
-boolean
+value is object \| any\[\]
 
