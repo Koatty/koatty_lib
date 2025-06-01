@@ -8,14 +8,13 @@
 import * as stringUtils from '../src/utils/string';
 
 describe('string utils', () => {
-  describe('ucfirst/ucFirst', () => {
+  describe('ucFirst', () => {
     it('should capitalize first letter', () => {
-      expect(stringUtils.ucfirst('hello')).toBe('Hello');
+      expect(stringUtils.ucFirst('hello')).toBe('Hello');
       expect(stringUtils.ucFirst('world')).toBe('World');
     });
 
     it('should handle empty string', () => {
-      expect(stringUtils.ucfirst('')).toBe('');
       expect(stringUtils.ucFirst('')).toBe('');
     });
   });

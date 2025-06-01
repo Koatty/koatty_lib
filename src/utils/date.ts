@@ -157,13 +157,6 @@ export function dateTime(
 export const datetime = dateTime;
 
 /**
- * Check if value is a valid Date object
- */
-export function isDate(value: any): boolean {
-  return value instanceof Date && !isNaN(value.getTime());
-}
-
-/**
  * Get current timestamp in seconds
  */
 export function timestamp(): number {

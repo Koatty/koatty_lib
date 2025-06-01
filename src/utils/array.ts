@@ -12,8 +12,12 @@ import _ from 'lodash';
 
 /**
  * Removes the specified index element from the array
+ *
+ * @param {T[]} arr - The array to modify
+ * @param {number} index - The index to remove
+ * @returns {T[]} The modified array
  */
-export function arrRemove(arr: any[], index: number): any[] {
+export function arrRemove<T>(arr: T[], index: number): T[] {
   return _.remove(arr, (n, i) => i !== index);
 }
 
@@ -24,12 +28,11 @@ export const arrUnique = _.union;
 
 /**
  * Checks if value is an element of array (optimized implementation)
+ *
+ * @param {T} value - The value to search for
+ * @param {T[]} arr - The array to search in
+ * @returns {boolean} True if value is found in array
  */
-export function inArray(value: any, arr: any[]): boolean {
+export function inArray<T>(value: T, arr: T[]): boolean {
   return arr.includes(value);
 }
-
-/**
- * Checks if value is an Array
- */
-export const isArray = _.isArray;

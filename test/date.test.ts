@@ -93,20 +93,6 @@ describe('date utils', () => {
     });
   });
 
-  describe('isDate', () => {
-    it('should identify different date types', () => {
-      const dateObj = new Date();
-      const invalidDate = new Date('invalid');
-      
-      expect(dateUtils.isDate(dateObj)).toBe(true);
-      expect(dateUtils.isDate(invalidDate)).toBe(false);
-      expect(dateUtils.isDate('2025-01-01')).toBe(false);
-      expect(dateUtils.isDate(123456789)).toBe(false);
-      expect(dateUtils.isDate(null)).toBe(false);
-      expect(dateUtils.isDate(undefined)).toBe(false);
-    });
-  });
-
   describe('timestamp', () => {
     it('should return timestamp in seconds', () => {
       const result = dateUtils.timestamp();
