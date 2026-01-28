@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.3
+
+### Patch Changes
+
+- build
+
 ## 1.4.2
 
 ### Patch Changes
