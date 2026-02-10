@@ -10,8 +10,6 @@
     "build:dts": "bash ../../scripts/build-dts.sh",
     "eslint": "eslint --ext .ts,.js ./",
     "lock": "npm i --package-lock-only",
-    "prepublishOnly": "npm test && npm run build && git push --follow-tags origin",
-    "prerelease": "npm test && npm run build",
     "test": "npm run eslint && jest --passWithNoTests",
     "test:cov": "jest --collectCoverage --detectOpenHandles"
   },
