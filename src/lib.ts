@@ -9,8 +9,11 @@
 import crypto from "crypto";
 import fs from "fs";
 import * as _ from "lodash";
-import moment from "moment";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import murmur from "murmurhash";
+
+dayjs.extend(utc);
 import path from "path";
 import co from 'co';
 
@@ -282,15 +285,15 @@ export function dateTime(date?: number | string | undefined, format?: string, of
 
     if (date && _.isNumber(date)) {
       if (date < 10000000000) {
-        return moment.unix(date).utcOffset(offset).format(format);
+        return dayjs.unix(date).utcOffset(offset).format(format);
       } else {
-        return moment(date).utcOffset(offset).format(format);
+        return dayjs(date).utcOffset(offset).format(format);
       }
     }
     if (date && _.isString(date)) {
-      return moment(new Date(Date.parse(date))).utcOffset(offset).format(format);
+      return dayjs(new Date(Date.parse(date))).utcOffset(offset).format(format);
     }
-    return moment().utcOffset(offset).format(format);
+    return dayjs().utcOffset(offset).format(format);
   }
 }
 
