@@ -1,6 +1,6 @@
 {
   "name": "koatty_lib",
-  "version": "1.4.8",
+  "version": "1.5.0",
   "description": "Function library for koatty.",
   "scripts": {
     "build": "pnpm run build:js && pnpm run build:dts && pnpm run build:doc && pnpm run build:cp",
