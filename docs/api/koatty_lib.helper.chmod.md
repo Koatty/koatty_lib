@@ -56,7 +56,7 @@ string
 
 </td><td>
 
-_(Optional)_
+_(Optional)_ SEC-13: default hardened from '777' (world-writable)
 
 
 </td></tr>

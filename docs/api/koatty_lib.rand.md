@@ -4,7 +4,7 @@
 
 ## rand() function
 
-Pseudo-random access min and max range of integers
+Random integer in \[min, max\] (inclusive), based on crypto.randomInt. SEC-13: cryptographically secure, use this instead of randFast for any security-related purpose (tokens, ids for security checks, etc.). Non-integer bounds are rounded (min up, max down); when max &lt; min, min is returned. The range (max - min) must not exceed 2^48.
 
 **Signature:**
 

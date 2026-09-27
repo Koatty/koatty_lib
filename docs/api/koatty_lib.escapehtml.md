@@ -4,7 +4,7 @@
 
 ## escapeHtml() function
 
-Convert special characters(<!-- -->&gt; &lt; " ') for entity character
+Convert special characters(&amp; &gt; &lt; " ') for entity character
 
 **Signature:**
 

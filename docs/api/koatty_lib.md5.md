@@ -4,7 +4,7 @@
 
 ## md5() function
 
-Calculate the MD5 hash of value
+Calculate the MD5 hash of value WARNING: MD5 is cryptographically broken. 不可用于口令哈希或签名 (do NOT use for password hashing or signatures). Use bcrypt/scrypt/argon2 for passwords and HMAC-SHA256 for signatures.
 
 **Signature:**
 

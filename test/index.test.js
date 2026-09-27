@@ -394,7 +394,10 @@ describe('koatty_lib', function () {
     });
     it('escapeHtml', function () {
         assert.equal(lib.escapeHtml("><'"), '&gt;&lt;&#39;');
-        assert.equal(lib.escapeHtml('><"'), '&gt;&lt;&quote;');
+        // SEC-09/COR-16: `"` must be escaped to the valid entity `&quot;`
+        // (was the invalid `&quote;`) and `&` must be escaped as `&amp;`
+        assert.equal(lib.escapeHtml('><"'), '&gt;&lt;&quot;');
+        assert.equal(lib.escapeHtml('&'), '&amp;');
     });
     it('escapeSpecial', function () {
         assert.equal(lib.escapeSpecial('&gt;&lt;&#39;'), '><\'');

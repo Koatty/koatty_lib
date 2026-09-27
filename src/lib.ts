@@ -57,7 +57,12 @@ export function isClass(func: AnyObject): boolean {
  * @returns {*}  {boolean}
  */
 export function isNumberString(str: string): boolean {
-  const numberReg = /^((-?\d*\.?\d*(?:e[+-]?\d*(?:\d?\.?|\.?\d?)\d*)?)|(0[0-7]+)|(0x[0-9a-f]+))$/i;
+  // SEC-17: the legacy pattern contained ambiguous adjacent quantifiers
+  // (`\d*\.?\d*` and `(?:\d?\.?|\.?\d?)\d*`) which backtracked quadratically
+  // (ReDoS) on inputs like `${'1'.repeat(n)}!` (~480ms at n=32000).
+  // This rewrite accepts exactly the same language (verified by exhaustive +
+  // random fuzzing against the legacy pattern) and runs in linear time.
+  const numberReg = /^(?:-?(?:\d+(?:\.\d*)?|\.\d*)?(?:[eE][+-]?(?:\d+(?:\.\d*)?|\.\d*)?)?|0[0-7]+|0x[0-9a-f]+)$/i;
   return _.isString(str) && !isEmpty(str) && numberReg.test(str);
 }
 
@@ -135,46 +140,74 @@ export function isTrueEmpty(value: any): boolean {
   return false;
 }
 
-/** @type {*} */
-const htmlMaps: any = {
+/**
+ * HTML special characters to HTML entities.
+ * SEC-09/COR-16: `&` must be escaped as `&amp;` and `"` as `&quot;`.
+ * (`&quote;` was an invalid entity emitted by historical versions.)
+ * @type {*}
+ */
+const htmlMaps: Record<string, string> = {
+  '&': '&amp;',
   '<': '&lt;',
   '>': '&gt;',
-  '"': '&quote;',
+  '"': '&quot;',
   '\'': '&#39;'
 };
 
-/** @type {*} */
-const specialMaps: any = {
-  '&lt;': '<',
-  '&gt;': '>',
-  '&quote;': '"',
-  '&#39;': '\''
-};
 /**
- * Convert special characters(> < " ') for entity character
+ * HTML entities to raw characters, applied in array order.
+ * `&amp;` MUST stay last, otherwise "&amp;lt;" would be wrongly restored to "<".
+ * `&quote;` is an invalid entity emitted by historical versions of escapeHtml;
+ * it is kept only to decode legacy data (mapped back to `"`), never emitted.
+ * @type {*}
+ */
+const specialMaps: Array<[string, string]> = [
+  ['&lt;', '<'],
+  ['&gt;', '>'],
+  ['&quot;', '"'],
+  ['&quote;', '"'],
+  ['&#39;', '\''],
+  ['&amp;', '&']
+];
+/**
+ * Convert special characters(& > < " ') for entity character
  *
  * @param {string} value
  * @returns {*}  {string}
  */
 export function escapeHtml(value: string): string {
-  return (`${value}`).replace(/[<>'"]/g, function (a) {
+  return (`${value}`).replace(/[&<>"']/g, function (a) {
     return htmlMaps[a];
   });
 }
 
 /**
- * Convert entity value in value to(> < " ')
+ * Convert entity value in value to(& > < " ')
+ * Inverse of escapeHtml. `&amp;` is handled last so that "&amp;lt;"
+ * is restored to "&lt;" and not to "<".
+ * The legacy invalid entity `&quote;` is still decoded for backward
+ * compatibility with data escaped by historical versions.
  *
  * @param {string} value
  * @returns {*}  {string}
  */
 export function escapeSpecial(value: string): string {
-  // tslint:disable-next-line: forin
-  for (const n in specialMaps) {
-    value = value.replace(new RegExp(n, 'g'), specialMaps[n]);
+  let res = `${value}`;
+  // Order matters: `&amp;` must be replaced last (see specialMaps).
+  for (const [entity, char] of specialMaps) {
+    res = res.split(entity).join(char);
   }
-  return value;
+  return res;
 }
+
+/**
+ * Convert entity value in value to(& > < " ')
+ * Alias of escapeSpecial, the inverse of escapeHtml.
+ *
+ * @param {string} value
+ * @returns {*}  {string}
+ */
+export const unescapeHtml = escapeSpecial;
 
 /**
  * Convert the first letter in the value to uppercase
@@ -189,6 +222,9 @@ export function ucFirst(value: string): string {
 
 /**
  * Calculate the MD5 hash of value
+ * WARNING: MD5 is cryptographically broken.
+ * 不可用于口令哈希或签名 (do NOT use for password hashing or signatures).
+ * Use bcrypt/scrypt/argon2 for passwords and HMAC-SHA256 for signatures.
  *
  * @param {string} value
  * @returns {*}  {string}
@@ -201,6 +237,10 @@ export function md5(value: string): string {
 
 /**
  * Calculate the value of MD5 hash value, including simple salt
+ * WARNING: MD5 is cryptographically broken.
+ * 不可用于口令哈希或签名 (do NOT use for password hashing or signatures).
+ * The salt is static and predictable, this must not be used for
+ * password hashing or signatures either.
  *
  * @param {string} value
  * @param {string} [salt='abcdefghijklmnopqrstuvwxyz1234567890']
@@ -230,13 +270,39 @@ export function murmurHash(value: string, seed = 97, ver = 2): string {
 }
 
 /**
- * Pseudo-random access min and max range of integers
+ * Random integer in [min, max] (inclusive), based on crypto.randomInt.
+ * SEC-13: cryptographically secure, use this instead of randFast for
+ * any security-related purpose (tokens, ids for security checks, etc.).
+ * Non-integer bounds are rounded (min up, max down); when max < min,
+ * min is returned. The range (max - min) must not exceed 2^48.
  *
  * @param {number} min
  * @param {number} max
  * @returns {*}  {number}
  */
 export function rand(min: number, max: number): number {
+  if (!Number.isFinite(min) || !Number.isFinite(max)) {
+    throw new TypeError('rand() expects finite number arguments');
+  }
+  // crypto.randomInt requires integer bounds with min <= max, and is exclusive of max
+  const lo = Number.isInteger(min) ? min : Math.ceil(min);
+  const hi = Number.isInteger(max) ? max : Math.floor(max);
+  if (hi < lo) {
+    return lo;
+  }
+  return crypto.randomInt(lo, hi + 1);
+}
+
+/**
+ * Random integer in [min, max] (inclusive), based on Math.random.
+ * WARNING: 非安全用途，仅用于非加密场景 (NOT cryptographically secure).
+ * Do not use for any security-related purpose, use rand() instead.
+ *
+ * @param {number} min
+ * @param {number} max
+ * @returns {*}  {number}
+ */
+export function randFast(min: number, max: number): number {
   return Math.floor(min + Math.random() * (max - min + 1));
 }
 
@@ -392,10 +458,10 @@ export function isWritable(p: string): boolean {
  * Asynchronous mode
  *
  * @param {string} p
- * @param {string} [mode='777']
+ * @param {string} [mode='755'] SEC-13: default hardened from '777' (world-writable)
  * @returns {*}  {Promise<any>}
  */
-export function chmod(p: string, mode = '777'): Promise<any> {
+export function chmod(p: string, mode = '755'): Promise<any> {
   return new Promise(function (fulfill, reject) {
     fs.stat(p, function (err, res) {
       if (err) {

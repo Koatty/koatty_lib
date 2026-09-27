@@ -4,7 +4,7 @@
 
 ## md5Salt() function
 
-Calculate the value of MD5 hash value, including simple salt
+Calculate the value of MD5 hash value, including simple salt WARNING: MD5 is cryptographically broken. 不可用于口令哈希或签名 (do NOT use for password hashing or signatures). The salt is static and predictable, this must not be used for password hashing or signatures either.
 
 **Signature:**
 

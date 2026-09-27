@@ -4,7 +4,7 @@
 
 ## Helper.escapeSpecial() function
 
-Convert entity value in value to(<!-- -->&gt; &lt; " ')
+Convert entity value in value to(&amp; &gt; &lt; " ') Inverse of escapeHtml. `&amp;` is handled last so that "&amp;amp;lt;" is restored to "&amp;lt;" and not to "<!-- -->&lt;<!-- -->". The legacy invalid entity `&quote;` is still decoded for backward compatibility with data escaped by historical versions.
 
 **Signature:**
 

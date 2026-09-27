@@ -146,7 +146,7 @@ Performs a \[`SameValueZero`<!-- -->\](http://ecma-international.org/ecma-262/6.
 
 </td><td>
 
-Convert special characters(<!-- -->&gt; &lt; " ') for entity character
+Convert special characters(&amp; &gt; &lt; " ') for entity character
 
 
 </td></tr>
@@ -157,7 +157,7 @@ Convert special characters(<!-- -->&gt; &lt; " ') for entity character
 
 </td><td>
 
-Convert entity value in value to(<!-- -->&gt; &lt; " ')
+Convert entity value in value to(&amp; &gt; &lt; " ') Inverse of escapeHtml. `&amp;` is handled last so that "&amp;amp;lt;" is restored to "&amp;lt;" and not to "<!-- -->&lt;<!-- -->". The legacy invalid entity `&quote;` is still decoded for backward compatibility with data escaped by historical versions.
 
 
 </td></tr>
@@ -640,7 +640,7 @@ Checks if value is less than or equal to other.
 
 </td><td>
 
-Calculate the MD5 hash of value
+Calculate the MD5 hash of value WARNING: MD5 is cryptographically broken. 不可用于口令哈希或签名 (do NOT use for password hashing or signatures). Use bcrypt/scrypt/argon2 for passwords and HMAC-SHA256 for signatures.
 
 
 </td></tr>
@@ -651,7 +651,7 @@ Calculate the MD5 hash of value
 
 </td><td>
 
-Calculate the value of MD5 hash value, including simple salt
+Calculate the value of MD5 hash value, including simple salt WARNING: MD5 is cryptographically broken. 不可用于口令哈希或签名 (do NOT use for password hashing or signatures). The salt is static and predictable, this must not be used for password hashing or signatures either.
 
 
 </td></tr>
@@ -729,7 +729,18 @@ Convert callback-style functions to Promises
 
 </td><td>
 
-Pseudo-random access min and max range of integers
+Random integer in \[min, max\] (inclusive), based on crypto.randomInt. SEC-13: cryptographically secure, use this instead of randFast for any security-related purpose (tokens, ids for security checks, etc.). Non-integer bounds are rounded (min up, max down); when max &lt; min, min is returned. The range (max - min) must not exceed 2^48.
+
+
+</td></tr>
+<tr><td>
+
+[randFast(min, max)](./koatty_lib.helper.randfast.md)
+
+
+</td><td>
+
+Random integer in \[min, max\] (inclusive), based on Math.random. WARNING: 非安全用途，仅用于非加密场景 (NOT cryptographically secure). Do not use for any security-related purpose, use rand() instead.
 
 
 </td></tr>
@@ -967,6 +978,17 @@ Support for es6 module require
 </td><td>
 
 Converts value to an array.
+
+
+</td></tr>
+<tr><td>
+
+[unescapeHtml](./koatty_lib.helper.unescapehtml.md)
+
+
+</td><td>
+
+Convert entity value in value to(&amp; &gt; &lt; " ') Alias of escapeSpecial, the inverse of escapeHtml.
 
 
 </td></tr>
