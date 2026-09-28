@@ -8,9 +8,9 @@
  */
 import crypto from "crypto";
 import fs from "fs";
-import * as _ from "lodash";
+import _ from "lodash";
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
+import utc from "dayjs/plugin/utc.js";
 import murmur from "murmurhash";
 
 dayjs.extend(utc);
